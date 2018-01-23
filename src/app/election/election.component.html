@@ -1,0 +1,21 @@
+<div class="container" *ngIf="!isInvalid; else Invalid">
+  <h1>{{topic}}</h1>
+  <div *ngIf="contenders; then Voting"></div>
+</div>
+
+<ng-template #Voting>
+  <div class="row">
+    <h2 class="col-12">Contenders</h2>
+    <div *ngFor="let contender of contenders" class="col-4">
+      <app-contender [contender]="contender"></app-contender>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #Result>
+  <h1>Results</h1>
+</ng-template>
+
+<ng-template #Invalid>
+    <h1>Invalid</h1>
+  </ng-template>
