@@ -55,8 +55,8 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
-    AngularFireModule.initializeApp(environment.firebase, 'Scribe'),
-    AngularFirestoreModule.enablePersistence(),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
     AngularFireAuthModule,
     ChartsModule,
     RouterModule.forRoot(routes)

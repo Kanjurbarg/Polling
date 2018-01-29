@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 
@@ -9,10 +10,17 @@ import { AuthService } from '../services/auth.service';
 export class LoginComponent implements OnInit {
 
   constructor(
-    private auth: AuthService
+    private auth: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    this.auth.getAuthState().subscribe(
+      user => {
+        if (user) {
+          this.router.navigateByUrl('/dashboard');
+        }
+      });
   }
 
   login(type) {
