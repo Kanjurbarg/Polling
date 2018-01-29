@@ -1,0 +1,8 @@
+#login-form {
+  width: 300px;
+  border: 1px solid lightgray;
+}
+.btn {
+  border-radius: 100px;
+  padding: 6px 30px;
+}
