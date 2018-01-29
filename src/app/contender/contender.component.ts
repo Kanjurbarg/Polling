@@ -12,7 +12,7 @@ export class ContenderComponent implements OnInit {
   uid;
   desc;
   name;
-  photoURL = 'https://am12.akamaized.net/med/cnt/uploads/2017/03/Screen-Shot-2017-03-07-at-1.01.03-PM.png';
+  photoURL = 'https://pbs.twimg.com/profile_images/800812110888529920/I0pBwxh6_400x400.jpg';
 
 
 
@@ -23,8 +23,10 @@ export class ContenderComponent implements OnInit {
   ngOnInit() {
     this.uid = this.contender.uid;
     this.userService.getUserDocument(this.uid).subscribe(user => {
-      this.desc = user.description;
+      this.desc = user.desc;
       this.name = user.name;
+      this.photoURL = user.photoURL
+                        ? user.photoURL : 'https://pbs.twimg.com/profile_images/800812110888529920/I0pBwxh6_400x400.jpg';
     });
   }
 
