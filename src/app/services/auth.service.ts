@@ -28,7 +28,6 @@ export class AuthService {
     .then(
       () => {
         this.router.navigateByUrl('/dashboard');
-        console.log(this.authState);
       })
     .catch(
       err => {

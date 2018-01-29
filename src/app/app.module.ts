@@ -19,7 +19,6 @@ import { UserService } from './services/user.service';
 
 
 // Third party libraries
-import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AuthService } from './services/auth.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -58,7 +57,6 @@ const routes: Routes = [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    ChartsModule,
     RouterModule.forRoot(routes)
   ],
   providers: [
