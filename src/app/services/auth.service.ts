@@ -22,19 +22,54 @@ export class AuthService {
     return this.authState;
   }
 
+  emailLogin(email, password) {
+    this.afAuth.auth.signInWithEmailAndPassword(email, password)
+    .then(() => this.checkUser())
+    .catch(() => {
+      this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+      .then(() => this.checkUser());
+    });
+  }
+
   googleLogin() {
-    const google = new firebase.auth.GoogleAuthProvider();
-    this.afAuth.auth.signInWithPopup(google)
-    .then(
-      () => {
-        this.router.navigateByUrl('/dashboard');
-      })
-    .catch(
-      err => {
-        alert(err);
-        console.log(err);
+    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    .then(() => this.checkUser())
+    .catch(err => console.log(err));
+  }
+
+  checkUser() {
+    this.authState.subscribe(user => {
+      const uid = user.uid;
+      this.afs.doc('users/' + uid).valueChanges().subscribe(
+        userDoc => {
+          if (userDoc) {
+            this.router.navigateByUrl('/dashboard');
+          } else {
+            this.insertUser();
+          }
+        });
+    });
+  }
+
+  insertUser() {
+    this.authState.subscribe(
+      user => {
+        const data = {
+          email: user.email,
+          uid: user.uid,
+          name: user.displayName,
+          username: null,
+          desc: 'Vote for me!',
+          joinDate: firebase.firestore.FieldValue.serverTimestamp()
+        };
+
+      this.afs.doc('users/' + user.uid ).set(data).then(
+        () => {
+          this.router.navigateByUrl('/dashboard');
+        });
       });
   }
+
   logout() {
     this.afAuth.auth.signOut();
   }

@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
@@ -8,6 +9,9 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  email;
+  password;
 
   constructor(
     private auth: AuthService,
@@ -28,7 +32,7 @@ export class LoginComponent implements OnInit {
       this.auth.googleLogin();
     }
     if (type === 'email') {
-      alert('no email login yet.');
+      this.auth.emailLogin(this.email, this.password);
     }
   }
 }
