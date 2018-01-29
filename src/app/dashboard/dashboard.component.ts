@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,8 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+  // User info
+  username;
+  name;
+  desc;
+  photoURL;
+  joinDate;
+
   constructor(
     private auth: AuthService,
+    private userService: UserService,
     private router: Router
   ) { }
 
@@ -18,7 +27,14 @@ export class DashboardComponent implements OnInit {
     this.auth.getAuthState().subscribe(
       user => {
         if (user) {
-          console.log(user);
+          this.userService.getUserDocument(user.uid).subscribe(
+            userDoc => {
+              this.username = userDoc.username ? userDoc.username : null;
+              this.name = userDoc.name;
+              this.desc = userDoc.desc;
+              this.photoURL = userDoc.photoURL;
+              this.joinDate = userDoc.joinDate;
+          });
         } else {
           this.router.navigateByUrl('/login');
         }

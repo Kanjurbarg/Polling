@@ -60,6 +60,8 @@ export class AuthService {
           name: user.displayName,
           username: null,
           desc: 'Vote for me!',
+          phone: user.phoneNumber ? user.phoneNumber : null,
+          photoURL: user.photoURL,
           joinDate: firebase.firestore.FieldValue.serverTimestamp()
         };
 

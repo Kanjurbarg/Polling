@@ -1,3 +1,22 @@
-<div class="container">
-  <button class="btn btn-danger" (click)="logout()">Logout</button>
+<div class="container-fluid">
+  <div class="row mx-md-3 mx-lg-5 justify-content center">
+    <div class="col-3">
+      <div id="user-info" *ngIf="username; else SetupMessage" class="border border-dark p-2 mt-3 d-none d-md-inline-block">
+        <img [src]="photoURL" width="70px">
+        {{name}} @{{username}} <br>
+        {{desc}} <br>
+        {{joinDate}}
+      </div>
+      <div id="pending-polls" class="border border-dark p-2 my-1">
+          <h2>Pending Poll List</h2>
+        </div>
+      <button class="btn btn-danger" (click)="logout()">Logout</button>
+    </div>
+    <div class="col-12 col-md-9 border border-dark p-2 my-3">
+    </div>
+  </div>
 </div>
+
+<ng-template #SetupMessage>
+  <h6>Setup account</h6>
+</ng-template>
