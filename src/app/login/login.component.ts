@@ -34,5 +34,8 @@ export class LoginComponent implements OnInit {
     if (type === 'email') {
       this.auth.emailLogin(this.email, this.password);
     }
+    if(type === 'create'){
+      this.router.navigateByUrl('/register');
+    }
   }
 }

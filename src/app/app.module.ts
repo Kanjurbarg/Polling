@@ -23,11 +23,16 @@ import { UserService } from './services/user.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AuthService } from './services/auth.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   },
   {
     path: 'election/:eid',
@@ -51,7 +56,8 @@ const routes: Routes = [
     ContenderComponent,
     LoginComponent,
     NavbarComponent,
-    DashboardComponent
+    DashboardComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection, fromDocRef } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
@@ -26,17 +26,37 @@ export class AuthService {
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
     .then(() => this.checkUser())
     .catch(() => {
-      this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then(() => this.checkUser());
+      /*this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+      .then(() => this.checkUser());*/
     });
   }
 
   googleLogin() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-    .then(() => this.checkUser())
+    .then(() => this.checkUserGoogle())
     .catch(err => console.log(err));
   }
 
+  //Create Account
+  createAccount(email,password,username,description,contact){
+    this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+      .then(() => this.checkUser());
+  
+  }
+
+  checkUserGoogle() {
+    this.authState.subscribe(user => {
+      const uid = user.uid;
+      this.afs.doc('users/' + uid).valueChanges().subscribe(
+        userDoc => {
+          if (userDoc) {
+            this.router.navigateByUrl('/dashboard');
+          } else {
+            this.insertUser();
+          }
+        });
+    });
+  }
   checkUser() {
     this.authState.subscribe(user => {
       const uid = user.uid;
@@ -44,6 +64,7 @@ export class AuthService {
         userDoc => {
           if (userDoc) {
             this.router.navigateByUrl('/dashboard');
+            
           } else {
             this.insertUser();
           }
@@ -62,7 +83,8 @@ export class AuthService {
           desc: 'Vote for me!',
           phone: user.phoneNumber ? user.phoneNumber : null,
           photoURL: user.photoURL,
-          joinDate: firebase.firestore.FieldValue.serverTimestamp()
+          joinDate: firebase.firestore.FieldValue.serverTimestamp(),
+          emailVerified: user.emailVerified
         };
 
       this.afs.doc('users/' + user.uid ).set(data).then(

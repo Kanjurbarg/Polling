@@ -1,0 +1,28 @@
+<div class="container">
+<div id="login-form" class="py-2 px-3 mt-3">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input [(ngModel)]="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input [(ngModel)]="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Username</label>
+    <input [(ngModel)]="username" type="text" class="form-control" id="exampleInputUsername1" placeholder="Username">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputDescription1">Description</label>
+    <input [(ngModel)]="description" type="text" class="form-control" id="exampleInputDescription1" placeholder="Description">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputDescription1">Contact</label>
+    <input [(ngModel)]="contact" type="text" class="form-control" id="exampleInputContact1" placeholder="Contact">
+  </div>
+  <div class="text-center">
+    <button type="submit" class="btn btn-primary" (click)="register()">Submit</button>
+  </div>
+</div>
+</div>
