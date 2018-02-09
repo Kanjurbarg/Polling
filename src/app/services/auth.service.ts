@@ -38,11 +38,12 @@ export class AuthService {
   }
 
   //Create Account
-  createAccount(email,password,username,description,contact){
+ /* createAccount(email,password,name,username,description,contact){
     this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then(() => this.checkUser());
+      .then(() => this.checkUser())
+      .catch(() => this.insertUser());
   
-  }
+  }*/
 
   checkUserGoogle() {
     this.authState.subscribe(user => {
@@ -66,7 +67,8 @@ export class AuthService {
             this.router.navigateByUrl('/dashboard');
             
           } else {
-            this.insertUser();
+            alert("User Alredy Exist");
+            /*this.insertUser();*/
           }
         });
     });
@@ -79,7 +81,7 @@ export class AuthService {
           email: user.email,
           uid: user.uid,
           name: user.displayName,
-          username: null,
+          username: '',
           desc: 'Vote for me!',
           phone: user.phoneNumber ? user.phoneNumber : null,
           photoURL: user.photoURL,

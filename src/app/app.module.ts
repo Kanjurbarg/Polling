@@ -6,6 +6,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from './../environments/environment';
 import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 import * as firebase from 'firebase';
 
 // Components
@@ -17,13 +18,15 @@ import { ContenderComponent } from './contender/contender.component';
 // Services
 import { ElectionService } from './services/election.service';
 import { UserService } from './services/user.service';
-
+import { GroupsService } from './services/groups.service';
 
 // Third party libraries
 import { NavbarComponent } from './navbar/navbar.component';
 import { AuthService } from './services/auth.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
+import { GroupComponent } from './group/group.component';
+import { FooterComponent } from './footer/footer.component';
 
 const routes: Routes = [
   {
@@ -43,6 +46,10 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
+    path:'groups',
+    component: GroupComponent
+  },
+  {
     path: '**',
     redirectTo: '/dashboard',
     pathMatch: 'full'
@@ -57,7 +64,9 @@ const routes: Routes = [
     LoginComponent,
     NavbarComponent,
     DashboardComponent,
-    RegisterComponent
+    RegisterComponent,
+    GroupComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -65,12 +74,14 @@ const routes: Routes = [
     AngularFirestoreModule,
     AngularFireAuthModule,
     RouterModule.forRoot(routes),
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule 
   ],
   providers: [
     ElectionService,
     UserService,
-    AuthService
+    AuthService,
+    GroupsService
   ],
   bootstrap: [AppComponent]
 })
