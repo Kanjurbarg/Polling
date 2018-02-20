@@ -39,6 +39,7 @@ export class AuthService {
 
  
   createAccount(userData){
+    console.log(userData);
     this.afAuth.auth.createUserWithEmailAndPassword(userData.email, userData.password)
       .then(() => {
         alert('success');
@@ -51,10 +52,10 @@ export class AuthService {
               name: userData.name,
               username: userData.username,
               desc: userData.description,
-              phone: userData.contact ? user.phoneNumber : null,
+              phone: userData.contact ? userData.contact : null,
               photoURL: user.photoURL ? user.photoURL:null,
               joinDate: firebase.firestore.FieldValue.serverTimestamp(),
-              emailVerified: user.emailVerified
+              //emailVerified: user.emailVerified
             };
             this.afs.doc('users/'+ user.uid).set(data).then(()=>{
               this.router.navigateByUrl('/dashboard');
@@ -62,7 +63,7 @@ export class AuthService {
           }
         })
       })
-      .catch(() => this.insertUser());
+      .catch((err) => console.log(err));
   
   }
 

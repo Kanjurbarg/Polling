@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
               this.username = userDoc.username ? userDoc.username : null;
               this.name = userDoc.name;
               this.desc = userDoc.desc;
-              this.photoURL = userDoc.photoURL;
+              this.photoURL = userDoc.photoURL ?  userDoc.photoURL : 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Default_profile_picture_%28male%29_on_Facebook.jpg/600px-Default_profile_picture_%28male%29_on_Facebook.jpg';
               this.joinDate = userDoc.joinDate;
           });
         } else {

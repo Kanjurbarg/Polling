@@ -66,6 +66,7 @@ const routes: Routes = [
     DashboardComponent,
     RegisterComponent,
     GroupComponent,
+    FooterComponent
   
   ],
   imports: [
