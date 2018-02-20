@@ -7,6 +7,11 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection,
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
+import { UserService } from '../services/user.service';
+import { Title } from '@angular/platform-browser';
+import { AbstractControl } from '@angular/forms/src/model';
+import { ValidationErrors } from '@angular/forms/src/directives/validators';
+
 
 
 
@@ -17,13 +22,11 @@ import * as firebase from 'firebase/app';
 })
 export class RegisterComponent implements OnInit {
   private authState: Observable<firebase.User>;
-  email;
-  name;
-  password;
-  username;
-  description;
-  contact;
-  rForm:FormGroup;
+ 
+
+          
+       rForm:FormGroup;
+
 
   
 
@@ -33,12 +36,15 @@ export class RegisterComponent implements OnInit {
     private fb:FormBuilder,
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
+    private US:UserService,
+    private title:Title
   ) { 
    
       this.rForm= fb.group({
         'name': new FormControl(null,[Validators.required,Validators.pattern('^[a-zA-Z\\s]*$')]),
         'email': new FormControl(null,[Validators.required,Validators.email]),
         'password': new FormControl(null,[Validators.required,Validators.minLength(8)]),
+        'confirmPassword':new FormControl(null,Validators.required),
         'username': new FormControl(null,[Validators.required,Validators.minLength(3)]),
         'description': new FormControl(null,[Validators.required,Validators.minLength(10),Validators.maxLength(200)]),
         'contact': new FormControl(null,[Validators.required,Validators.pattern('[0-9]*'),Validators.minLength(10),Validators.maxLength(10)])
@@ -47,24 +53,49 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    
- 
+
+    this.title.setTitle("Registration Page");
+
   }
-  
- 
+
+  get username() {
+    return this.rForm.get('username');
+  }
+  get name() {
+    return this.rForm.get('name');
+  }
+  get email() {
+    return this.rForm.get('email');
+  }
+  get password() {
+    return this.rForm.get('password');
+  }
+  get contact() {
+    return this.rForm.get('contact');
+  }
+  get description() {
+    return this.rForm.get('description');
+  }
+
+
 
   register(rForm){
     console.log(rForm.value);
-    this.name=rForm.name;
-    this.username=rForm.username;
-    this.email=rForm.email;
-    this.password=rForm.password;
-    this.description=rForm.description;
-    this.contact=rForm.contact;
-   /* this.auth.createAccount(this.email, this.password,this.username, this.description, this.contact);
-    this.router.navigateByUrl('/dashboard');*/
+    const userData={
+    name:this.name.value,
+    username:this.username.value,
+    email:this.email.value,
+    password:this.password.value,
+    description:this.description.value,
+    contact:this.contact.value,
+    }
+    console.log(userData);
+    this.auth.createAccount(userData);
+    
   }
 
 
+    }
+
   
-}
+

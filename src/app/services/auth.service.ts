@@ -37,13 +37,34 @@ export class AuthService {
     .catch(err => console.log(err));
   }
 
-  //Create Account
- /* createAccount(email,password,name,username,description,contact){
-    this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then(() => this.checkUser())
+ 
+  createAccount(userData){
+    this.afAuth.auth.createUserWithEmailAndPassword(userData.email, userData.password)
+      .then(() => {
+        alert('success');
+        this.getAuthState().subscribe(user=>{
+          if(user){
+            console.log(user);
+            const data={  
+              email: userData.email,
+              uid: user.uid,
+              name: userData.name,
+              username: userData.username,
+              desc: userData.description,
+              phone: userData.contact ? user.phoneNumber : null,
+              photoURL: user.photoURL ? user.photoURL:null,
+              joinDate: firebase.firestore.FieldValue.serverTimestamp(),
+              emailVerified: user.emailVerified
+            };
+            this.afs.doc('users/'+ user.uid).set(data).then(()=>{
+              this.router.navigateByUrl('/dashboard');
+            })
+          }
+        })
+      })
       .catch(() => this.insertUser());
   
-  }*/
+  }
 
   checkUserGoogle() {
     this.authState.subscribe(user => {
@@ -67,7 +88,7 @@ export class AuthService {
             this.router.navigateByUrl('/dashboard');
             
           } else {
-            alert("User Alredy Exist");
+           /* alert("User Alredy Exist");*/
             /*this.insertUser();*/
           }
         });
