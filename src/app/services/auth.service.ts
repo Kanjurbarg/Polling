@@ -54,7 +54,7 @@ export class AuthService {
               phone: userData.contact ? userData.contact : null,
               photoURL: user.photoURL ? user.photoURL:null,
               joinDate: firebase.firestore.FieldValue.serverTimestamp(),
-              emailVerified: user.emailVerified
+              //emailVerified: user.emailVerified
             };
             //Verifivation Email.
             user.sendEmailVerification().then(function() {
@@ -115,7 +115,7 @@ export class AuthService {
           phone: user.phoneNumber ? user.phoneNumber : null,
           photoURL: user.photoURL,
           joinDate: firebase.firestore.FieldValue.serverTimestamp(),
-          emailVerified: user.emailVerified
+          //emailVerified: user.emailVerified
         };
 
       this.afs.doc('users/' + user.uid ).set(data).then(

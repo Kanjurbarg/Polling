@@ -18,17 +18,5 @@ export class UserService {
     return this.afs.doc<any>('users/' + uid).valueChanges();
   }
 
- /* addUser( email,
-    name,
-    password,
-    username,
-    description,
-    contact,){
-      this.name=name;
-      this.email=email;
-      this.password=password;
-
-    this.afs.collection('users').add(user);
-  };*/
 
 }
