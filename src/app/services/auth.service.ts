@@ -42,21 +42,28 @@ export class AuthService {
     console.log(userData);
     this.afAuth.auth.createUserWithEmailAndPassword(userData.email, userData.password)
       .then(() => {
-        alert('success');
         this.getAuthState().subscribe(user=>{
           if(user){
             console.log(user);
             const data={  
               email: userData.email,
               uid: user.uid,
-              name: userData.name,
+              display_name: userData.name,
               username: userData.username,
               desc: userData.description,
               phone: userData.contact ? userData.contact : null,
               photoURL: user.photoURL ? user.photoURL:null,
               joinDate: firebase.firestore.FieldValue.serverTimestamp(),
-              //emailVerified: user.emailVerified
+              emailVerified: user.emailVerified
             };
+            //Verifivation Email.
+            user.sendEmailVerification().then(function() {
+              console.log("verification email Sent...");
+            }).catch(function(error) {
+              console.log(error);
+            });
+
+            //Inserting userData to Database
             this.afs.doc('users/'+ user.uid).set(data).then(()=>{
               this.router.navigateByUrl('/dashboard');
             })
@@ -102,7 +109,7 @@ export class AuthService {
         const data = {
           email: user.email,
           uid: user.uid,
-          name: user.displayName,
+          display_name: user.displayName,
           username: '',
           desc: 'Vote for me!',
           phone: user.phoneNumber ? user.phoneNumber : null,

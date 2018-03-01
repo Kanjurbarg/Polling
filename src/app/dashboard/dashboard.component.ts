@@ -12,10 +12,13 @@ export class DashboardComponent implements OnInit {
 
   // User info
   username;
-  name;
+  display_name;
   desc;
   photoURL;
   joinDate;
+  verified;
+
+
 
   constructor(
     private auth: AuthService,
@@ -26,14 +29,18 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.auth.getAuthState().subscribe(
       user => {
+       // var emailVerified=user.emailVerified;
+         
         if (user) {
+          console.log(user.emailVerified);
           this.userService.getUserDocument(user.uid).subscribe(
             userDoc => {
               this.username = userDoc.username ? userDoc.username : null;
-              this.name = userDoc.name;
+              this.display_name = userDoc.display_name;
               this.desc = userDoc.desc;
               this.photoURL = userDoc.photoURL ?  userDoc.photoURL : 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Default_profile_picture_%28male%29_on_Facebook.jpg/600px-Default_profile_picture_%28male%29_on_Facebook.jpg';
               this.joinDate = userDoc.joinDate;
+              //this.verified =userDoc.emailVerified; 
           });
         } else {
           this.router.navigateByUrl('/login');

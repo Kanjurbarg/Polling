@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
   ) { 
    
       this.rForm= fb.group({
-        'name': new FormControl(null,[Validators.required,Validators.pattern('^[a-zA-Z\\s]*$')]),
+        'display_name': new FormControl(null,[Validators.required,Validators.pattern('^[a-zA-Z\\s]*$')]),
         'email': new FormControl(null,[Validators.required,Validators.email]),
         'password': new FormControl(null,[Validators.required,Validators.minLength(8)]),
         'confirmPassword':new FormControl(null,Validators.required),
@@ -61,8 +61,8 @@ export class RegisterComponent implements OnInit {
   get username() {
     return this.rForm.get('username');
   }
-  get name() {
-    return this.rForm.get('name');
+  get display_name() {
+    return this.rForm.get('display_name');
   }
   get email() {
     return this.rForm.get('email');
@@ -82,7 +82,7 @@ export class RegisterComponent implements OnInit {
   register(rForm){
     console.log(rForm.value);
     const userData={
-    name:this.name.value,
+    name:this.display_name.value,
     username:this.username.value,
     email:this.email.value,
     password:this.password.value,

@@ -6,10 +6,10 @@
       <div id="login-form" class="py-2 px-3 mt-3">
           <div class="form-group">
             <label for="name">Name</label>
-            <input  type="text" class="form-control" id="name" placeholder="Enter Name" formControlName="name">
-            <div class="CustomAlert" *ngIf="!rForm.get('name').valid && rForm.get('name').touched">
-              <div *ngIf="rForm.get('name').hasError('required')">Name is Required</div>
-              <div *ngIf="rForm.get('name').hasError('pattern')">Required Only Characters </div>
+            <input  type="text" class="form-control" id="name" placeholder="Enter Name" formControlName="display_name">
+            <div class="CustomAlert" *ngIf="!rForm.get('display_name').valid && rForm.get('display_name').touched">
+              <div *ngIf="rForm.get('display_name').hasError('required')">Name is Required</div>
+              <div *ngIf="rForm.get('display_name').hasError('pattern')">Required Only Characters </div>
             </div>
           </div>
 

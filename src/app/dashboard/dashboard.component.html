@@ -1,9 +1,9 @@
-<div class="container-fluid">
+<div  *ngIf="emailVerified else emailVerification"  class="container-fluid dashboard">
   <div class="row mx-md-3 mx-lg-5 justify-content-center">
     <div class="col-12 col-md-3">
       <div id="user-info" *ngIf="username; else SetupMessage" class="border border-dark p-2 mt-3 d-none d-md-inline-block">
         <img [src]="photoURL" width="70px">
-        {{name}} @{{username}} <br>
+        {{display_name}} @{{username}} <br>
         {{desc}} <br>
         {{joinDate}}
       </div>
@@ -21,8 +21,8 @@
   <h6>Setup account</h6>
 </ng-template>
 
-<ng-template #emailVerification>
-  <h4>Welcome {{name}}</h4>
-  <h6>Email Verification:{{emailVerified}}</h6>
+<ng-template class="container" #emailVerification>
+  <h4>Welcome {{display_name}}</h4>
   <p>Please Verify your Email.</p>
+  <div><button class="btn btn-danger" (click)="logout()">Logout</button></div>
 </ng-template>
