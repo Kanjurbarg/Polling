@@ -12,7 +12,7 @@
     <div class="form-group">
       <label for="exampleInputPassword1">Password</label>
       <input  formControlName="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-      <div class="customAlert" *ngIf="rForm.get('password').notValid && rForm.get('password').touched ">
+      <div class="customAlert" *ngIf="rForm.get('password').invalid && rForm.get('password').touched ">
          <div *ngIf="rForm.get('password').hasError('required')"> Password is required </div>
        </div>
 
