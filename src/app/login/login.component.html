@@ -4,7 +4,7 @@
     <div class="form-group">
       <label for="exampleInputEmail1">Email address</label>
       <input  type="email"  formControlName="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-      <div class="customAlert" *ngIf="rForm.get('email').notValid && rForm.get('email').touched ">
+      <div class="customAlert" *ngIf="rForm.get('email').invalid && rForm.get('email').touched ">
           <div *ngIf="rForm.get('email').hasError('required')">The Email is requierd. </div>
           <div *ngIf="rForm.get('email').hasError('email')">Please Enter Valid Email. </div>
       </div>
