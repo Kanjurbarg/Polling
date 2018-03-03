@@ -1,20 +1,29 @@
 <div class="container">
+ <form  [formGroup]="rForm"> 
   <div id="login-form" class="py-2 px-3 mt-3">
     <div class="form-group">
       <label for="exampleInputEmail1">Email address</label>
-      <input [(ngModel)]="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      <input  type="email"  formControlName="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      <div class="customAlert" *ngIf="rForm.get('email').notValid && rForm.get('email').touched ">
+          <div *ngIf="rForm.get('email').hasError('required')">The Email is requierd. </div>
+          <div *ngIf="rForm.get('email').hasError('email')">Please Enter Valid Email. </div>
+      </div>
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">Password</label>
-      <input [(ngModel)]="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      <input  formControlName="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      <div class="customAlert" *ngIf="rForm.get('password').notValid && rForm.get('password').touched ">
+         <div *ngIf="rForm.get('password').hasError('required')"> Password is required </div>
+       </div>
+
     </div>
     <div class="text-center">
-      <button type="submit" class="btn btn-primary"(click)="login('email')">Submit</button>
+      <button type="submit" class="btn btn-primary" (click)="login('email')">Submit</button>
       <hr>
       <button type="submit" class="btn btn-danger" (click)="login('google')">Google</button>
       <hr>
       <a href="/register"><button type="submit" class="btn btn-secondary" (click)="login('create')">Create Account</button></a>
     </div>
   </div>
+</form>
 </div>

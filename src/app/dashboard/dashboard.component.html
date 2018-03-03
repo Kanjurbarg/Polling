@@ -1,4 +1,4 @@
-<div  *ngIf="verified else emailVerification"  class="container-fluid dashboard">
+<div  class="container-fluid dashboard" #dashboard>
   <div class="row mx-md-3 mx-lg-5 justify-content-center">
     <div class="col-12 col-md-3">
       <div id="user-info" *ngIf="username; else SetupMessage" class="border border-dark p-2 mt-3 d-none d-md-inline-block">
@@ -21,9 +21,9 @@
   <h6>Setup account</h6>
 </ng-template>
 
-<ng-template class="container text-center" #emailVerification>
+ <!-- <div *ngIf="!verified else dashboard" class="container text-center">
   <h4>Welcome {{display_name}}</h4>
   <p>Please Verify your Email....</p>
   <p>If Already Verified the try reloading page......</p>
   <div><button class="btn btn-danger" (click)="logout()">Logout</button></div>
-</ng-template>
+</div> -->

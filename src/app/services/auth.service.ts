@@ -26,7 +26,7 @@ export class AuthService {
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
     .then(() => this.checkUser())
     .catch(() => {
-      /*this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+      this.router.navigateByUrl("/login");      /*this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then(() => this.checkUser());*/
     });
   }
@@ -89,17 +89,29 @@ export class AuthService {
   }
   checkUser() {
     this.authState.subscribe(user => {
+      if(user){
       const uid = user.uid;
+      const verified =user.emailVerified;
+      console.log(verified+" "+user.emailVerified);
       this.afs.doc('users/' + uid).valueChanges().subscribe(
         userDoc => {
           if (userDoc) {
-            this.router.navigateByUrl('/dashboard');
-            
-          } else {
-           /* alert("User Alredy Exist");*/
+            //this.router.navigateByUrl('/dashboard');
+
+              if(!verified){
+                  alert("Your account is NOT verified. Please Verifiy your Account before logging in");
+              }else{
+                this.router.navigateByUrl('/dashboard');
+              }
+
+          } else{
+            this.router.navigateByUrl('/login');
+            alert("User does not Exist");
+         
             /*this.insertUser();*/
           }
         });
+      }
     });
   }
 
