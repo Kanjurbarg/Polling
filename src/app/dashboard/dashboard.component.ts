@@ -2,6 +2,9 @@ import { Router } from '@angular/router';
 import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
+import {GroupsService} from '../services/groups.service';
+import { PollService } from '../services/poll.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,26 +20,38 @@ export class DashboardComponent implements OnInit {
   photoURL;
   joinDate;
   verified;
+  uid;
+
+  //Polls
+  pendingPolls=[];
+
+  //groups
+  groupsInfo:Observable<any>;
+  groupName;
+
+
 
 
 
   constructor(
     private auth: AuthService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private GS:GroupsService,
+    private PS:PollService
   ) { }
 
   ngOnInit() {
     this.auth.getAuthState().subscribe(
       user => {
-      
-         
+              
         if (user) {
-          console.log("first: "+user.emailVerified);
+         // console.log("first: "+user.emailVerified);
          // var emailVerified=user.emailVerified;
           //console.log("second: "+emailVerified);
           this.userService.getUserDocument(user.uid).subscribe(
             userDoc => {
+              this.uid=userDoc.uid,
               this.username = userDoc.username ? userDoc.username : null;
               this.display_name = userDoc.display_name;
               this.desc = userDoc.desc;
@@ -48,10 +63,25 @@ export class DashboardComponent implements OnInit {
           this.router.navigateByUrl('/login');
         }
       });
+
+      //Get Polls Info
+      this.PS.getPoll().subscribe(poll =>{
+        
+      });
+
+     
   }
 
   logout() {
     this.auth.logout();
+  }
+
+ createGroup(){
+    this.router.navigateByUrl('/Create group')
+  }
+
+  showPendingPolls(){
+    this.router.navigateByUrl('/poll');
   }
 
 }

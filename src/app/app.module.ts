@@ -14,11 +14,14 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { ElectionComponent } from './election/election.component';
 import { ContenderComponent } from './contender/contender.component';
+import { PollsComponent } from './polls/polls.component';
+import { VotingComponent } from './voting/voting.component';
 
 // Services
 import { ElectionService } from './services/election.service';
 import { UserService } from './services/user.service';
 import { GroupsService } from './services/groups.service';
+import { PollService } from './services/poll.service';
 
 // Third party libraries
 import { NavbarComponent } from './navbar/navbar.component';
@@ -27,6 +30,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
 import { GroupComponent } from './group/group.component';
 import { FooterComponent } from './footer/footer.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 const routes: Routes = [
   {
@@ -38,8 +43,8 @@ const routes: Routes = [
     component: RegisterComponent
   },
   {
-    path: 'election/:eid',
-    component: ElectionComponent
+    path: 'poll',
+    component: PollsComponent
   },
   {
     path: 'login',
@@ -66,7 +71,9 @@ const routes: Routes = [
     DashboardComponent,
     RegisterComponent,
     GroupComponent,
-    FooterComponent
+    FooterComponent,
+    PollsComponent,
+    VotingComponent
   
   ],
   imports: [
@@ -76,13 +83,15 @@ const routes: Routes = [
     AngularFireAuthModule,
     RouterModule.forRoot(routes),
     FormsModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule ,
+    NgbModule.forRoot()
   ],
   providers: [
     ElectionService,
     UserService,
     AuthService,
-    GroupsService
+    GroupsService,
+    PollService
   ],
   bootstrap: [AppComponent]
 })

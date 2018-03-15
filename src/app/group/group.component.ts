@@ -3,6 +3,9 @@ import { GroupsService } from '../services/groups.service';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Router } from '@angular/router';
 import { ElectionService } from '../services/election.service';
+import { AuthService } from '../services/auth.service'
+
+
 
 @Component({
   selector: 'app-group',
@@ -17,14 +20,29 @@ export class GroupComponent implements OnInit {
   gid="Pqg0xhD1dI23EhGoGhir";
   gMembers:String[];
   groups;
+
+  admin;
+
     constructor(
     private afs:AngularFirestore,
     private router:Router,
-    private GS: GroupsService
+    private GS: GroupsService,
+    private auth: AuthService
   ) { }
 
   ngOnInit() {
-    this.GS.getGroups(this.gid).subscribe(group=>{
+
+    this.auth.getAuthState().subscribe(user=>{
+      this.admin=user.uid;
+
+    })
+
+    
+
+  
+
+
+   /* this.GS.getGroups(this.gid).subscribe(group=>{
       console.log(group);
       this.groups=group;
       this.gName=this.groups.name;
@@ -35,7 +53,13 @@ export class GroupComponent implements OnInit {
       this.gMembers=this.groups.members;
       //
 
-    });
+    });*/
+
+
+
+
   }
+ 
+ 
 
 }

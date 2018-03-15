@@ -70,12 +70,10 @@
               <div *ngIf="rForm.get('contact').hasError('maxlength')">Excceding limit </div>
           </div>
         </div>
-
-        <div class="text-center">
-          <input type="submit" class="button expanded" value="Submit Form" [disabled]="!rForm.valid" >
-        </div>
-
-      </div>
+     </div>
     </div>
   </form>
+  <div class="text-center">
+    <input type="submit" class="button expanded" value="Submit Form" [disabled]="!rForm.valid" >
+  </div>
 </div>

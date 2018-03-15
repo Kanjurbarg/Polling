@@ -7,12 +7,15 @@
         {{desc}} <br>
         {{joinDate}}
       </div>
+      <div >
+      </div>
       <div id="pending-polls" class="border border-dark p-2 my-1">
           <h2>Pending Poll List</h2>
         </div>
       <button class="btn btn-danger" (click)="logout()">Logout</button>
     </div>
     <div class="col-12 col-md-9 border border-dark p-2 my-3">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createGroups">Create Group</button>
     </div>
   </div>
 </div>
@@ -20,6 +23,35 @@
 <ng-template #SetupMessage>
   <h6>Setup account</h6>
 </ng-template>
+
+  <!--Create Modal HTML Template -->
+
+      <!-- Modal -->
+      <div class="modal fade" id="createGroups" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+              ...
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+  <!--End Modal -->
+
 
  <!-- <div *ngIf="!verified else dashboard" class="container text-center">
   <h4>Welcome {{display_name}}</h4>

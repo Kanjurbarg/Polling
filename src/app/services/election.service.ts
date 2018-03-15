@@ -9,11 +9,16 @@ export class ElectionService {
   ) { }
 
   getContenders(eid) {
-    return this.afs.collection('elections/' + eid + '/contenders').valueChanges();
+    return this.afs.collection('polls/' + eid + '/contenders').valueChanges();
   }
 
   getElection(eid) {
     return this.afs.doc<any>('elections/' + eid).valueChanges();
   }
+
+  getPendingPoll(){
+
+  }
+
 
 }

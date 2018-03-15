@@ -101,6 +101,7 @@ export class AuthService {
               if(!verified){
                   alert("Your account is NOT verified. Please Verifiy your Account before logging in");
               }else{
+                console.log("Logged in successfully");
                 this.router.navigateByUrl('/dashboard');
               }
 
