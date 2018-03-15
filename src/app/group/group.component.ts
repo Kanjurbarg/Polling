@@ -35,6 +35,9 @@ export class GroupComponent implements OnInit {
     this.auth.getAuthState().subscribe(user=>{
       this.admin=user.uid;
 
+      
+      
+
     })
 
     

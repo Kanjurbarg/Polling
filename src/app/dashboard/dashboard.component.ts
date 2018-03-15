@@ -5,6 +5,9 @@ import { UserService } from '../services/user.service';
 import {GroupsService} from '../services/groups.service';
 import { PollService } from '../services/poll.service';
 import { Observable } from 'rxjs/Observable';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule,FormGroup,FormBuilder,FormControl,Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -21,16 +24,15 @@ export class DashboardComponent implements OnInit {
   joinDate;
   verified;
   uid;
+  modalRef;
 
   //Polls
   pendingPolls=[];
 
-  //groups
-  groupsInfo:Observable<any>;
-  groupName;
-
-
-
+  groupForm=new FormGroup({
+    title: new FormControl('',[Validators.required,Validators.minLength(6)]),
+    description: new FormControl('',[Validators.required,Validators.minLength(12)]),
+  });
 
 
   constructor(
@@ -38,7 +40,9 @@ export class DashboardComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private GS:GroupsService,
-    private PS:PollService
+    private PS:PollService,
+    private modalService: NgbModal
+
   ) { }
 
   ngOnInit() {
@@ -77,11 +81,22 @@ export class DashboardComponent implements OnInit {
   }
 
  createGroup(){
-    this.router.navigateByUrl('/Create group')
+   const groupData={
+      title:this.groupForm.get('title').value,
+      description: this.groupForm.get('description').value
+   };
+
+   this.GS.createGroup(groupData);
+   this.modalRef.close();
   }
 
   showPendingPolls(){
     this.router.navigateByUrl('/poll');
+  }
+
+
+  open(content) {
+    this.modalRef=this.modalService.open(content);
   }
 
 }

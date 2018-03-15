@@ -1,7 +1,7 @@
 <div  class="container-fluid dashboard" #dashboard>
   <div class="row mx-md-3 mx-lg-5 justify-content-center">
     <div class="col-12 col-md-3">
-      <div id="user-info" *ngIf="username; else SetupMessage" class="border border-dark p-2 mt-3 d-none d-md-inline-block">
+      <div id="user-info"  class="border border-dark p-2 mt-3 d-none d-md-inline-block">
         <img [src]="photoURL" width="70px">
         {{display_name}} @{{username}} <br>
         {{desc}} <br>
@@ -15,47 +15,33 @@
       <button class="btn btn-danger" (click)="logout()">Logout</button>
     </div>
     <div class="col-12 col-md-9 border border-dark p-2 my-3">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createGroups">Create Group</button>
+        <button type="button" class="btn btn-primary"  (click)="open(content)">Create Group</button>
     </div>
   </div>
 </div>
 
-<ng-template #SetupMessage>
-  <h6>Setup account</h6>
-</ng-template>
+
 
   <!--Create Modal HTML Template -->
 
       <!-- Modal -->
-      <div class="modal fade" id="createGroups" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-
-            <div class="modal-body">
-              ...
-            </div>
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+  <ng-template #content let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h4 class="modal-title">Create Group</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-        </div>
-      </div>
+          <div class="modal-body">
+           <form [formGroup]="groupForm"> 
+            <label for="gTitle">Title</label><input type="text" id="gTitle" formControlName="title">
 
-
+            <label for="gTitle">Description</label> <textarea  id="gDescription" rows="3" style="resize:none" formControlName="description"></textarea>
+           </form>
+          </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" (click)="createGroup()">Create Group</button>
+            </div>
+        </ng-template>
+        
   <!--End Modal -->
-
-
- <!-- <div *ngIf="!verified else dashboard" class="container text-center">
-  <h4>Welcome {{display_name}}</h4>
-  <p>Please Verify your Email....</p>
-  <p>If Already Verified the try reloading page......</p>
-  <div><button class="btn btn-danger" (click)="logout()">Logout</button></div>
-</div> -->

@@ -51,7 +51,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path:'groups',
+    path:'groups/:gid',
     component: GroupComponent
   },
   {
@@ -86,6 +86,7 @@ const routes: Routes = [
     ReactiveFormsModule ,
     NgbModule.forRoot()
   ],
+  
   providers: [
     ElectionService,
     UserService,
