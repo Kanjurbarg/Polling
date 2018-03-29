@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ElectionService } from '../services/election.service';
 import { AuthService } from '../services/auth.service'
 import { groupDetails } from '../models/groups.model'
+import { UserService } from '../services/user.service';
 
 
 
@@ -21,16 +22,19 @@ export class GroupComponent implements OnInit {
   gMembers:String[];
   gid;
   admin;
+  gTitle;
+  adminID
 
   //group info
-  groupInfo:Array<groupDetails>;
+  groupInfo=[];
 
     constructor(
     private afs:AngularFirestore,
     private router:Router,
     private GS: GroupsService,
     private auth: AuthService,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    private US:UserService
   ) { }
 
   ngOnInit() {
@@ -47,10 +51,16 @@ export class GroupComponent implements OnInit {
 
     //get group information
     this.GS.getGroups(this.gid).subscribe(groups => {
-      this.groupInfo = groups;
-      console.log(this.groupInfo);
-  
+      this.gTitle = groups.title;
+      this.gDescription = groups.description;
+      this.gDate = groups.createdOn;
+      this.adminID = groups.admin;
+      this.US.getUserDocument(this.adminID).subscribe(admin=>{
+          this.gAdmin = admin.display_name;
+      })
     });
+
+    
    
   }
  

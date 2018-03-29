@@ -14,7 +14,7 @@ export class GroupsService {
 
   //Admin Groups
   groupCol:AngularFirestoreCollection<any>;
-  groupsObs:Observable<groupDetails[]>;
+  groupsObs:Observable<any>;
   groupDoc:AngularFirestoreDocument<any>;
   constructor(
     private afs:AngularFirestore,
@@ -51,9 +51,8 @@ export class GroupsService {
   }
 
   getGroups(gid){
-    this.groupDoc = this.afs.doc<any>('groups/' + gid);
-    this.groupsObs = this.groupDoc.valueChanges(); 
-    return this.groupsObs;
+    return this.afs.doc<any>('groups/' + gid).valueChanges();
+    
       
   }
 

@@ -1,17 +1,20 @@
 <div class="container">
   <div class="row" style="margin-top:2px">
-    <div class="col-lg-3 col-xs-12" style="border:1px solid black;height:100px">
-        <h2>{{groupInfo.title}}</h2>
-        <p>"{{groupInfo.description}}"</p>
-            <div class="mt-5 my-2 ">
-              <button class="btn btn-primary">Create Poll</button>
-              <button class="btn btn-danger" (onClick)="logout()">Logout</button>
-            </div>
-       </div>  
-    <div class="col-lg-9" style="border:1px solid black;height:300px">
+    <div class="col-lg-3 col-xs-12" style="border:1px solid black">
+        <h2>{{gTitle}}</h2>
+        <p>"{{gDescription}}"</p>
+        <p>Created On {{gDate}}</p>
+        <p>Admin: <b>{{gAdmin}} </b></p>    
+    </div>  
+    <div class="col-lg-8 ml-1" style="border:1px solid black">
       <div class="nav-bar">
         <div class=""></div>
       </div>
     </div>
   </div>
 </div>
+
+<!--<div class="mt-5 my-2 ">
+    <button class="btn btn-primary">Create Poll</button>
+    <button class="btn btn-danger" (onClick)="logout()">Logout</button>
+  </div>-->
