@@ -7,6 +7,7 @@ import { PollService } from '../services/poll.service';
 import { Observable } from 'rxjs/Observable';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule,FormGroup,FormBuilder,FormControl,Validators } from '@angular/forms';
+import { groupDetails } from '../models/groups.model'
 
 
 @Component({
@@ -25,6 +26,11 @@ export class DashboardComponent implements OnInit {
   verified;
   uid;
   modalRef;
+
+  groupTitle;
+  groupDes;
+  //My groupss
+  adminGroups=[];
 
   //Polls
   pendingPolls=[];
@@ -66,12 +72,19 @@ export class DashboardComponent implements OnInit {
         } else {
           this.router.navigateByUrl('/login');
         }
+
+        // Get Admin Groups
+         this.GS.getMyGroups(user.uid).subscribe(myGroups => {
+          console.log(myGroups);
+          this.adminGroups=myGroups;
+          console.log(this.adminGroups);
+         });
+
+
       });
 
-      //Get Polls Info
-      this.PS.getPoll().subscribe(poll =>{
-        
-      });
+      
+     
 
      
   }
@@ -90,9 +103,16 @@ export class DashboardComponent implements OnInit {
    this.modalRef.close();
   }
 
+ /* showMyGroup(uid){
+    this.GS.getMyGroups(uid);
+  }*/
+
+
   showPendingPolls(){
     this.router.navigateByUrl('/poll');
   }
+
+ 
 
 
   open(content) {

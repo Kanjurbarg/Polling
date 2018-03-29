@@ -1,23 +1,35 @@
-<div  class="container-fluid dashboard" #dashboard>
+<div  class="container-fluid dashboard mt-3" #dashboard>
+  <div class="">
   <div class="row mx-md-3 mx-lg-5 justify-content-center">
     <div class="col-12 col-md-3">
-      <div id="user-info"  class="border border-dark p-2 mt-3 d-none d-md-inline-block">
+      <div id="user-info"  class="border border-dark p-2 d-none d-md-inline-block">
         <img [src]="photoURL" width="70px">
         {{display_name}} @{{username}} <br>
         {{desc}} <br>
         {{joinDate}}
       </div>
-      <div >
+      <div>
+        Hello world
       </div>
       <div id="pending-polls" class="border border-dark p-2 my-1">
           <h2>Pending Poll List</h2>
         </div>
       <button class="btn btn-danger" (click)="logout()">Logout</button>
     </div>
-    <div class="col-12 col-md-9 border border-dark p-2 my-3">
+    <div class="col-12 col-md-6 border border-dark p-2 ">
         <button type="button" class="btn btn-primary"  (click)="open(content)">Create Group</button>
     </div>
+    <div class="col-2 ml-2 border border-dark">
+        <div  *ngFor="let group of adminGroups">
+          <ul>
+           <a [routerLink]="['/groups', group.gid]"> <li><h4>{{group.title}}</h4></li>
+            <li class="ml-2"><h6>{{group.description}}</h6></li>
+           </a>
+          </ul>
+        </div>
+      </div>
   </div>
+</div>
 </div>
 
 

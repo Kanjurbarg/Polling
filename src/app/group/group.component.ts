@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupsService } from '../services/groups.service';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ElectionService } from '../services/election.service';
 import { AuthService } from '../services/auth.service'
+import { groupDetails } from '../models/groups.model'
 
 
 
@@ -17,52 +18,45 @@ export class GroupComponent implements OnInit {
   gDescription;
   gAdmin;
   gDate:Date;
-  gid="Pqg0xhD1dI23EhGoGhir";
   gMembers:String[];
-  groups;
-
+  gid;
   admin;
+
+  //group info
+  groupInfo:Array<groupDetails>;
 
     constructor(
     private afs:AngularFirestore,
     private router:Router,
     private GS: GroupsService,
-    private auth: AuthService
+    private auth: AuthService,
+    private route:ActivatedRoute
   ) { }
 
   ngOnInit() {
 
     this.auth.getAuthState().subscribe(user=>{
       this.admin=user.uid;
-
-      
-      
-
     })
 
-    
+    //Get the router parameter
+    this.route.paramMap.subscribe(params => {
+      this.gid = params.get('gid');
+      console.log("Group ID "+this.gid);
+    });
 
+    //get group information
+    this.GS.getGroups(this.gid).subscribe(groups => {
+      this.groupInfo = groups;
+      console.log(this.groupInfo);
   
-
-
-   /* this.GS.getGroups(this.gid).subscribe(group=>{
-      console.log(group);
-      this.groups=group;
-      this.gName=this.groups.name;
-      this.gDescription=this.groups.description;
-      this.gAdmin=this.groups.admin;
-      this.gDate=this.groups.createdOn;
-      
-      this.gMembers=this.groups.members;
-      //
-
-    });*/
-
-
-
-
+    });
+   
   }
  
+  logout(){
+    this.auth.logout();
+  }
  
 
 }

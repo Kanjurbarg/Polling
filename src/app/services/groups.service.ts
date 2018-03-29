@@ -4,11 +4,18 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection,
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../services/auth.service'
 import { Router } from '@angular/router';
+import { groupDetails } from '../models/groups.model'
+
 
 @Injectable()
 export class GroupsService {
 
   uid;
+
+  //Admin Groups
+  groupCol:AngularFirestoreCollection<any>;
+  groupsObs:Observable<groupDetails[]>;
+  groupDoc:AngularFirestoreDocument<any>;
   constructor(
     private afs:AngularFirestore,
     private auth:AuthService,
@@ -16,10 +23,6 @@ export class GroupsService {
   ) { }
 
 
-
-  getGroups(gid){
-    return this.afs.doc('groups/'+ gid).valueChanges();
-  }
 
   createGroup(groupData)
   {
@@ -39,15 +42,19 @@ export class GroupsService {
     });
   }
 
+  getMyGroups(adminID){
+    console.log('this is admin ID  '+adminID);
+    this.groupCol = this.afs.collection('groups', ref=>ref.where('admin','==',adminID));
+    this.groupsObs = this.groupCol.valueChanges();
+    console.log(this.groupsObs);
+    return this.groupsObs;
+  }
 
- /* getGroupInfo(admin){
-      this.afs.collection('groups/').valueChanges().subscribe(
-        groups=>{
-            this.afs.doc(admin).
-        }
-      );
-  
-    }*/
-
+  getGroups(gid){
+    this.groupDoc = this.afs.doc<any>('groups/' + gid);
+    this.groupsObs = this.groupDoc.valueChanges(); 
+    return this.groupsObs;
+      
+  }
 
 }
