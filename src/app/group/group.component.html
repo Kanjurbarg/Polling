@@ -6,9 +6,19 @@
         <p>Created On {{gDate}}</p>
         <p>Admin: <b>{{gAdmin}} </b></p>    
     </div>  
-    <div class="col-lg-8 ml-1" style="border:1px solid black">
-      <div class="nav-bar">
-        <div class=""></div>
+    <div class="col-lg-8 ml-1" style="border:1px solid black">     
+        <div class="form-inline d-inline-block" ngbDropdown>  
+        <label> Add Members to group: </label>      
+         <input class="" ngbDropdownToggle  id="dropdownBasic1" type="text"  [(ngModel)]="searchterm" (keydown)="search($event)" placeholder="Search">
+         <button class="btn btn-secondary" (click)="addMember(user.username)">Add</button>
+         <div class="bg-dark" ngdropdownMenu>
+            <ul  *ngFor="let user of users">
+              <li class="dropdown-item" (click)="addMember(user.username)">{{user.display_name}} @ {{user.username}}</li>
+            </ul>      
+          </div>  
+           <!-- <div *ngIf="usernames?.length < 1">
+               <p>No user found...</p>
+            </div>  -->
       </div>
     </div>
   </div>

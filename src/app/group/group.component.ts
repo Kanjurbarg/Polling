@@ -6,7 +6,8 @@ import { ElectionService } from '../services/election.service';
 import { AuthService } from '../services/auth.service'
 import { groupDetails } from '../models/groups.model'
 import { UserService } from '../services/user.service';
-
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Rx';
 
 
 @Component({
@@ -27,6 +28,16 @@ export class GroupComponent implements OnInit {
 
   //group info
   groupInfo=[];
+
+  //User Seach
+  searchterm;
+  users;
+
+  startAt = new Subject();
+  endAt = new Subject();
+
+  startObs = this.startAt.asObservable();
+  endAtObs = this.endAt.asObservable();
 
     constructor(
     private afs:AngularFirestore,
@@ -60,7 +71,13 @@ export class GroupComponent implements OnInit {
       })
     });
 
-    
+    Observable.combineLatest(this.startObs, this.endAtObs).subscribe(
+      value => {
+        this.doQuery(value[0], value[1]).subscribe(
+          users => {
+            this.users = users;
+          });
+      });
    
   }
  
@@ -68,5 +85,17 @@ export class GroupComponent implements OnInit {
     this.auth.logout();
   }
  
+  search($event) {
+    const q = $event.target.value;
+    this.startAt.next(q);
+    this.endAt.next(q + '\uf8ff');
+  }
 
+  doQuery(start, end) {
+    return this.afs.collection('users', ref => ref.limit(4).orderBy('username').startAt(start).endAt(end)).valueChanges();
+  }
+
+  addMember(username){
+    this.GS.addingMember(username).subscribe();
+  }
 }

@@ -56,4 +56,10 @@ export class GroupsService {
       
   }
 
+
+  addingMember(username)
+  {
+    return this.afs.doc<any>('users', ref =>ref.where('username','==',username)).valueChanges();
+  }
+
 }

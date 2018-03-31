@@ -23,7 +23,7 @@
         <div  *ngFor="let group of adminGroups">
           <ul style="list-style-type:none">
            <a [routerLink]="['/groups', group.gid]"> <li><h4>{{group.title}}</h4></li>
-            <li class="ml-2"><h6>{{group.description}}</h6></li>
+            <li class="ml-2"><p>{{group.description}}<p></li>
            </a>
           </ul>
         </div>
