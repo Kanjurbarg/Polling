@@ -11,7 +11,8 @@ import { groupDetails } from '../models/groups.model'
 export class GroupsService {
 
   uid;
-
+  //group
+  members=[];
   //Admin Groups
   groupCol:AngularFirestoreCollection<any>;
   groupsObs:Observable<any>;
@@ -52,14 +53,15 @@ export class GroupsService {
 
   getGroups(gid){
     return this.afs.doc<any>('groups/' + gid).valueChanges();
-    
-      
+         
   }
 
-
-  addingMember(username)
-  {
-    return this.afs.doc<any>('users', ref =>ref.where('username','==',username)).valueChanges();
+  getMembers(gid){
+    return this.afs.collection('groups/' + gid + '/members/').valueChanges();
+  }
+  displayMembers(gid){
+   return  this.afs.doc<any>('groups/'+ gid).valueChanges();
+  
   }
 
 }

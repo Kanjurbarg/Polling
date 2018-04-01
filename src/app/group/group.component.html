@@ -1,29 +1,75 @@
 <div class="container">
-  <div class="row" style="margin-top:2px">
-    <div class="col-lg-3 col-xs-12" style="border:1px solid black">
+  <div class="row mt-1" >
+    <div class="col-md-3 col-xs-12" style="border:1px solid black">
         <h2>{{gTitle}}</h2>
         <p>"{{gDescription}}"</p>
         <p>Created On {{gDate}}</p>
         <p>Admin: <b>{{gAdmin}} </b></p>    
     </div>  
-    <div class="col-lg-8 ml-1" style="border:1px solid black">     
-        <div class="form-inline d-inline-block" ngbDropdown>  
-        <label> Add Members to group: </label>      
-         <input class="" ngbDropdownToggle  id="dropdownBasic1" type="text"  [(ngModel)]="searchterm" (keydown)="search($event)" placeholder="Search">
-         <button class="btn btn-secondary" (click)="addMember(user.username)">Add</button>
-         <div class="bg-dark" ngdropdownMenu>
-            <ul  *ngFor="let user of users">
-              <li class="dropdown-item" (click)="addMember(user.username)">{{user.display_name}} @ {{user.username}}</li>
-            </ul>      
-          </div>  
+
+    <div class="col-md-8 ml-1" style="border:1px solid black">  
+      <button class="btn btn-primary my-1">Create Poll</button>   
+    <hr>
+    </div>
+
+     
+    <div class="col-lg-3 mt-1" style="display:inline-block; border:1px solid black" >  
+        <label class="" style="font-size:20px;font-weight:bold"> Members </label>   
+        <div class="row">
+         <input class="col-md-9  mx-1" ngbDropdown ngbDropdownToggle  id="dropdownBasic1" type="text"  [(ngModel)]="searchterm" (keydown)="search($event)" placeholder="Add Members">
+         <button class="btn btn-secondary" style="height:40px" (click)="addMember(user.uid)">Add</button>
+        </div>
+         <div class="col-md-3 bg-light" ngdropdownMenu>
+          </div>
+            <div  *ngFor="let user of users">
+             <p class="col-12 dropdown-item"> <a (click)="addMember(user.uid)">{{user.display_name}}  @{{user.username}}</a></p>
+       
+            </div>     
+              <div class="my-1" *ngFor="let member of gMembers">
+                <div  class="py-1 px-1 float-left"> <img class="rounded-circle" height="30px" width="30px" src="{{member.photoURL}}">  {{member.display_name}} @{{member.username}} </div>
+                
+              </div>    
+           
            <!-- <div *ngIf="usernames?.length < 1">
                <p>No user found...</p>
             </div>  -->
-      </div>
     </div>
   </div>
 </div>
 
+<!--Create Modal HTML Template -->
+
+      <!-- Modal -->
+      <ng-template #content let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h4 class="modal-title">Create Poll</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+           <form [formGroup]="groupForm"> 
+            <label for="pollTitle">Title</label><input type="text" id="pollTitile" formControlName="title">
+
+            <label for="pollDes">Description</label> <textarea  id="pollDes" rows="3" style="resize:none" formControlName="des"></textarea>
+            <label>Select Start Date</label>
+            <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd"
+                       name="dp" [(ngModel)]="startDate" ngbDatepicker #d="ngbDatepicker">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                    <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                  </button>
+                </div>
+              </div>
+          </form>
+          </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" (click)="createPoll()">Create Poll</button>
+            </div>
+        </ng-template>
+        
+  <!--End Modal -->
 <!--<div class="mt-5 my-2 ">
     <button class="btn btn-primary">Create Poll</button>
     <button class="btn btn-danger" (onClick)="logout()">Logout</button>

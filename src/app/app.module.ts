@@ -81,7 +81,7 @@ const routes: Routes = [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes,{onSameUrlNavigation:'reload'}),
     FormsModule,
     ReactiveFormsModule ,
     NgbModule.forRoot()

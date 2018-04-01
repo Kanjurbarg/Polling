@@ -13,6 +13,10 @@ export class PollService {
     return this.afs.collection('polls').valueChanges();
   }
 
+  createPolls()
+  {
+    
+  }
   /*getContenders(){
     return this.afs.coll
   }*/

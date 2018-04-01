@@ -6,6 +6,7 @@ import {GroupsService} from '../services/groups.service';
 import { PollService } from '../services/poll.service';
 import { Observable } from 'rxjs/Observable';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule,FormGroup,FormBuilder,FormControl,Validators } from '@angular/forms';
 import { groupDetails } from '../models/groups.model'
 
