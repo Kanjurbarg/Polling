@@ -1,3 +1,31 @@
-<p>
-  polls works!
-</p>
+<div class="container">
+    <div class="">
+      <h1>Title:{{topic}} </h1>
+      <h4>Description:{{description}}</h4>
+    </div>
+    <div class=" bg-light container-fluid my-1" *ngIf="status=='off';">
+      <h4 class=" container-fluid my-1">Select Contenders</h4>
+      <div class="row bg-dark mt-1 justify-content-center" >
+        <button id="members" *ngFor="let member of gMembers" class="border col-md-4 mx-1 my-1 container my-1 btn btn-md btn-light" (click)="getContender(member.uid)">
+          <img class="rounded-circle" height="60px" width="60px" src="{{member.photoURL}}"> <span class="" style="font-size:18px;">{{member.display_name}}@{{member.username}}</span> 
+        </button>
+      </div>     
+    </div>
+
+    <div id="contenders" class="container bg-light">
+      <h4> Contenders for Poll are.</h4>
+      <div class="row">
+        <div class="col-md-4" *ngFor="let user of contender">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="{{user.photoURL}}" height="150px" width="120px" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">{{user.display_name}}</h5>
+                  <p class="card-text">{{user.username}}</p>
+                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+              </div>
+        </div>
+      </div>
+
+    </div>
+</div>
