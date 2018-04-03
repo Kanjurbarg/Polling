@@ -1,3 +1,37 @@
-<p>
-  voting works!
-</p>
+<div class="container">
+  <div class="row bg-light">
+    <h1>{{title}} <span style="font-size:18px">({{description}})</span></h1>
+  </div>
+  <div>
+    <h4>Started On: Date & Time</h4>
+    <h5>Duration of Poll: {{duration}} Minutes</h5>
+  </div>
+  <div class="px-1 py-1 bg-light row">
+    <h1>The Contenders</h1>
+  </div>
+  <div class="row bg-light">
+    <div class="col-md-4 mt-1 center" *ngFor="let contender of displayContenders" >
+      <div id="contender" class="card bg-light-grey" style="width: 16rem;">
+          <img class="my-1 card-img-top rounded-circle px-1 py-1" src="{{contender.photoURL}}" alt="Card image cap"><hr>
+          <div class="card-body text-center">
+            <h5 class="card-title">{{contender.display_name}}</h5>
+            <p class="card-text">"@{{contender.username}}"</p>
+            <div class="row">             
+                <a id="voted" class="col-12 btn btn-primary btn-lg content-justify-center text-white" (click)="vote(contender.uid)">Vote for me</a>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div>
+    <div class="row">
+      <h3>List of Voters</h3>
+    </div>
+    <div class="row text-center">
+      <div class="col-md-2 bg-danger pt-2 text-center border-0 rounded mx-2 my-1 text-white"  *ngFor="let voter of voters">       
+          <img src="{{voter.photoURL}}" height="30px" width="30px" class="mt-2 rounded-circle"><p>{{voter.display_name}}</p>
+      </div>
+    </div>   
+  </div>
+
+</div>

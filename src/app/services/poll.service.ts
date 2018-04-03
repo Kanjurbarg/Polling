@@ -68,8 +68,8 @@ export class PollService {
   getContenders(pid){
     return this.afs.collection('polls/'+ pid + '/contenders/').valueChanges();
   }
-  displayPoll(){
-    
+  displayVoters(pid){
+    return this.afs.collection('polls/' + pid +'/voters/').valueChanges();
   }
 
   updateStatus(pid){
