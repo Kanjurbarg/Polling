@@ -1,3 +1,4 @@
+<ng-template #voting>
 <div class="container">
   <div class="row bg-light">
     <h1>{{title}} <span style="font-size:18px">({{description}})</span></h1>
@@ -33,5 +34,11 @@
       </div>
     </div>   
   </div>
-
 </div>
+</ng-template>
+<div *ngIf="status=='ongoing'; then voting else result"></div>
+
+
+<ng-template #result>
+  <h1>result</h1>
+</ng-template>

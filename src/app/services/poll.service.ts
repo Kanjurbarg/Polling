@@ -72,6 +72,11 @@ export class PollService {
     return this.afs.collection('polls/' + pid +'/voters/').valueChanges();
   }
 
+  registerVote(voteDetails){
+      this.afs.doc('polls/'+ voteDetails.pid + '/contenders/' + voteDetails.cid).update({
+        votes:+1,
+      });
+  }
   updateStatus(pid){
     return this.afs.doc('polls/' + pid).update({
       status:"ongoing",

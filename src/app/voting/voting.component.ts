@@ -72,24 +72,30 @@ currentUser;
     });
 
     this.PS.displayVoters(this.pid).subscribe((voterDoc:any)=>{
-      console.log("voterDoc "+ voterDoc);
+      //console.log("voterDoc "+ voterDoc);
       this.voter=voterDoc;
-      console.log("Voter Array"+ this.voter);
+      //console.log("Voter Array"+ this.voter);
       this.voter.forEach((voterInfo:any)=>{
-        console.log("VoterInfo"+ voterInfo);
-        console.log("voter id "+ voterInfo.vid);
+       // console.log("VoterInfo"+ voterInfo);
+       // console.log("voter id "+ voterInfo.vid);
         this.US.getUserDocument(voterInfo.vid).subscribe(userDoc=>{
-          console.log("UserDoc"+ userDoc);
+         // console.log("UserDoc"+ userDoc);
           this.voters.push(userDoc);
-          console.log("Voters list "+this.voters);
+          //console.log("Voters list "+this.voters);
         });
       });
     });
 
   }//Oninit ends
 
-  vote(voted){
-    
+  vote(vote){
+    console.log("CID "+ vote);
+    const voteDetails={
+      cid:vote,
+      pid:this.pid,
+      voterID:this.currentUser
+    };
+    this.PS.registerVote(voteDetails);
   }
 
 }
