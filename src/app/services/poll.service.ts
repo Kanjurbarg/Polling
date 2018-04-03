@@ -53,6 +53,9 @@ export class PollService {
     return this.afs.collection('polls',ref=>ref.where('gid','==',gid)).valueChanges();
   }
 
+  getContenders(pid){
+    return this.afs.collection('polls/'+ pid + '/contenders/').valueChanges();
+  }
   displayPoll(){
     
   }

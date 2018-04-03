@@ -17,6 +17,8 @@ export class PollsComponent implements OnInit {
   topic;
   description;
   status;
+  displayContenders=[];
+  pollContenders=[];
   contenders=[];
   contender=[];
   voters=[];
@@ -62,6 +64,21 @@ export class PollsComponent implements OnInit {
         });
         console.log(this.gMembers);
       });
+
+      this.PS.getContenders(this.pid).subscribe(contenders=>{
+        this.displayContenders=contenders;
+        console.log("displayContenders "+this.displayContenders);
+        this.displayContenders.forEach((user:any)=>{
+          console.log("CID "+user.cid);
+          this.US.getUserDocument(user.cid).subscribe(userDoc=>{
+            console.log("contenderInfo "+userDoc);
+            this.pollContenders.push(userDoc);
+            console.log("All contenders "+this.pollContenders);
+          });
+          
+        });
+        
+      });
     });
     
    
@@ -82,6 +99,8 @@ export class PollsComponent implements OnInit {
     this.PS.addContenders(contenderDetails);
     });
   
+   
+
  }
 
 }
