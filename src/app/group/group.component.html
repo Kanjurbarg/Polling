@@ -8,7 +8,7 @@
     </div>  
 
     <div class="col-md-8 ml-1" style="border:1px solid black">  
-      <button class="btn btn-primary my-1">Create Poll</button>   
+      <button class="btn btn-primary my-1" (click)="open(content)">Create Poll</button>   
     <hr>
     </div>
 
@@ -48,24 +48,33 @@
             </button>
           </div>
           <div class="modal-body">
-           <form [formGroup]="groupForm"> 
+           <form [formGroup]="pollForm"> 
             <label for="pollTitle">Title</label><input type="text" id="pollTitile" formControlName="title">
 
             <label for="pollDes">Description</label> <textarea  id="pollDes" rows="3" style="resize:none" formControlName="des"></textarea>
-            <label>Select Start Date</label>
-            <div class="input-group">
-                <input class="form-control" placeholder="yyyy-mm-dd"
-                       name="dp" [(ngModel)]="startDate" ngbDatepicker #d="ngbDatepicker">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
-                    <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-                  </button>
+            <label>Pick a Duration</label>
+              <div class="form-inline row mx-1">
+                <div class="col-2 ">
+                  <button class="btn btn-success" (click)="getDuration(1)">1 Hr</button>
+                </div>
+                <div class="col-2 ">
+                  <button class="btn btn-success" (click)="getDuration(2)">2 Hr</button>
+                </div>
+                <div class="col-2 ">
+                  <button class="btn btn-success" (click)="getDuration(3)">6 Hr</button>
+                </div>
+                <div class="col-2 ">
+                  <button class="btn btn-success" (click)="getDuration(4)">1 Day</button>
+                </div>
+                <div class="col-2 ">
+                  <button class="btn btn-success" (click)="getDuration(5)">2 Days</button>
                 </div>
               </div>
+           
           </form>
           </div>
             <div class="modal-footer">
-              <button class="btn btn-primary" (click)="createPoll()">Create Poll</button>
+              <button class="btn btn-primary" (click)="createPoll()">Next..</button>
             </div>
         </ng-template>
         

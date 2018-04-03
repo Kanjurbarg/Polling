@@ -53,6 +53,7 @@ export class GroupComponent implements OnInit {
   model: NgbDateStruct;
   date: {year: number, month: number};
   modalRef;
+  duration:number;
   pollForm= new FormGroup({
     title: new FormControl('',Validators.required),
     des: new FormControl('',Validators.required),
@@ -117,21 +118,19 @@ export class GroupComponent implements OnInit {
       });
    
       this.GS.getMembers(this.gid).subscribe(members =>{ 
-       members.forEach((member:any) =>{
-         this.user.push(member.memberID);
-         //let memberID= member.memberID;
-         this.gMembers= [];
-         this.US.getUserDocument(member.memberID).subscribe(userDoc=>{
-           this.gMembers.push(userDoc);
-           
-           
-         });
-
+          console.log("outside "+ members);
+          members.forEach((member:any) =>{
+          this.user.push(member.memberID);
+          //let memberID= member.memberID;
+          this.gMembers= [];
+          this.US.getUserDocument(member.memberID).subscribe(userDoc=>{
+          this.gMembers.push(userDoc);  
+        });
         
-       })
+      });
         console.log(this.gMembers);
 
-      });
+    });
 
   }//OnInit End
  
@@ -164,10 +163,40 @@ export class GroupComponent implements OnInit {
   
   createPoll()
   {
-    this.PS.createPolls()
+    const pollDetails={
+      title:this.pollForm.get('title').value,
+      des:this.pollForm.get('des').value,
+      duration:this.duration,
+      gid:this.gid
+    };
+    console.log(pollDetails);
+    this.PS.createPolls(pollDetails);
+    this.modalRef.close();
   }
 
   open(content) {
     this.modalRef=this.modalService.open(content);
   }
+
+  getDuration(duration){
+    this.duration=null;
+    if(duration == 1){
+      this.duration=60;
+    }
+    if(duration == 2){
+      this.duration=120;
+    }
+    if(duration == 3){
+      this.duration=180;
+    }
+    if(duration == 4){
+      this.duration=1440;
+    }
+    if(duration == 5){
+      this.duration=2880;
+    }
+    console.log(this.duration);
+    
+  }
+
 }

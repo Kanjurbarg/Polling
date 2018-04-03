@@ -43,7 +43,7 @@ const routes: Routes = [
     component: RegisterComponent
   },
   {
-    path: 'poll',
+    path: 'poll/:pid',
     component: PollsComponent
   },
   {
