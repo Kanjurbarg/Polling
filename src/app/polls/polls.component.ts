@@ -53,7 +53,7 @@ export class PollsComponent implements OnInit {
       console.log( " Gid second "+ this.gid);
 
       this.GS.getMembers(this.gid).subscribe(members=>{
-        console.log("Member list"+members);
+        //console.log("Member list"+members);
         members.forEach((member:any)=>{
           this.user.push(member.memberID);
           //console.log("MemberID "+this.user);
@@ -62,18 +62,18 @@ export class PollsComponent implements OnInit {
             this.gMembers.push(userDoc);
           });
         });
-        console.log(this.gMembers);
+       // console.log(this.gMembers);
       });
 
       this.PS.getContenders(this.pid).subscribe(contenders=>{
         this.displayContenders=contenders;
-        console.log("displayContenders "+this.displayContenders);
+        //console.log("displayContenders "+this.displayContenders);
         this.displayContenders.forEach((user:any)=>{
-          console.log("CID "+user.cid);
+          //console.log("CID "+user.cid);
           this.US.getUserDocument(user.cid).subscribe(userDoc=>{
-            console.log("contenderInfo "+userDoc);
+            //console.log("contenderInfo "+userDoc);
             this.pollContenders.push(userDoc);
-            console.log("All contenders "+this.pollContenders);
+           // console.log("All contenders "+this.pollContenders);
           });
           
         });
@@ -82,25 +82,33 @@ export class PollsComponent implements OnInit {
     });
     
    
-  }
+  }//ngOninit Ends
 
  getContender(contenderID){
   console.log("contederID" + contenderID);
   this.contenders.push(contenderID);
    this.US.getUserDocument(contenderID).subscribe(userDoc=>{
-    console.log("userDoc"+userDoc);
+   // console.log("userDoc"+userDoc);
     this.contender.push(userDoc);
-    console.log("contenders list "+this.contender);
+   // console.log("contenders list "+this.contender);
     const contenderDetails={
       cid:contenderID,
       votes:this.votes,
       pid:this.pid
     };
     this.PS.addContenders(contenderDetails);
-    });
-  
-   
+    });    
+ }
 
+ startPoll(){
+   console.log("status "+ this.pid);
+   this.PS.updateStatus(this.pid);
+   console.log("Voters ID"+this.user);
+   this.user.forEach((voter:any)=>{ 
+     this.PS.addVoters(voter,this.pid);
+   });
+   //this.PS.addVoters()
+   
  }
 
 }

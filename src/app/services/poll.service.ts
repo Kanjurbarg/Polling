@@ -45,7 +45,19 @@ export class PollService {
     };
     this.afs.doc('polls/'+ contender.pid +'/contenders/'+data.cid).set(data).then(()=>{
       console.log("Contender add successfully..");
-    })
+    });
+  }
+
+  addVoters(vid,pid){
+    console.log("IN SERVICE "+ vid + " PID "+ pid);
+    const data={
+      vid:vid,
+      voted:"no",
+    };
+    this.afs.doc('polls/'+ pid + '/voters/'+ vid).set(data).then(()=> {
+      console.log("Voters Added Succesfully");
+      this.router.navigateByUrl('voting/'+pid);
+  });
   }
 
   getGroupPolls(gid){
@@ -58,6 +70,13 @@ export class PollService {
   }
   displayPoll(){
     
+  }
+
+  updateStatus(pid){
+    return this.afs.doc('polls/' + pid).update({
+      status:"ongoing",
+      startedOn:firebase.firestore.FieldValue.serverTimestamp(),
+    });
   }
   /*getContenders(){
     return this.afs.coll

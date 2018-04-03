@@ -55,6 +55,10 @@ const routes: Routes = [
     component: GroupComponent
   },
   {
+    path:'voting/:pid',
+    component:VotingComponent
+  },
+  {
     path: '**',
     redirectTo: '/dashboard',
     pathMatch: 'full'
