@@ -49,7 +49,12 @@ export class PollService {
   }
 
   getGroupPolls(gid){
+    console.log("GID "+ gid);
+    return this.afs.collection('polls',ref=>ref.where('gid','==',gid)).valueChanges();
+  }
 
+  displayPoll(){
+    
   }
   /*getContenders(){
     return this.afs.coll

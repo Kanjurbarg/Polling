@@ -54,6 +54,7 @@ export class GroupComponent implements OnInit {
   date: {year: number, month: number};
   modalRef;
   duration:number;
+  groupPolls=[];
   pollForm= new FormGroup({
     title: new FormControl('',Validators.required),
     des: new FormControl('',Validators.required),
@@ -132,6 +133,10 @@ export class GroupComponent implements OnInit {
 
     });
 
+    this.PS.getGroupPolls(this.gid).subscribe(polls=>{
+      this.groupPolls=polls;
+    });
+
   }//OnInit End
  
   logout(){
@@ -178,6 +183,10 @@ export class GroupComponent implements OnInit {
     this.modalRef=this.modalService.open(content);
   }
 
+  goToPoll(pid){
+    console.log("gotopoll"+ pid);
+    this.router.navigateByUrl('poll/'+pid);
+  }
   getDuration(duration){
     this.duration=null;
     if(duration == 1){
