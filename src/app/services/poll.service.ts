@@ -78,7 +78,6 @@ export class PollService {
   }
 
   voterStatus(pid,uid){
-    console.log("In service"+pid + uid);
     return this.afs.doc('polls/'+ pid + '/voters/'+ uid).valueChanges();
   }
 
@@ -95,7 +94,6 @@ export class PollService {
   }
 
   registerVote(voteDetails){
-    console.log("In Service "+ voteDetails.voteCounter);
        this.afs.doc('polls/'+ voteDetails.pid + '/contenders/' + voteDetails.cid).update({
         votes:voteDetails.voteCounter
       }).then(()=> console.log("Voted Incremented Successfully"));
