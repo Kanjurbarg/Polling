@@ -1,6 +1,7 @@
+
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import { event } from 'firebase-functions/lib/providers/analytics';
+
 
 admin.initializeApp(functions.config().firebase);
 const afs = admin.firestore();
