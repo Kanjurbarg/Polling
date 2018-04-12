@@ -9,7 +9,11 @@ import { Router } from '@angular/router';
 export class PollService {
 
 
-  constructor(private afs:AngularFirestore,private router:Router) { }
+  constructor(private afs:AngularFirestore,private router:Router) {
+    this.router.routeReuseStrategy.shouldReuseRoute = function(){
+      return false;
+  };
+ }
 
   getPoll(pid){
     return this.afs.doc('polls/' + pid).valueChanges();
@@ -48,16 +52,34 @@ export class PollService {
     });
   }
 
-  addVoters(vid,pid){
+  addVoter(vid,pid){
     console.log("IN SERVICE "+ vid + " PID "+ pid);
     const data={
       vid:vid,
-      voted:"no",
+      voted:"yes",
     };
     this.afs.doc('polls/'+ pid + '/voters/'+ vid).set(data).then(()=> {
       console.log("Voters Added Succesfully");
       this.router.navigateByUrl('voting/'+pid);
   });
+  }
+
+  addVote(voteDetails){
+    const vote={
+      uid:voteDetails.vid
+    };
+    this.afs.doc('polls/' + voteDetails.pid + '/contenders/' + voteDetails.cid + '/votes/' + voteDetails.vid).set(vote).then(()=>console.log('vote Added Successfully'));
+  }
+
+  contenderStatus(voteDetails){
+
+    console.log("do not interate");
+    return this.afs.doc('polls/'+ voteDetails.pid + '/contenders/' + voteDetails.cid).valueChanges();
+  }
+
+  voterStatus(pid,uid){
+    console.log("In service"+pid + uid);
+    return this.afs.doc('polls/'+ pid + '/voters/'+ uid).valueChanges();
   }
 
   getGroupPolls(gid){
@@ -73,16 +95,25 @@ export class PollService {
   }
 
   registerVote(voteDetails){
-      this.afs.doc('polls/'+ voteDetails.pid + '/contenders/' + voteDetails.cid).update({
-        votes:+1,
-      });
+    console.log("In Service "+ voteDetails.voteCounter);
+       this.afs.doc('polls/'+ voteDetails.pid + '/contenders/' + voteDetails.cid).update({
+        votes:voteDetails.voteCounter
+      }).then(()=> console.log("Voted Incremented Successfully"));
   }
+
   updateStatus(pid){
     return this.afs.doc('polls/' + pid).update({
       status:"ongoing",
       startedOn:firebase.firestore.FieldValue.serverTimestamp(),
     });
   }
+
+  endPoll(pid){
+      this.afs.doc('polls/' + pid).update({
+        status:"finished"
+      });
+  }
+
   /*getContenders(){
     return this.afs.coll
   }*/

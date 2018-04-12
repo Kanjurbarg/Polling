@@ -7,9 +7,12 @@
         <p>Admin: <b>{{gAdmin}} </b></p>    
     </div>  
 
-    <div class="col-md-8 ml-1" style="border:1px solid black">  
+    
+    <div  class="col-md-8 ml-1" style="border:1px solid black">  
+      <div *ngIf="admin==adminID">
       <button class="btn btn-primary my-1" (click)="open(content)">Create Poll</button>   
-    <hr>
+     </div>
+      <hr>
       <div class='row'>
        
           <div class="col-md-5 border border-secondary mx-1 my-1" *ngFor="let poll of groupPolls">

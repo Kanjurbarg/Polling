@@ -14,17 +14,22 @@ import { AuthService } from '../services/auth.service';
 })
 export class VotingComponent implements OnInit {
 pid;
+gid;
 title;
 description;
 voters=[];
 voter=[];
 contenders=[];
 displayContenders=[];
+user=[];
+gMembers=[];
 status;
 startDate:Date;
 startTime:Time;
-duration:Time;
+duration:number;
 currentUser;
+voterStatus;
+voteCounter:number;
   constructor( 
     private router:Router,
     private route:ActivatedRoute,
@@ -35,6 +40,10 @@ currentUser;
   ) { }
 
   ngOnInit(){
+  
+    this.router.routeReuseStrategy.shouldReuseRoute = function(){
+      return false;
+  };
     this.auth.getAuthState().subscribe((user:any)=>{
       this.currentUser=user.uid;
       console.log('Current user '+ this.currentUser);
@@ -53,6 +62,34 @@ currentUser;
       this.status=pollInfo.status;
       this.startDate=pollInfo.startedOn,
       this.duration=pollInfo.duration;
+      let time:number;
+      time=(this.duration*60000);
+      console.log(time);
+      this.gid=pollInfo.gid;
+      console.log('GID 1'+this.gid);
+      //Voter Status 
+      this.PS.voterStatus(this.pid, this.currentUser).subscribe((status:any)=>{
+       this.voterStatus=status;
+      });
+
+      //Voters List
+      console.log('GID 2s'+this.gid);
+      this.GS.getMembers(this.gid).subscribe(members =>{ 
+        console.log("outside "+ members);
+        members.forEach((member:any) =>{
+        this.user.push(member.memberID);
+        //let memberID= member.memberID;
+        this.gMembers= [];
+        this.US.getUserDocument(member.memberID).subscribe(userDoc=>{
+        this.gMembers.push(userDoc);  
+      });
+      
+    });
+      console.log(this.gMembers);
+  
+  });
+
+
     });
 
     this.PS.getContenders(this.pid).subscribe(contenders=>{
@@ -86,16 +123,21 @@ currentUser;
       });
     });
 
+ 
+
   }//Oninit ends
 
   vote(vote){
     console.log("CID "+ vote);
-    const voteDetails={
+    const preVote={
       cid:vote,
       pid:this.pid,
-      voterID:this.currentUser
+      vid:this.currentUser
     };
-    this.PS.registerVote(voteDetails);
+
+    this.PS.addVoter(this.currentUser,this.pid);
+    this.PS.addVote(preVote);
+    
   }
 
 }

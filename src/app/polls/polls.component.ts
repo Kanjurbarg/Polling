@@ -17,6 +17,7 @@ export class PollsComponent implements OnInit {
   topic;
   description;
   status;
+  duration;
   displayContenders=[];
   pollContenders=[];
   contenders=[];
@@ -25,6 +26,7 @@ export class PollsComponent implements OnInit {
   user=[];
   gMembers=[];
   votes:number=0;
+
 
 
   constructor(
@@ -36,7 +38,7 @@ export class PollsComponent implements OnInit {
     private afs:AngularFirestore
   ) { }
 
-  ngOnInit() {
+  ngOnInit(){
 
      //Get the router parameter
      this.route.paramMap.subscribe(params => {
@@ -50,6 +52,12 @@ export class PollsComponent implements OnInit {
       this.description= poll.des;
       this.status=poll.status;
       this.gid=poll.gid;
+      this.duration=poll.duration;
+
+
+     /* if(this.status=='ongoing'){
+        this.router.navigateByUrl('voting/');
+      }*/
       console.log( " Gid second "+ this.gid);
 
       this.GS.getMembers(this.gid).subscribe(members=>{
@@ -79,6 +87,8 @@ export class PollsComponent implements OnInit {
         });
         
       });
+
+
     });
     
    
@@ -100,15 +110,19 @@ export class PollsComponent implements OnInit {
     });    
  }
 
+  finishPoll(){
+      this.PS.endPoll(this.pid);
+  }
  startPoll(){
    console.log("status "+ this.pid);
    this.PS.updateStatus(this.pid);
-   console.log("Voters ID"+this.user);
-   this.user.forEach((voter:any)=>{ 
-     this.PS.addVoters(voter,this.pid);
-   });
-   //this.PS.addVoters()
-   
+   console.log("Voters ID"+this.user);  
+   //this.PS.addVoters() 
+   let time:number;
+   time=(this.duration*60000);
+   console.log(time);
+    setTimeout(this.finishPoll,time);
+
  }
 
 }
