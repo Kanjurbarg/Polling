@@ -52,15 +52,17 @@ export class PollService {
     });
   }
 
-  addVoter(vid,pid){
+  addVoter(vid,pid,cid){
     console.log("IN SERVICE "+ vid + " PID "+ pid);
     const data={
-      vid:vid,
-      voted:"yes",
+      cid:cid,
+      time:firebase.firestore.FieldValue.serverTimestamp(),
+      uid:vid
+
     };
-    this.afs.doc('polls/'+ pid + '/voters/'+ vid).set(data).then(()=> {
+    this.afs.doc('polls/'+ pid + '/votes/'+ vid).set(data).then(()=> {
       console.log("Voters Added Succesfully");
-      this.router.navigateByUrl('voting/'+pid);
+      this.router.navigateByUrl('voting/' + pid);
   });
   }
 

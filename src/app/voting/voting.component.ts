@@ -132,10 +132,8 @@ voteCounter:number;
       pid:this.pid,
       vid:this.currentUser
     };
-
-    this.PS.addVoter(this.currentUser,this.pid);
+    this.PS.addVoter(this.currentUser,this.pid,vote);
     this.PS.addVote(preVote);
-
   }
 
 }
