@@ -18,7 +18,7 @@ export class PollsComponent implements OnInit {
   description;
   status;
   duration;
-  displayContenders=[];
+  displayContenders;
   pollContenders=[];
   contenders=[];
   contender=[];
@@ -26,7 +26,7 @@ export class PollsComponent implements OnInit {
   user=[];
   gMembers=[];
   votes:number=0;
-
+  statBtn;
 
 
   constructor(
@@ -40,6 +40,9 @@ export class PollsComponent implements OnInit {
 
   ngOnInit(){
 
+    this.router.routeReuseStrategy.shouldReuseRoute = function(){
+      return false;
+  };
      //Get the router parameter
      this.route.paramMap.subscribe(params => {
       this.pid = params.get('pid');
@@ -54,8 +57,14 @@ export class PollsComponent implements OnInit {
       this.gid=poll.gid;
       this.duration=poll.duration;
 
-
-     /* if(this.status=='ongoing'){
+      if(this.status === "off" || this.pollContenders.length <2){
+        this.statBtn = "display:none";
+      }
+      else{
+        this.statBtn = " backgroud-color:green; content:'Start The Poll' ";
+      }
+     /* if(
+       this.status=='ongoing'){
         this.router.navigateByUrl('voting/');
       }*/
       console.log( " Gid second "+ this.gid);
@@ -73,8 +82,8 @@ export class PollsComponent implements OnInit {
        // console.log(this.gMembers);
       });
 
-      this.PS.getContenders(this.pid).subscribe(contenders=>{
-        this.displayContenders=contenders;
+      this.PS.getContenders(this.pid).subscribe(chooseContenders=>{
+        this.displayContenders=chooseContenders;
         //console.log("displayContenders "+this.displayContenders);
         this.displayContenders.forEach((user:any)=>{
           //console.log("CID "+user.cid);
@@ -95,11 +104,12 @@ export class PollsComponent implements OnInit {
   }//ngOninit Ends
 
  getContender(contenderID){
-  console.log("contederID" + contenderID);
-  this.contenders.push(contenderID);
+ // console.log("contederID" + contenderID);
+
+  //this.contenders.push(contenderID);
    this.US.getUserDocument(contenderID).subscribe(userDoc=>{
    // console.log("userDoc"+userDoc);
-    this.contender.push(userDoc);
+   // this.contender.push(userDoc);
    // console.log("contenders list "+this.contender);
     const contenderDetails={
       cid:contenderID,
@@ -114,14 +124,13 @@ export class PollsComponent implements OnInit {
       this.PS.endPoll(this.pid);
   }
  startPoll(){
-   console.log("status "+ this.pid);
    this.PS.updateStatus(this.pid);
-   console.log("Voters ID"+this.user);  
+    this.router.navigateByUrl('poll/' + this.pid);
    //this.PS.addVoters() 
-   let time:number;
+   /*let time:number;
    time=(this.duration*60000);
    console.log(time);
-    setTimeout(this.finishPoll,time);
+    setTimeout(this.finishPoll,time);*/
 
  }
 

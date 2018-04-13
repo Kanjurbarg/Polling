@@ -4,15 +4,23 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection,
 import { Observable } from 'rxjs/Observable';
 import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class PollService {
+uid;
 
-
-  constructor(private afs:AngularFirestore,private router:Router) {
+  constructor(
+    private afs:AngularFirestore,
+    private router:Router,
+    private auth:AuthService
+      ) {
     this.router.routeReuseStrategy.shouldReuseRoute = function(){
       return false;
   };
+  this.auth.getAuthState().subscribe(user=>{
+    this.uid=user.uid;
+  });
  }
 
   getPoll(pid){
@@ -52,15 +60,15 @@ export class PollService {
     });
   }
 
-  addVoter(vid,pid,cid){
-    console.log("IN SERVICE "+ vid + " PID "+ pid);
+  addVoter(pid,cid){
+
     const data={
       cid:cid,
       time:firebase.firestore.FieldValue.serverTimestamp(),
-      uid:vid
+      uid:this.uid
 
     };
-    this.afs.doc('polls/'+ pid + '/votes/'+ vid).set(data).then(()=> {
+    this.afs.doc('polls/'+ pid + '/votes/'+ this.uid).set(data).then(()=> {
       console.log("Voters Added Succesfully");
       this.router.navigateByUrl('voting/' + pid);
   });
@@ -68,9 +76,9 @@ export class PollService {
 
   addVote(voteDetails){
     const vote={
-      uid:voteDetails.vid
+      uid:this.uid
     };
-    this.afs.doc('polls/' + voteDetails.pid + '/contenders/' + voteDetails.cid + '/votes/' + voteDetails.vid).set(vote).then(()=>console.log('vote Added Successfully'));
+    this.afs.doc('polls/' + voteDetails.pid + '/contenders/' + voteDetails.cid + '/votes/' + this.uid).set(vote).then(()=>console.log('vote Added Successfully'));
   }
 
   contenderStatus(voteDetails){
@@ -80,7 +88,8 @@ export class PollService {
   }
 
   voterStatus(pid,uid){
-    return this.afs.doc('polls/'+ pid + '/voters/'+ uid).valueChanges();
+
+    return this.afs.doc('polls/'+ pid + '/votes/'+ uid).valueChanges();
   }
 
   getGroupPolls(gid){
@@ -92,14 +101,14 @@ export class PollService {
     return this.afs.collection('polls/'+ pid + '/contenders/').valueChanges();
   }
   displayVoters(pid){
-    return this.afs.collection('polls/' + pid +'/voters/').valueChanges();
+    return this.afs.collection('polls/' + pid +'/votes/').valueChanges();
   }
 
-  registerVote(voteDetails){
+ /* registerVote(voteDetails){
        this.afs.doc('polls/'+ voteDetails.pid + '/contenders/' + voteDetails.cid).update({
         votes:voteDetails.voteCounter
       }).then(()=> console.log("Voted Incremented Successfully"));
-  }
+  }*/
 
   updateStatus(pid){
     return this.afs.doc('polls/' + pid).update({

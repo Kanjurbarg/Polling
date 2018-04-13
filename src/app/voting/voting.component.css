@@ -2,3 +2,10 @@
     background-color: green;
     
 }
+
+.votedImage{
+    max-width: 30px!important ; 
+    max-height: 30px!important; 
+     min-width: 30px!important ; 
+     min-height: 30px!important; 
+}

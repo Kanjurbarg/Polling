@@ -7,7 +7,7 @@
 
 
       <div class="row bg-light">
-          <h1>{{title}} <span style="font-size:18px">({{description}})</span></h1>
+          <h1 class="jumbotron">{{title}} <span style="font-size:18px">({{description}})</span></h1>
       </div>
         <div>
           <h4>Started On: Date & Time</h4>
@@ -21,18 +21,9 @@
                 <h1> The Contenders </h1>
               </div>
               <div class="row col-12 bg-light justify-content-center justify-content-between">
-                  <div class="col-md-4 mt-1 justify-content-center justify-content-between" *ngFor="let contender of displayContenders">
-                      <div id="contender" class="card bg-light-grey" style="width: 14rem;">
-                          <img class="my-1 card-img-top rounded-circle px-1 py-1" src="{{contender.photoURL}}" alt="Card image cap"><hr>
-                          <div class="card-body text-center">
-                            <h5 class="card-title">{{contender.display_name}}</h5>
-                            <p class="card-text">"@{{contender.username}}"</p>
-                            <div *ngIf="voterStatus == null" class="row">
-                                <a id="voted" class="col-12 btn btn-primary btn-lg content-justify-center text-white" (click)="vote(contender.uid)">Vote for me</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                  <div class="col-md-4 mt-1 justify-content-center justify-content-between" *ngFor="let contender of contenders">
+                    <app-contender [contender]="contender"></app-contender>    
+                   </div>
               </div>
             </div>
 
@@ -57,7 +48,7 @@
           </div>
           <div class="row text-center col-12 justify-content-left">
               <div class=" col-md-2 bg-success pt-2 text-center border-0 rounded mx-2 my-1 text-white justify-content-between"  *ngFor="let vote of voters">
-                  <img src="{{vote.photoURL}}" height="30px" width="30px" class="mt-2 rounded-circle"><p>{{vote.display_name}}</p>
+                <span *ngIf="vote"> <img  src="{{vote.photoURL}}" class="mt-2 rounded-circle votedImage"><p>{{vote.display_name}}</p></span>
               </div>
             </div>
         </div>
@@ -69,8 +60,8 @@
 <ng-template #result>
   <div class="container">
 
-      <div class="row bg-light">
-          <h1>{{title}} <span style="font-size:18px">({{description}})</span></h1>
+      <div class="row bg-light align-text-top" height="200px">
+          <h1 class="bg-light" style="font-size: 50px">{{title}}<br></h1><h3 class="ml-2"style="font-size:20px">({{description}})</h3>
       </div>
         <div>
           <h4>Started On: Date & Time</h4>
@@ -83,12 +74,12 @@
 
             <div class="col-md-12">
                 <div class="row">
-                  <h1> The Contenders </h1>
+                  <h1> Result </h1>
                 </div>
-                <div class="row col-12 bg-light justify-content-center justify-content-between">
-                    <div class="col-md-4 mt-1 justify-content-center justify-content-between" *ngFor="let result of results ; let i = index">
+                <div class="row bg-light justify-content-center justify-content-between">
+                    <div class="col-md-12 m-2 justify-content-center justify-content-between" *ngFor="let result of results ; let i = index">
                      <app-contender [results]="result" [rank] = "i" ></app-contender>
-                        </div>
+                    </div>
                 </div>
               </div>
 

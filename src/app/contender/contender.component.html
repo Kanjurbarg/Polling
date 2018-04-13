@@ -1,6 +1,39 @@
-<div id="contender-box" class="p-2 border border-dark">
-  <h1>{{rank+1}}</h1>
-  <img [src]="photoURL" height="50">
-  <h3>{{name}}</h3>
-  <p>{{desc}}</p>
+
+<div class="row  justify-content-between" *ngIf="!results">
+    <div id=" "  class="p-2 border border-0  col-md-4 ">
+      <div class="card " style="width: 16rem;">
+      <h1 *ngIf="results" class="float-left">#{{rank+1}}</h1>
+      <img class="card-img-top p-2 rounded-circle" [src]="photoURL" >
+      <div class="card-body text-center">
+        <h5 class="card-title">{{name}}</h5>
+        <p class="card-text">"@{{username}}"</p>
+        <div *ngIf="!voterStatus" id="vote"> 
+          <div class="btn btn-danger vote" *ngIf="!results" (click) = "vote(contender.cid)">Vote </div>
+        </div>
+      </div>
+     </div>
+   </div>
 </div>
+
+
+<div *ngIf="results" class="container-fluid">
+  <div class="row ml-1  mr-2 mt-2 bg-white border border-0">
+    <div class="col-md-1 p-2 align-top">
+      <h1 class="bg-white " id="rank">#{{rank+1}}</h1>
+    </div>
+    <div class="col-md-3 justify-content-between mb-3 mt-3">
+      <img [src]="photoURL" class="rounded-circle" id="result">
+    </div>
+    <div id="contender" class="col-md-5 align-middle">
+      <h1>{{name}}</h1>
+      <h3>"@{{username}}"</h3>
+    </div>
+    <div class="col-md-2 text-center">
+      <h1>Total Votes</h1>
+      <h1  class="bg-light" id="voteCount">{{totalVotes}}</h1>
+
+    </div>
+  </div>
+</div>
+
+

@@ -97,6 +97,7 @@ resultSet;
 
     this.PS.getContenders(this.pid).subscribe(contenders=>{
       this.contenders=contenders;
+      
       this.contenders.forEach((contender:any)=>{
         this.displayContenders=[];
         this.US.getUserDocument(contender.cid).subscribe(userDoc=>{
@@ -108,9 +109,11 @@ resultSet;
 
     this.PS.displayVoters(this.pid).subscribe((voterDoc:any)=>{
       this.voter=voterDoc;
+      console.log(voterDoc);
       this.voter.forEach((voterInfo:any)=>{
-        this.US.getUserDocument(voterInfo.vid).subscribe(userDoc=>{
+        this.US.getUserDocument(voterInfo.uid).subscribe(userDoc=>{
           this.voters.push(userDoc);
+          console.log(userDoc);
         });
       });
     });
@@ -132,15 +135,7 @@ resultSet;
     }
   }
 
-  vote(vote){
-    const preVote={
-      cid:vote,
-      pid:this.pid,
-      vid:this.currentUser
-    };
-    this.PS.addVoter(this.currentUser,this.pid,vote);
-    this.PS.addVote(preVote);
-  }
+ 
 
 
   getResult(pid){

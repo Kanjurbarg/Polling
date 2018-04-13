@@ -14,19 +14,13 @@
     </div>
 
     <div id="contenders" class="container bg-light">
-        <div class="row"  *ngIf="pollContenders.length >= 2 || status=='off' ">
-            <button id="startPoll" class="col-md-12 px-3 py-2 bg-success" (click)="startPoll()"> Start Your Poll</button>
-          </div>
+        <div *ngIf="pollContenders.length >= 2"><div class="row"  *ngIf="status=='off' ">
+            <button id="startPoll" [style]="statBtn" class="col-md-12 px-3 py-2 bg-success " (click)="startPoll()"> Start Your Poll</button>
+          </div></div>
       <h4> Contenders for Poll are..</h4>
       <div class="row">
-        <div class="col-md-3 mt-1" *ngFor="let user of pollContenders">
-            <div class="card" style="width: 14rem;">
-                <img class="card-img-top" src="{{user.photoURL}}" height="150px" width="120px" alt="Card image cap">
-                <div class="card-body">
-                  <h5 class="card-title">{{user.display_name}}</h5>
-                  <p class="card-text">{{user.username}}</p>
-                </div>
-              </div>
+        <div class="col-md-3 mt-1 justify-content-center"  *ngFor="let pollContender of displayContenders">
+            <app-contender [pollContender]="pollContender"></app-contender>
         </div>
        
       </div>
