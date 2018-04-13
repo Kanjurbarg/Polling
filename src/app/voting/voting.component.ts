@@ -66,7 +66,8 @@ resultSet;
       this.startDate = pollInfo.startedOn,
       this.duration = pollInfo.duration;
       this.gid = pollInfo.gid;
-      if (status === 'ongoing') {
+      if (this.status === 'ongoing') {
+        console.log
         this.checkStatus();
       }
 

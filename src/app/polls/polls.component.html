@@ -1,7 +1,9 @@
 <div class="container">
-    <div class="">
-      <h1>Title:{{topic}} </h1>
-      <h4>Description:{{description}}</h4>
+    <div class="text-capitalize">
+      <h1>Title : {{topic}} </h1>
+      <h3>Description : {{description}}</h3>
+      <h3 >Status : {{status}}</h3>
+      
     </div>
     <div class=" bg-light container-fluid my-1" *ngIf="status=='off';">
       <h5 class="bg-danger border border-rounded my-1 px-2 py-1">Poll Status: Poll haven't started yet.... Please do the next procedure. </h5>
@@ -13,16 +15,19 @@
       </div>     
     </div>
 
-    <div id="contenders" class="container bg-light">
-        <div *ngIf="pollContenders.length >= 2"><div class="row"  *ngIf="status=='off' ">
+    <div id="contenders" class="container rounded bg-light">
+       <div class="row"  *ngIf="status=='off' ">
             <button id="startPoll" [style]="statBtn" class="col-md-12 px-3 py-2 bg-success " (click)="startPoll()"> Start Your Poll</button>
-          </div></div>
-      <h4> Contenders for Poll are..</h4>
-      <div class="row">
+        </div>
+      <h1> Contenders for Poll are..</h1>
+      <hr>
+      <div class="row border-top">
         <div class="col-md-3 mt-1 justify-content-center"  *ngFor="let pollContender of displayContenders">
             <app-contender [pollContender]="pollContender"></app-contender>
         </div>
-       
+      </div>
+      <div class="row" *ngFor="let member of gMembers">
+        
       </div>
 
     </div>

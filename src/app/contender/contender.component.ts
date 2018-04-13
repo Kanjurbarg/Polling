@@ -95,6 +95,7 @@ export class ContenderComponent implements OnInit {
     this.PS.addVoter(this.pid,vote);
     this.router.navigateByUrl('voting/' + this.pid);
     this.PS.addVote(preVote);
+    this.router.navigateByUrl('voting/' + this.pid);
   }
 
 }
