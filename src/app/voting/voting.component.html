@@ -86,17 +86,8 @@
                   <h1> The Contenders </h1>
                 </div>
                 <div class="row col-12 bg-light justify-content-center justify-content-between">
-                    <div class="col-md-4 mt-1 justify-content-center justify-content-between" *ngFor="let contender of displayContenders">
-                        <div id="contender" class="card bg-light-grey" style="width: 16rem;">
-                            <img class="my-1 card-img-top rounded-circle px-1 py-1" src="{{contender.photoURL}}" alt="Card image cap"><hr>
-                            <div class="card-body text-center">
-                              <h5 class="card-title">{{contender.display_name}}</h5>
-                              <p class="card-text">"@{{contender.username}}"</p>
-                              <div *ngIf="voterStatus == null" class="row">
-                                  <a id="voted" class="col-12 btn btn-primary btn-lg content-justify-center text-white" (click)="vote(contender.uid)">Vote for me</a>
-                              </div>
-                            </div>
-                          </div>
+                    <div class="col-md-4 mt-1 justify-content-center justify-content-between" *ngFor="let result of results ; let i = index">
+                     <app-contender [results]="result" [rank] = "i" ></app-contender>
                         </div>
                 </div>
               </div>

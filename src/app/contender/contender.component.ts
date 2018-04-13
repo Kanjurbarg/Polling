@@ -8,12 +8,17 @@ import { UserService } from '../services/user.service';
 })
 export class ContenderComponent implements OnInit {
 
+  @Input() results;
   @Input() contender;
+  @Input() contenders;
+  @Input() rank;
   uid;
   desc;
   name;
-  photoURL = 'https://pbs.twimg.com/profile_images/800812110888529920/I0pBwxh6_400x400.jpg';
-
+  photoURL;
+  username;
+  totalVotes;
+  userDocs;
 
 
   constructor(
@@ -21,13 +26,16 @@ export class ContenderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.uid = this.contender.uid;
-    this.userService.getUserDocument(this.uid).subscribe(user => {
-      this.desc = user.desc;
-      this.name = user.name;
-      this.photoURL = user.photoURL
-                        ? user.photoURL : 'https://pbs.twimg.com/profile_images/800812110888529920/I0pBwxh6_400x400.jpg';
+    console.log(this.results);
+    this.uid = this.results.cid;
+    this.totalVotes = this.results.votes;
+    this.userService.getUserDocument(this.uid).subscribe(userDoc=>{
+      console.log(userDoc);
+      this.name = userDoc.display_name;
+      this.username = userDoc.username;
+      this.photoURL = userDoc.photoURL;
     });
+
   }
 
 }

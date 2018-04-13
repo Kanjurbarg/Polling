@@ -30,6 +30,8 @@ duration:number;
 currentUser;
 voterStatus;
 voteCounter:number;
+results;
+resultSet;
   constructor(
     private router:Router,
     private route:ActivatedRoute,
@@ -66,6 +68,10 @@ voteCounter:number;
       this.gid = pollInfo.gid;
       if (status === 'ongoing') {
         this.checkStatus();
+      }
+
+      if(this.status === 'finished'){
+        this.getResult(this.pid);
       }
       // Voter Status
       this.PS.voterStatus(this.pid, this.currentUser).subscribe((status:any)=>{
@@ -136,4 +142,13 @@ voteCounter:number;
     this.PS.addVote(preVote);
   }
 
+
+  getResult(pid){
+    this.PS.displayResult(pid).subscribe(results=>{
+      this.results=results;
+      console.log(results);
+    
+    });
+
+  }
 }

@@ -114,6 +114,12 @@ export class PollService {
       });
   }
 
+
+  displayResult(pid){
+    return this.afs.collection('polls/'+ pid +'/contenders/',ref=>ref.orderBy('votes', 'desc')).valueChanges();
+
+  }
+
   /*getContenders(){
     return this.afs.coll
   }*/
