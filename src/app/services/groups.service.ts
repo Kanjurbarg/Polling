@@ -39,7 +39,15 @@ export class GroupsService {
         createdOn: firebase.firestore.FieldValue.serverTimestamp()
   
       }; 
-      this.afs.doc('groups/' + gid).set(data).then(()=> this.router.navigateByUrl('groups/' + gid));
+      this.afs.doc('groups/' + gid).set(data)
+      .then(()=> {
+        this.router.navigateByUrl('groups/' + gid);
+        const data= {
+          memberID:adminID,
+          addedOn:firebase.firestore.FieldValue.serverTimestamp()
+        };
+        this.afs.doc('groups/' + gid + '/members/' + adminID).set(data);
+      });
     });
   }
 
@@ -64,4 +72,8 @@ export class GroupsService {
   
   }
 
+  addMember(gid, uid){
+    
+  
+  }
 }

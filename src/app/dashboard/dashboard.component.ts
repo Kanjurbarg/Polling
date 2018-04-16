@@ -99,7 +99,6 @@ export class DashboardComponent implements OnInit {
       title:this.groupForm.get('title').value,
       description: this.groupForm.get('description').value
    };
-
    this.GS.createGroup(groupData);
    this.modalRef.close();
   }

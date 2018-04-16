@@ -37,7 +37,6 @@ export class GroupComponent implements OnInit {
   //User Seach
   searchterm;
   users;
-
   startAt = new Subject();
   endAt = new Subject();
 
