@@ -58,7 +58,7 @@ export class PollsComponent implements OnInit {
       this.status=poll.status;
       this.gid=poll.gid;
       this.duration=poll.duration;
-      if(this.status === 'ongoing'){
+      if(this.status !== 'off'){
         this.router.navigateByUrl('voting/' + this.pid);
       }
 
@@ -77,16 +77,11 @@ export class PollsComponent implements OnInit {
         this.displayContenders.forEach((user:any)=>{
           this.US.getUserDocument(user.cid).subscribe(userDoc=>{
             this.pollContenders.push(userDoc);
-          });
-          
-        });
-        
+          });         
+        });       
       });
-
-
     });
     
-   
   }//ngOninit Ends
 
  getContender(contenderID){
@@ -107,7 +102,6 @@ export class PollsComponent implements OnInit {
  startPoll(){
    this.PS.updateStatus(this.pid);
     this.router.navigateByUrl('poll/' + this.pid);
-
  }
 
 }

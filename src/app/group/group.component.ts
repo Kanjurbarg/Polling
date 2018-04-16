@@ -36,7 +36,7 @@ export class GroupComponent implements OnInit {
 
   //User Seach
   searchterm;
-  users=[];
+  users;
 
   startAt = new Subject();
   endAt = new Subject();
@@ -61,6 +61,7 @@ export class GroupComponent implements OnInit {
     startDate: new FormControl('',Validators.required),
     endDate: new FormControl('',Validators.required),
   });
+  groupMembers;
 
     constructor(
     private afs:AngularFirestore,
@@ -111,7 +112,7 @@ export class GroupComponent implements OnInit {
       value => {
         this.doQuery(value[0], value[1]).subscribe(
           users => {
-            this.users=[];
+            this.users=users;
             users.forEach(user=>{
               this.users.push(user);
             });
@@ -126,6 +127,7 @@ export class GroupComponent implements OnInit {
           this.gMembers= [];
           this.US.getUserDocument(member.memberID).subscribe(userDoc=>{
           this.gMembers.push(userDoc);  
+          this.groupMembers =userDoc;
         });
         
       });

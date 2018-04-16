@@ -6,6 +6,8 @@ import { GroupsService } from '../services/groups.service';
 import { UserService } from '../services/user.service';
 import { Time } from '@angular/common';
 import { AuthService } from '../services/auth.service';
+import { Chart } from 'chart.js';
+
 
 @Component({
   selector: 'app-voting',
@@ -66,8 +68,8 @@ resultSet;
       this.startDate = pollInfo.startedOn,
       this.duration = pollInfo.duration;
       this.gid = pollInfo.gid;
+
       if (this.status === 'ongoing') {
-        console.log
         this.checkStatus();
       }
 
@@ -127,6 +129,8 @@ resultSet;
     const createdTime: any = new Date(this.startDate);
     const currentTime: any = new Date();
     this.timer = currentTime - createdTime;
+    console.log("Timer"+this.timer);
+    console.log(this.duration*360000);
     if (this.duration * 3600000 <= this.timer) {
       console.log('Poll Finished');
       this.PS.endPoll(this.pid);
