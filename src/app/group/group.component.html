@@ -10,8 +10,10 @@
     
     <div  class="col-md-8 ml-1" style="border:1px solid black">  
       <div *ngIf="admin==adminID">
-      <button class="btn btn-primary my-1" (click)="open(content)">Create Poll</button>   
+      <button class="btn btn-primary my-1" (click)="open(content,'opinion')">Opinion Poll</button>   
+      <button class="btn btn-primary my-1" (click)="open(content,'election')">Election Poll</button>   
      </div>
+    
       <hr>
       <div class='row'>
        
@@ -61,37 +63,51 @@
           </div>
           <div class="modal-body">
            <form [formGroup]="pollForm"> 
-            <label for="pollTitle">Title</label><input type="text" id="pollTitile" formControlName="title">
+            <div *ngIf="pollType == 'election'">
+            <label for="pollTitle">Title</label><input type="text" id="pollTitle" formControlName="title">
 
             <label for="pollDes">Description</label> <textarea  id="pollDes" rows="3" style="resize:none" formControlName="des"></textarea>
-            <label>Pick a Duration</label>
-              <div class="form-inline row mx-1">
-                <div class="col-2 ">
-                  <button class="btn btn-success" (click)="getDuration(1)">1 Hr</button>
-                </div>
-                <div class="col-2 ">
-                  <button class="btn btn-success" (click)="getDuration(2)">2 Hr</button>
-                </div>
-                <div class="col-2 ">
-                  <button class="btn btn-success" (click)="getDuration(3)">6 Hr</button>
-                </div>
-                <div class="col-2 ">
-                  <button class="btn btn-success" (click)="getDuration(4)">1 Day</button>
-                </div>
-                <div class="col-2 ">
-                  <button class="btn btn-success" (click)="getDuration(5)">2 Days</button>
-                </div>
+             
+            
+                <label>Pick a Duration</label>
+                  <div class="form-inline row mx-1">
+                    <div class="col-2">
+                      <button class="btn btn-success" (click)="getDuration(1)">1 Hr</button>
+                    </div>
+                    <div class="col-2">
+                      <button class="btn btn-success" (click)="getDuration(2)">2 Hr</button>
+                    </div>
+                    <div class="col-2">
+                      <button class="btn btn-success" (click)="getDuration(3)">6 Hr</button>
+                    </div>
+                    <div class="col-2">
+                      <button class="btn btn-success" (click)="getDuration(4)">1 Day</button>
+                    </div>
+                    <div class="col-2">
+                      <button class="btn btn-success" (click)="getDuration(5)">2 Days</button>
+                    </div>
+                  </div>
               </div>
-           
-          </form>
+            </form>
+            <form>
+              <div *ngIf="pollType == 'opinion'">
+                <label>Question</label>
+                <input type="text" [(ngModel)]="question" name="question" placeholder="Type Your Question Here...." minlength="5" maxlength="50">
+                <label>Description of Question</label>
+                <textarea [(ngModel)]="desciption" name="desciption" placeholder="Describe Your Question....." id="pollDes" rows="3" style="resize:none"></textarea>
+              </div>
+            </form>
           </div>
             <div class="modal-footer">
-              <button class="btn btn-primary" (click)="createPoll()">Next..</button>
+              <button *ngIf="pollType != 'opinion'" class="btn btn-primary" (click)="createPoll(pollType)">Next..</button>
+              <button *ngIf="pollType == 'opinion'" class="btn btn-primary" (click)="createPoll(pollType)">Next Step</button>
             </div>
+        </ng-template>
+
+        <ng-template #choiceModal let-c="close" let-d="dismiss">
+          <div>
+
+          </div>
         </ng-template>
         
   <!--End Modal -->
-<!--<div class="mt-5 my-2 ">
-    <button class="btn btn-primary">Create Poll</button>
-    <button class="btn btn-danger" (onClick)="logout()">Logout</button>
-  </div>-->

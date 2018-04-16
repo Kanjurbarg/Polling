@@ -45,6 +45,8 @@ export class GroupComponent implements OnInit {
   endAtObs = this.endAt.asObservable();
 
   //Poll Information
+  opinionStatus:boolean=false;
+  pollType;
   pollTitle;
   pollDes;
   startDate:Date;
@@ -52,7 +54,9 @@ export class GroupComponent implements OnInit {
   status;
   model: NgbDateStruct;
   date: {year: number, month: number};
-  modalRef;
+  modalRefOpinion;
+  modalRefElection;
+  modalRefChoices;
   duration:number;
   groupPolls=[];
   pollForm= new FormGroup({
@@ -60,7 +64,11 @@ export class GroupComponent implements OnInit {
     des: new FormControl('',Validators.required),
     startDate: new FormControl('',Validators.required),
     endDate: new FormControl('',Validators.required),
+    choice: new FormControl('',Validators.required),
   });
+  choices:string;
+  question:string;
+  desciption:string;
   groupMembers;
 
     constructor(
@@ -168,25 +176,49 @@ export class GroupComponent implements OnInit {
     
   }
   
-  createPoll()
+  createPoll(type)
   {
-    const pollDetails={
-      title:this.pollForm.get('title').value,
-      des:this.pollForm.get('des').value,
-      duration:this.duration,
-      gid:this.gid
-    };
-    console.log(pollDetails);
-    this.PS.createPolls(pollDetails);
-    this.modalRef.close();
+     
+    if(type === 'election'){
+       const pollDetails={
+        title:this.pollForm.get('title').value,
+        des:this.pollForm.get('des').value,
+        duration:this.duration,
+        gid:this.gid,
+        type:this.pollType
+      };
+      this.PS.createPolls(pollDetails);
+      this.modalRefElection.close();
+    }
+    if(type === 'opinion'){
+      const pollDetails={
+        title: this.question,
+        des: this.desciption,
+        type: type,
+        gid:this.gid,
+      };
+      this.PS.createPolls(pollDetails);
+      this.modalRefOpinion.close();
+    
+    }
+    
+
+    
   }
 
-  open(content) {
-    this.modalRef=this.modalService.open(content);
+  open(content,type) {
+    this.pollType = type;
+    console.log('type'+ type);
+    if(type === 'opinion'){
+    this.modalRefOpinion=this.modalService.open(content,type);
+    }
+    if(type === 'election'){
+    this.modalRefElection=this.modalService.open(content,type);
+  }
+    return type;
   }
 
   goToPoll(pid){
-    console.log("gotopoll"+ pid);
     this.router.navigateByUrl('poll/'+pid);
   }
   getDuration(duration){
@@ -208,6 +240,18 @@ export class GroupComponent implements OnInit {
     }
     console.log(this.duration);
     
+  }
+
+  addChoice(event){
+    console.log("Add choice");
+    event.preventDefault();
+    console.log(this.choices);
+  }
+
+
+  nextModal(choiceModal){
+    this.modalRefOpinion.close();
+    this.modalRefChoices= this.modalService.open(choiceModal);
   }
 
 }

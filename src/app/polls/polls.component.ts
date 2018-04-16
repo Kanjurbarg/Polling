@@ -24,9 +24,13 @@ export class PollsComponent implements OnInit {
   contender=[];
   voters=[];
   user=[];
-  gMembers=[];
+  gMembers;
   votes:number=0;
   statBtn;
+  createdOn:Date;
+  type;
+  choice:string;
+  choicesList;
 
 
   constructor(
@@ -51,13 +55,26 @@ export class PollsComponent implements OnInit {
     });
    
 
-    this.PS.getPoll(this.pid).subscribe((poll:any)=>{
-      console.log(poll);
-      this.topic= poll.title;
-      this.description= poll.des;
-      this.status=poll.status;
-      this.gid=poll.gid;
-      this.duration=poll.duration;
+    this.PS.getPoll(this.pid).subscribe((pollInfo:any)=>{
+      if(pollInfo.type === 'election')
+      {this.topic = pollInfo.title,
+      this.description = pollInfo.des,
+      this.status = pollInfo.status;
+      this.createdOn = pollInfo.createdOn,
+      this.duration = pollInfo.duration;
+      this.gid = pollInfo.gid;
+      this.type = 'Election Poll';
+    }
+
+      if(pollInfo.type === 'opinion'){
+      this.topic = pollInfo.title,
+      this.description = pollInfo.des,
+      this.status = pollInfo.status,
+      this.createdOn = pollInfo.createdOn,
+      this.gid = pollInfo.gid;
+      this.type = 'Opinion Poll';
+      }
+
       if(this.status !== 'off'){
         this.router.navigateByUrl('voting/' + this.pid);
       }
@@ -65,8 +82,9 @@ export class PollsComponent implements OnInit {
       this.GS.getMembers(this.gid).subscribe(members=>{
         members.forEach((member:any)=>{
           this.user.push(member.memberID);
-          this.gMembers=[];
+          this.gMembers;
           this.US.getUserDocument(member.memberID).subscribe(userDoc=>{
+            console.log("members "+userDoc);
             this.gMembers.push(userDoc);
           });
         });
@@ -79,6 +97,10 @@ export class PollsComponent implements OnInit {
             this.pollContenders.push(userDoc);
           });         
         });       
+      });
+
+      this.PS.getChoices(this.pid).subscribe(list=>{
+        this.choicesList = list;
       });
     });
     
@@ -101,7 +123,19 @@ export class PollsComponent implements OnInit {
   }
  startPoll(){
    this.PS.updateStatus(this.pid);
-    this.router.navigateByUrl('poll/' + this.pid);
+    this.router.navigateByUrl('voting/' + this.pid);
+ }
+ addChoice(event){
+   event.preventDefault();
+   console.log(this.choice);
+  
+    const data={
+      choice: this.choice,
+      votes:this.votes,
+      pid:this.pid
+    };
+   this.PS.addChoice(data);
+   this.choice ='';
  }
 
 }

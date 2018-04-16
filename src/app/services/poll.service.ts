@@ -26,15 +26,24 @@ uid;
   getPoll(pid){
     return this.afs.doc('polls/' + pid).valueChanges();
   }
+    
+  goToChoice(){
+    let go='success';
+    let obs:Observable<any>
+    return go;
+  }  
 
   createPolls(pollDetails)
   {
-    const pid =this.afs.createId();
-    const data={
+    if(pollDetails.type === 'election')
+    {
+      const pid =this.afs.createId();
+      const data={
       title:pollDetails.title,
       des:pollDetails.des,
       gid:pollDetails.gid,
       status:"off",
+      type:pollDetails.type,
       pid:pid,
       createdOn:firebase.firestore.FieldValue.serverTimestamp(),
       duration:pollDetails.duration,
@@ -46,6 +55,29 @@ uid;
     }).catch((err)=>{
       console.log(err);
     });
+  }
+
+
+  if(pollDetails.type === 'opinion'){
+    const pid =this.afs.createId();
+    const data={
+    title:pollDetails.title,
+    des:pollDetails.des,
+    gid:pollDetails.gid,
+    status:"off",
+    type:pollDetails.type,
+    pid:pid,
+    createdOn:firebase.firestore.FieldValue.serverTimestamp(),
+  };
+  this.afs.doc('polls/'+pid).set(data)
+    .then(()=>{
+      console.log("Success");
+      this.router.navigateByUrl('poll/'+pid);
+    }).catch((err)=>{
+      console.log(err);
+    });
+  }
+
   }
 
 
@@ -79,6 +111,22 @@ uid;
       uid:this.uid
     };
     this.afs.doc('polls/' + voteDetails.pid + '/contenders/' + voteDetails.cid + '/votes/' + this.uid).set(vote).then(()=>console.log('vote Added Successfully'));
+  }
+
+
+  getChoices(pid){
+    return this.afs.collection('polls/' + pid + '/choices').valueChanges();
+  }
+  addChoice(voteData){
+   let cid = this.afs.createId();
+    const data={
+      choiceId: cid,
+      choice: voteData.choice,
+      votes: voteData.votes,
+
+    }
+    this.afs.doc('polls/' + voteData.pid + '/choices/' + cid).set(data)
+    .then(()=>{console.log("Choice Added Successfully")}).catch((err)=> console.log(err));
   }
 
   contenderStatus(voteDetails){

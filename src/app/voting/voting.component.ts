@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PollService } from '../services/poll.service'
@@ -6,7 +6,7 @@ import { GroupsService } from '../services/groups.service';
 import { UserService } from '../services/user.service';
 import { Time } from '@angular/common';
 import { AuthService } from '../services/auth.service';
-import { Chart } from 'chart.js';
+import { Chart } from 'chart.js'
 
 
 @Component({
@@ -34,13 +34,18 @@ voterStatus;
 voteCounter:number;
 results;
 resultSet;
+myChart;
+createdOn;
+setupPoll;
+type:string;
   constructor(
     private router:Router,
     private route:ActivatedRoute,
     private PS:PollService,
     private US:UserService,
     private GS:GroupsService,
-    private auth:AuthService
+    private auth:AuthService,
+    private elementRef: ElementRef
   ) { }
 
   timer;
@@ -56,18 +61,29 @@ resultSet;
      //Get the router parameter
      this.route.paramMap.subscribe(params => {
       this.pid = params.get('pid');
-
     });
 
-
-
     this.PS.getPoll(this.pid).subscribe((pollInfo:any)=>{
-      this.title = pollInfo.title,
+      if(pollInfo.type === 'election')
+      {this.title = pollInfo.title,
       this.description = pollInfo.des,
       this.status = pollInfo.status;
+      this.createdOn = pollInfo.createdOn,
       this.startDate = pollInfo.startedOn,
       this.duration = pollInfo.duration;
       this.gid = pollInfo.gid;
+      this.type = 'Election Poll';
+    }
+
+      if(pollInfo.type === 'opinion'){
+      this.title = pollInfo.title,
+      this.description = pollInfo.des,
+      this.status = pollInfo.status,
+      this.createdOn = pollInfo.createdOn,
+      this.startDate = pollInfo.startedOn,
+      this.gid = pollInfo.gid;
+      this.type = 'Opinion Poll';
+      }
 
       if (this.status === 'ongoing') {
         this.checkStatus();
@@ -76,6 +92,10 @@ resultSet;
       if(this.status === 'finished'){
         this.getResult(this.pid);
       }
+
+      if(this.status === 'onging')
+
+
       // Voter Status
       this.PS.voterStatus(this.pid, this.currentUser).subscribe((status:any)=>{
        this.voterStatus=status;
@@ -121,6 +141,14 @@ resultSet;
       });
     });
 
+    //Chart code start
+    
+  
+    this.chartit();
+    
+    // Chart code End
+
+
 
 
   }//Oninit ends
@@ -150,5 +178,47 @@ resultSet;
     
     });
 
+  }
+
+  chartit(){
+    var ctx = this.elementRef.nativeElement.querySelector('#myChart');
+    this.myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+console.log("Chart "+this.myChart);
+    
   }
 }
