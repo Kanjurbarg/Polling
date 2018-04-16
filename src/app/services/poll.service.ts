@@ -105,6 +105,18 @@ uid;
       this.router.navigateByUrl('voting/' + pid);
   });
   }
+  registerVoter(voterDetails){
+    const data={
+      cid:voterDetails.cid,
+      uid:voterDetails.uid,
+      time: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    this.afs.doc('polls/' + voterDetails.pid + '/opinions/' + data.uid).set(data).then(()=>{
+      console.log("Voter Added Successfully");
+    });
+  } 
+
 
   addVote(voteDetails){
     const vote={
@@ -115,7 +127,7 @@ uid;
 
 
   getChoices(pid){
-    return this.afs.collection('polls/' + pid + '/choices').valueChanges();
+    return this.afs.collection('polls/' + pid + '/choices', ref=> ref.orderBy('time','asc')).valueChanges();
   }
   addChoice(voteData){
    let cid = this.afs.createId();
@@ -123,10 +135,14 @@ uid;
       choiceId: cid,
       choice: voteData.choice,
       votes: voteData.votes,
-
+      time: firebase.firestore.FieldValue.serverTimestamp()
     }
     this.afs.doc('polls/' + voteData.pid + '/choices/' + cid).set(data)
     .then(()=>{console.log("Choice Added Successfully")}).catch((err)=> console.log(err));
+  }
+
+  choiceVoterStatus(pid, uid){
+    return this.afs.doc('polls/' + pid + '/opinions/' + uid).valueChanges();
   }
 
   contenderStatus(voteDetails){

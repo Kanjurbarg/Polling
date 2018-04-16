@@ -22,4 +22,27 @@ exports.onVote = functions.firestore
         });
     }).catch(err => console.log(err));
 });
+exports.onOpinionVote = functions.firestore
+    .document('polls/{pid}/opinions/{vid}')
+    .onCreate(event => {
+    console.log('Cloud Fucntion start 1.....');
+    const pid = event.params.pid;
+    const uid = event.params.vid;
+    const voteDoc = event.data.data();
+    const cid = voteDoc.cid;
+    console.log('Cloud Fucntion start. 2....');
+    const data = {
+        uid: uid
+    };
+    afs.doc('polls/' + pid + '/choices/' + cid + '/votes/' + uid).set(data).catch(err => console.log(err));
+    console.log('Cloud Fucntion start. 3....');
+    afs.collection('polls/' + pid + '/choices/' + cid + '/votes/').get().then(votes => {
+        console.log('Cloud Fucntion start 4.....');
+        const voteCount = votes.size;
+        afs.doc('polls/' + pid + '/choices/' + cid).update({
+            votes: voteCount
+        });
+        console.log('Cloud Fucntion start 5.....');
+    }).catch(err => { console.log(err); console.log('Cloud Fucntion start 5.....'); });
+});
 //# sourceMappingURL=index.js.map

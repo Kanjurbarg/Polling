@@ -122,7 +122,7 @@ export class PollsComponent implements OnInit {
       this.PS.endPoll(this.pid);
   }
  startPoll(){
-   this.PS.updateStatus(this.pid);
+    this.PS.updateStatus(this.pid);
     this.router.navigateByUrl('voting/' + this.pid);
  }
  addChoice(event){

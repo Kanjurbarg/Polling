@@ -1,11 +1,13 @@
-<div *ngIf="status=='ongoing'; then voting else result"></div>
+<div *ngIf="type == 'election'; then election else opinion"></div>
+<ng-template #election>
+    <div *ngIf="status=='ongoing'; then evoting else eresult"></div>
+</ng-template>
+<ng-template #opinion>
+    <div *ngIf="status=='ongoing'; then ovoting else oresult"></div>
+</ng-template>
 
-<ng-template #voting>
-
+<ng-template #evoting>
   <div class="container">
-
-
-
       <div class=" text-justify text-center inline-blocks bg-light container-fluid">
           <div class="" height="200px">
             <h1 class="" style="font-size: 50px">{{title}}</h1>
@@ -19,7 +21,6 @@
           <h5>Duration of Poll: {{duration}} Minutes</h5>
           <h5>Status:{{status}}</h5>
         </div>
-
         <div class="row">
             <div class="col-md-9">
               <div class="row">
@@ -31,7 +32,6 @@
                    </div>
               </div>
             </div>
-
             <div class="col-md-3  bg-light">
               <div class="row">
                 <h2 class="mx-1">List Of Voter</h2>
@@ -43,8 +43,6 @@
                 </div>
             </div>
         </div>
-
-
         <div class="row mt-2 bg-light">
           <div class="row mx-1">
             <div class="col-12">
@@ -57,14 +55,11 @@
               </div>
             </div>
         </div>
-
   </div>
-
 </ng-template>
 
-<ng-template #result>
+<ng-template #eresult>
   <div class="container">
-
       <div class=" text-justify text-center inline-blocks bg-light container-fluid">
               <div class="" height="200px">
                 <h1 class="" style="font-size: 50px">{{title}}</h1>
@@ -73,16 +68,12 @@
                   <h3 class=" " style="font-size:30px">"{{description}}..."</h3>
               </div>             
       </div>
-
         <div>
           <h4>Started On: {{startDate}}</h4>
           <h5>Duration of Poll: {{duration}} Minutes</h5>
           <h5>Status : {{status}}</h5>
         </div>
-
-
         <div class="row">
-
             <div class="col-md-12">
                 <div class="row">
                   <h1> Result </h1>
@@ -93,14 +84,71 @@
                     </div>
                 </div>
               </div>
-
         </div>
-
         <script>
             <canvas id="myChart" width="400" height="400"></canvas>
         </script>
   </div>
 </ng-template>
+
+<ng-template #ovoting>
+  <div  class="container">
+    <div class="text-justify text-center inline-blocks bg-light containerifluid">
+        <div class="" height="200px">
+          <h1 class="" style="font-size: 50px">{{title}}</h1>
+        </div>
+        <div class="">
+            <h3 class=" " style="font-size:30px">"{{description}}..."</h3>
+        </div>             
+    </div>
+      <div>
+        <h4>Started On:{{startDate}}</h4>
+        <h5>Status:{{status}}</h5>
+      </div>
+
+      <div class="container ">
+        <div class="row justify-content-between">
+          <div class="col-md-8 bg-light">
+            <h2>Please Vote Here...</h2>
+            <div  class="row bg-white p-2 m-2" *ngFor="let choice of choiceList; let i = index">
+              
+              <div class="col-md-1">
+               <h1> {{i+1}}</h1>
+              </div>
+              <div class="col-md-8" >
+               <h1> {{choice.choice}}</h1>
+              </div>
+              <div *ngIf="opinionVoter != null; else voteBtn" class="col-md-3 text-center">
+                <h2>Total Votes</h2>
+                <h1>{{choice.votes}}</h1>
+              </div>             
+            </div>
+          </div>
+          <div class="col-md-3 ml-3 bg-light">
+            <h2>List of Voters </h2>
+          </div>         
+        </div>
+      </div>
+    </div>
+</ng-template>
+
+<ng-template #oresult>
+    <div  class="container">
+        <div class="text-justify text-center inline-blocks bg-light containerifluid">
+            <div class="" height="200px">
+              <h1 class="" style="font-size: 50px">{{title}}</h1>
+            </div>
+            <div class="">
+                <h3 class=" " style="font-size:30px">"{{description}}..."</h3>
+            </div>             
+        </div>
+          <div>
+            <h4>Started On:{{startDate}}</h4>
+            <h5>Status:{{status}}</h5>
+          </div>
+        </div>
+</ng-template>
+
 
 
 <ng-template #voted>
@@ -108,3 +156,10 @@
         <button id="voted" class="col-12 btn btn-success btn-lg content-justify-center text-white" disabled>Already Voted</button>
     </div>
 </ng-template>
+
+
+
+<ng-template #voteBtn id="choice" class="text-center">
+    <button class="btn btn-danger col-md-3 text-center" (click)="registerVote(choice.choiceId)"><h1>Vote Me</h1></button>
+ </ng-template>
+  

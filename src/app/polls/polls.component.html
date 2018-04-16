@@ -60,21 +60,22 @@
                     <button type="submit" class="btn btn-primary align-top" >Add Choice</button>
                 </form>
             </div>
-            <div class="row border justify-content-between">
-            <div class="col-md-5 justify-content-between border">
+            <div class="row  justify-content-between">
+            <div class="col-md-8 justify-content-between border">
               <h2>Your Choices are...</h2>
             
-              <div class="row justify-content-between text-center" *ngFor="let choice of choicesList ;let i = index ">
+              <div class="row justify-content-between " *ngFor="let choice of choicesList ;let i = index ">
                 <div class="col-11 mx-1 justify-content-between">
-                  <div class="row p-2 mx-2 bg-white border-rounded text-center text-capitalize">
-                    {{i+1}} {{choice.choice}} <button class="btn btn-sm btn-danger ml-1" (click)="deleteChoice(choice.cid)">Delete</button>
-                  </div>
+                  <div class="row p-2 mx-2 bg-white border-rounded  text-capitalize">
+                    <div class="col-md-1">{{i+1}}</div> <div class="col-md-8 float-left" style="font-size:20;">{{choice.choice}}</div> <button class=" col-md-2 btn btn-sm btn-danger ml-1" (click)="deleteChoice(choice.cid)">Delete</button>
+                 </div>
+                 <hr>
                 </div>
               </div>
           </div>
         </div>
       </div>
-          <div class="border col-md-4">
+          <div class="border col-md-3 ml-2">
             <div class="row">
                 <div class="col-12">
                   <h5>List of Voters.</h5>
@@ -86,6 +87,9 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="row">
+          <button class="col-md-12 btn btn-success"  (click)="startPoll()">Start Your Poll</button>
         </div>
       </div>
   </ng-template>

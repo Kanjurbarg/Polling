@@ -6,7 +6,7 @@ import { GroupsService } from '../services/groups.service';
 import { UserService } from '../services/user.service';
 import { Time } from '@angular/common';
 import { AuthService } from '../services/auth.service';
-import { Chart } from 'chart.js'
+
 
 
 @Component({
@@ -38,6 +38,8 @@ myChart;
 createdOn;
 setupPoll;
 type:string;
+choiceList;
+opinionVoter
   constructor(
     private router:Router,
     private route:ActivatedRoute,
@@ -72,7 +74,7 @@ type:string;
       this.startDate = pollInfo.startedOn,
       this.duration = pollInfo.duration;
       this.gid = pollInfo.gid;
-      this.type = 'Election Poll';
+      this.type = pollInfo.type;
     }
 
       if(pollInfo.type === 'opinion'){
@@ -82,7 +84,7 @@ type:string;
       this.createdOn = pollInfo.createdOn,
       this.startDate = pollInfo.startedOn,
       this.gid = pollInfo.gid;
-      this.type = 'Opinion Poll';
+      this.type = pollInfo.type;
       }
 
       if (this.status === 'ongoing') {
@@ -96,9 +98,14 @@ type:string;
       if(this.status === 'onging')
 
 
-      // Voter Status
+      // Voter Status Election
       this.PS.voterStatus(this.pid, this.currentUser).subscribe((status:any)=>{
        this.voterStatus=status;
+      });
+      // Voter Status Opinion
+      this.PS.choiceVoterStatus(this.pid, this.currentUser).subscribe((status:any)=>{
+        console.log(status);
+        this.opinionVoter = status;
       });
 
       // Voters List
@@ -110,9 +117,7 @@ type:string;
         this.US.getUserDocument(member.memberID).subscribe(userDoc=>{
         this.gMembers.push(userDoc);
       });
-
     });
-
   });
 
 
@@ -130,13 +135,15 @@ type:string;
       });
     });
 
+      this.PS.getChoices(this.pid).subscribe(list=>{
+        this.choiceList = list;
+      });
+
     this.PS.displayVoters(this.pid).subscribe((voterDoc:any)=>{
       this.voter=voterDoc;
-      console.log(voterDoc);
       this.voter.forEach((voterInfo:any)=>{
         this.US.getUserDocument(voterInfo.uid).subscribe(userDoc=>{
           this.voters.push(userDoc);
-          console.log(userDoc);
         });
       });
     });
@@ -144,7 +151,7 @@ type:string;
     //Chart code start
     
   
-    this.chartit();
+    //this.chartit();
     
     // Chart code End
 
@@ -168,7 +175,14 @@ type:string;
     }
   }
 
- 
+    registerVote(cid){
+      const data={
+        cid:cid,
+        uid:this.currentUser,
+        pid:this.pid
+      };
+      this.PS.registerVoter(data);
+    }
 
 
   getResult(pid){
@@ -180,45 +194,5 @@ type:string;
 
   }
 
-  chartit(){
-    var ctx = this.elementRef.nativeElement.querySelector('#myChart');
-    this.myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-});
-console.log("Chart "+this.myChart);
-    
-  }
+ 
 }
