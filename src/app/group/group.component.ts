@@ -25,12 +25,12 @@ export class GroupComponent implements OnInit {
   gDescription;
   gAdmin;
   gDate:Date;
-  gMembers=[];
+  gMembers;
   gid;
   admin;
   gTitle;
   adminID
-  user=[]
+  user=[];
   //group info
   groupInfo=[];
 
@@ -139,11 +139,11 @@ export class GroupComponent implements OnInit {
         
       });
         console.log(this.gMembers);
-
     });
 
     this.PS.getGroupPolls(this.gid).subscribe(polls=>{
       this.groupPolls=polls;
+      console.log("Polls"+ this.groupPolls);
     });
 
   }//OnInit End

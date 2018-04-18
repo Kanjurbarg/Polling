@@ -1,39 +1,52 @@
 <div *ngIf="display_name ; else loading">
-<div class="container  dashboard mt-3" #dashboard>
-  <div class="container-fluid">
-   <div class="row  mx-0 px-0 justify-content-between">
-    <div class="col-12 col-md-3">
-      <div id="user-info"  class="border border-dark p-2 d-none d-md-inline-block">
-        <img [src]="photoURL" width="70px">
-        {{display_name}} @{{username}} <br>
-        {{desc}} <br>
-        {{joinDate}}
-      </div>
-      <div>
-        Hello world
-      </div>
-      <div id="pending-polls" class="border border-dark p-2 my-1">
-          <h2>Pending Poll List</h2>
+  <div class="container mt-3 bg-white px-0"> 
+    <div class="container-fluid pt-2">
+      <div class="row">
+        <div class="col-md-3 border border-danger">
+          <div class="p-2">
+          <img class="circle-image" [src]="photoURL" alt=""> <h4>{{display_name}}</h4><h5>@{{username}}</h5>
+          <h6>Joined On : {{joinDate}}</h6>
         </div>
-      <button class="btn btn-danger" (click)="logout()">Logout</button>
-    </div>
-    <div class=" col-md-6 border border-dark p-2 ">
-        <button type="button" class="btn btn-primary"  (click)="open(content)">Create Group</button>
-    </div>
-    <div class="col-3  ">
-      <div class="ml-2 border border-dark">
-        <div  *ngFor="let group of adminGroups">
-          <ul style="list-style-type:none">
-           <a [routerLink]="['/groups', group.gid]"> <li><h4>{{group.title}}</h4></li>
-            <li class="ml-2"><p>{{group.description}}<p></li>
-           </a>
-          </ul>
+        </div>
+        <div class="col-md-6">
+          <div class="">
+              <ngb-tabset justify="fill" class="p-0 m-0">
+                  <ngb-tab  class=" p-0 m-0 border" title="Ongoing Polls">
+                    <ng-template class="  container border" ngbTabContent>
+                      <div class="border border-top-0">
+                        <h1>Ongoing Polls Feed</h1>
+                      </div>
+                    </ng-template>
+                  </ngb-tab>
+              
+                  <ngb-tab class="p-0 m-0" title="Finished Polls">
+                    <ng-template class="container border" ngbTabContent>
+                      <div class="border border-top-0">
+                          <h1>Finished Polls Feed</h1>
+                      </div>
+                    </ng-template>
+                  </ngb-tab>
+              </ngb-tabset>
+          </div>
+        </div>  
+        <div class="col-md-3 border border-danger">
+          <h1>Groups Page</h1>
+          <div class="float-right">
+              <button type="button" class="btn btn-primary"  (click)="open(content)">Create Group</button>
+          </div>
+          <div class="container">
+          <div *ngFor="let group of adminGroups">
+              <ul style="list-style-type:none">
+               <a [routerLink]="['/groups', group.gid]"> <li><h4>{{group.title}}</h4></li>
+                <li class="ml-2"><p>{{group.description}}<p></li>
+               </a>
+              </ul>
+            </div>    
+          </div>
         </div>
       </div>
-      </div>
+    </div>
   </div>
-  </div>
-</div>
 </div>
 
 

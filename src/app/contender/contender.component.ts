@@ -53,7 +53,6 @@ export class ContenderComponent implements OnInit {
 
       this.PS.voterStatus(this.pid,this.currentUser).subscribe(voter=>{
         this.voterStatus = voter;
-       
   
         if(voter){
           this.voteBtn="content:'You have Voted '; ";

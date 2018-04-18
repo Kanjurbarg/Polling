@@ -55,7 +55,6 @@ export class GroupsService {
     console.log('this is admin ID  '+adminID);
     this.groupCol = this.afs.collection('groups', ref=>ref.where('admin','==',adminID));
     this.groupsObs = this.groupCol.valueChanges();
-    console.log(this.groupsObs);
     return this.groupsObs;
   }
 

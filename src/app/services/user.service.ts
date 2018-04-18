@@ -18,5 +18,8 @@ export class UserService {
     return this.afs.doc<any>('users/' + uid).valueChanges();
   }
 
+  opinionFeed(uid){
+    return this.afs.collection('users/' + uid + '/feed/', ref=>ref.where('status','==','ongoing')).valueChanges();
+  }
 
 }

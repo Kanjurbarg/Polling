@@ -33,6 +33,20 @@ uid;
     return go;
   }  
 
+  toFeed(uid, gid, pid, status){
+    const data={
+      uid:uid,
+      pid:pid,
+      status:status,
+      time: firebase.firestore.FieldValue.serverTimestamp()
+    };
+    this.afs.doc('users/' + uid + '/feed/' + uid).set(data).then(()=>{
+    console.log('Feed Added to users');
+    });
+  }
+
+
+
   createPolls(pollDetails)
   {
     if(pollDetails.type === 'election')
@@ -82,7 +96,7 @@ uid;
 
 
   addContenders(contender){
-    console.log("Service pid"+ contender.pid)
+   
     const data={
       cid:contender.cid,
       votes:contender.votes
@@ -114,6 +128,7 @@ uid;
 
     this.afs.doc('polls/' + voterDetails.pid + '/opinions/' + data.uid).set(data).then(()=>{
       console.log("Voter Added Successfully");
+      this.router.navigateByUrl('voting/' + voterDetails.pid);
     });
   } 
 
@@ -147,7 +162,7 @@ uid;
 
   contenderStatus(voteDetails){
 
-    console.log("do not interate");
+   
     return this.afs.doc('polls/'+ voteDetails.pid + '/contenders/' + voteDetails.cid).valueChanges();
   }
 
@@ -157,7 +172,7 @@ uid;
   }
 
   getGroupPolls(gid){
-    console.log("GID "+ gid);
+   
     return this.afs.collection('polls',ref=>ref.where('gid','==',gid)).valueChanges();
   }
 

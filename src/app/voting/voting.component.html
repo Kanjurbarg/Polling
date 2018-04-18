@@ -98,7 +98,7 @@
                               [labels]="doughnutChartLabels"
                               chartType="doughnut"
                               (chartHover)="chartHovered($event)"
-                              (chartClick)="chartClicked($event)">
+                              >
                   </canvas>
                 </div>
           </div>
@@ -138,7 +138,7 @@
                <h1 style="font-size:60px">#{{i+1}}</h1>
               </div>
               <div class="col-md-8" >
-               <h1> {{choice.choice}}</h1>
+               <h2> {{choice.choice}}</h2>
               </div>
               <div *ngIf="opinionVoter != null; else voteBtn" class="col-md-3 text-center">
                 <h2>Total Votes</h2>
@@ -163,7 +163,7 @@
       </div>
 
       </div>
-      <div class="container bg-white border mt-3 p-2">
+      <div *ngIf="!voterStatus" class="container bg-white border mt-3 p-2">
         <h1 class="">Summary</h1>
           <div style="display: block">
               <canvas baseChart

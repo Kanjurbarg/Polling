@@ -50,7 +50,6 @@ export class PollsComponent implements OnInit {
      //Get the router parameter
      this.route.paramMap.subscribe(params => {
       this.pid = params.get('pid');
-      console.log("first Poll ID "+this.pid);
       
     });
    
@@ -63,7 +62,7 @@ export class PollsComponent implements OnInit {
       this.createdOn = pollInfo.createdOn,
       this.duration = pollInfo.duration;
       this.gid = pollInfo.gid;
-      this.type = 'Election Poll';
+      this.type = 'election';
     }
 
       if(pollInfo.type === 'opinion'){
@@ -72,7 +71,7 @@ export class PollsComponent implements OnInit {
       this.status = pollInfo.status,
       this.createdOn = pollInfo.createdOn,
       this.gid = pollInfo.gid;
-      this.type = 'Opinion Poll';
+      this.type = 'opinion';
       }
 
       if(this.status !== 'off'){
@@ -80,14 +79,15 @@ export class PollsComponent implements OnInit {
       }
 
       this.GS.getMembers(this.gid).subscribe(members=>{
+        console.log(members);
         members.forEach((member:any)=>{
           this.user.push(member.memberID);
-          this.gMembers;
+          this.gMembers=[];
           this.US.getUserDocument(member.memberID).subscribe(userDoc=>{
-            console.log("members "+userDoc);
-            this.gMembers.push(userDoc);
+          this.gMembers.push(userDoc);
           });
         });
+        console.log("member ID "+ this.user);
       });
 
       this.PS.getContenders(this.pid).subscribe(chooseContenders=>{
@@ -102,8 +102,7 @@ export class PollsComponent implements OnInit {
       this.PS.getChoices(this.pid).subscribe(list=>{
         this.choicesList = list;
       });
-    });
-    
+    });   
   }//ngOninit Ends
 
  getContender(contenderID){
@@ -122,13 +121,16 @@ export class PollsComponent implements OnInit {
       this.PS.endPoll(this.pid);
   }
  startPoll(){
-    this.PS.updateStatus(this.pid);
+    this.PS.updateStatus(this.pid).then(()=>{
+    this.user.forEach(uid=>{
+      this.PS.toFeed(uid, this.gid, this.pid, this.status);
+      });
+    });
     this.router.navigateByUrl('voting/' + this.pid);
  }
  addChoice(event){
    event.preventDefault();
    console.log(this.choice);
-  
     const data={
       choice: this.choice,
       votes:this.votes,

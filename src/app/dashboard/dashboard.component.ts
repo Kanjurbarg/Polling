@@ -35,6 +35,7 @@ export class DashboardComponent implements OnInit {
 
   //Polls
   pendingPolls=[];
+  ongoingPolls=[];
 
   groupForm=new FormGroup({
     title: new FormControl('',[Validators.required,Validators.minLength(6)]),
@@ -77,13 +78,20 @@ export class DashboardComponent implements OnInit {
 
         // Get Admin Groups
          this.GS.getMyGroups(user.uid).subscribe(myGroups => {
-          console.log(myGroups);
-          this.adminGroups=myGroups;
-          console.log(this.adminGroups);
+          this.adminGroups=myGroups;        
          });
 
+         //Display Ongoing Polls
+        this.userService.opinionFeed(user.uid).subscribe(polls=>{       
+           polls.forEach((poll:any)=>{
+             this.PS.getPoll(poll.pid).subscribe(feed=>{
+               console.log(feed);
+             });
+           });        
+        });
+        //Display Finished Polls
 
-      });
+ });
 
       
      

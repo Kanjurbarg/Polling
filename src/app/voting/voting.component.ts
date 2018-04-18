@@ -19,7 +19,7 @@ pid;
 gid;
 title;
 description;
-voters;
+voters=[];
 voter;
 contenders;
 displayContenders;
@@ -33,6 +33,7 @@ currentUser;
 voterStatus;
 voteCounter:number;
 results;
+contender;
 resultSet;
 myChart;
 createdOn;
@@ -123,7 +124,6 @@ votesLabel=[];
       });
       // Voter Status Opinion
       this.PS.choiceVoterStatus(this.pid, this.currentUser).subscribe((status:any)=>{
-        console.log(status);
         this.opinionVoter = status;
       });
 
@@ -158,7 +158,6 @@ votesLabel=[];
       this.PS.getChoices(this.pid).subscribe(list=>{
         this.choiceList = list;
         this.choiceList.forEach(name=>{
-          console.log(name);
          this.labels.push(name.choice);
          this.votes.push(name.votes);
         });
@@ -205,14 +204,14 @@ votesLabel=[];
         pid:this.pid
       };
       this.PS.registerVoter(data);
-      this.router.navigateByUrl('voting/' + this.pid);
+
     }
 
 
   getResult(pid){
     this.PS.displayResult(pid).subscribe(results=>{
       this.results=results;
-      console.log(results);
+    
     
     });
 

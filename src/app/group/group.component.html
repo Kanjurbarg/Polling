@@ -15,8 +15,7 @@
      </div>
     
       <hr>
-      <div class='row'>
-       
+      <div class='row'>      
           <div class="col-md-5 border border-secondary mx-1 my-1" *ngFor="let poll of groupPolls">
               <a (click)="goToPoll(poll.pid)">
               <div class="bg-light"><h4>Title: {{poll.title}}</h4></div>
