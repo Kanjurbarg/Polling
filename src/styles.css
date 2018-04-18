@@ -1,2 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
+.circle-image{
+    border-radius: 100%;
+}
+.inline{
+    display: inline-block;
+}
+body{
+    background-color:#E6ECF0!important;
+}

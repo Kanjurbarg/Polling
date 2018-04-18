@@ -127,7 +127,7 @@ uid;
 
 
   getChoices(pid){
-    return this.afs.collection('polls/' + pid + '/choices', ref=> ref.orderBy('time','asc')).valueChanges();
+    return this.afs.collection('polls/' + pid + '/choices', ref=> ref.orderBy('votes','desc')).valueChanges();
   }
   addChoice(voteData){
    let cid = this.afs.createId();

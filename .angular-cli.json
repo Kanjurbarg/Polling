@@ -20,10 +20,12 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-        "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+		    "../node_modules/font-awesome/css/font-awesome.min.css"
       ],
       "scripts": [
-        "../node_modules/chart.js/dist/Chart.min.js"
+        "../node_modules/chart.js/dist/Chart.min.js",
+        "../node_modules/ng2-charts/charts/charts.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

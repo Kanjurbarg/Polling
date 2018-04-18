@@ -65,7 +65,8 @@ export class AuthService {
 
             //Inserting userData to Database
             this.afs.doc('users/'+ user.uid).set(data).then(()=>{
-              this.router.navigateByUrl('/dashboard');
+              this.router.navigateByUrl('/login');
+              alert('Please Verify Your Account....');
             })
           }
         })

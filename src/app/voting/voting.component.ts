@@ -19,10 +19,10 @@ pid;
 gid;
 title;
 description;
-voters=[];
-voter=[];
-contenders=[];
-displayContenders=[];
+voters;
+voter;
+contenders;
+displayContenders;
 user=[];
 gMembers=[];
 status;
@@ -39,7 +39,14 @@ createdOn;
 setupPoll;
 type:string;
 choiceList;
-opinionVoter
+opinionVoter;
+doughnutChartLabels:string[];
+doughnutChartData:number[] ;
+doughnutChartType:string ;
+labels=[];
+votes=[];
+contenderLabels=[];
+votesLabel=[];
   constructor(
     private router:Router,
     private route:ActivatedRoute,
@@ -94,8 +101,20 @@ opinionVoter
       if(this.status === 'finished'){
         this.getResult(this.pid);
       }
-
-      if(this.status === 'onging')
+         //Chart code start
+    
+    if(this.type === 'opinion'){
+      this.doughnutChartLabels = this.labels;
+      this.doughnutChartData= this.votes;
+      this.doughnutChartType= 'doughnut';
+     }
+     else{
+       this.doughnutChartLabels = this.contenderLabels;
+       this.doughnutChartData= this.votesLabel;
+       this.doughnutChartType= 'doughnut';
+     }
+  
+     // Chart code End
 
 
       // Voter Status Election
@@ -113,9 +132,9 @@ opinionVoter
         members.forEach((member:any) =>{
         this.user.push(member.memberID);
         // let memberID= member.memberID;
-        this.gMembers = [];
         this.US.getUserDocument(member.memberID).subscribe(userDoc=>{
-        this.gMembers.push(userDoc);
+          this.gMembers.push(userDoc);
+       
       });
     });
   });
@@ -125,11 +144,12 @@ opinionVoter
 
     this.PS.getContenders(this.pid).subscribe(contenders=>{
       this.contenders=contenders;
-      
       this.contenders.forEach((contender:any)=>{
         this.displayContenders=[];
+        this.votesLabel.push(contender.votes);
         this.US.getUserDocument(contender.cid).subscribe(userDoc=>{
           this.displayContenders.push(userDoc);
+          this.contenderLabels.push(userDoc.username);
         });
 
       });
@@ -137,7 +157,15 @@ opinionVoter
 
       this.PS.getChoices(this.pid).subscribe(list=>{
         this.choiceList = list;
+        this.choiceList.forEach(name=>{
+          console.log(name);
+         this.labels.push(name.choice);
+         this.votes.push(name.votes);
+        });
       });
+
+
+
 
     this.PS.displayVoters(this.pid).subscribe((voterDoc:any)=>{
       this.voter=voterDoc;
@@ -148,12 +176,7 @@ opinionVoter
       });
     });
 
-    //Chart code start
-    
-  
-    //this.chartit();
-    
-    // Chart code End
+ 
 
 
 
@@ -182,6 +205,7 @@ opinionVoter
         pid:this.pid
       };
       this.PS.registerVoter(data);
+      this.router.navigateByUrl('voting/' + this.pid);
     }
 
 

@@ -44,9 +44,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.auth.getAuthState().subscribe(
       user => {
-        /*if (user) {
-          this.router.navigateByUrl('/dashboard');
-        }*/
+        if(user){
+          
+        }
       });
   }
 

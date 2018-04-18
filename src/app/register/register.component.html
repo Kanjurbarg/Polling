@@ -74,6 +74,6 @@
     </div>
   </form>
   <div class="text-center">
-    <input type="submit" class="button expanded" value="Submit Form" [disabled]="!rForm.valid" >
+    <input type="submit" class="btn btn-large" value="Submit Form" (click)="register(rForm)" [disabled]="!rForm.valid" >
   </div>
 </div>

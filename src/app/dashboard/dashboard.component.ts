@@ -61,6 +61,7 @@ export class DashboardComponent implements OnInit {
          // var emailVerified=user.emailVerified;
           //console.log("second: "+emailVerified);
           this.userService.getUserDocument(user.uid).subscribe(
+        
             userDoc => {
               this.uid=userDoc.uid,
               this.username = userDoc.username ? userDoc.username : null;
@@ -111,9 +112,6 @@ export class DashboardComponent implements OnInit {
   showPendingPolls(){
     this.router.navigateByUrl('/poll');
   }
-
- 
-
 
   open(content) {
     this.modalRef=this.modalService.open(content);

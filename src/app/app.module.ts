@@ -31,7 +31,7 @@ import { RegisterComponent } from './register/register.component';
 import { GroupComponent } from './group/group.component';
 import { FooterComponent } from './footer/footer.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 const routes: Routes = [
   {
@@ -88,7 +88,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes,{onSameUrlNavigation:'reload'}),
     FormsModule,
     ReactiveFormsModule ,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    ChartsModule
   ],
   
   providers: [

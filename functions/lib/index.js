@@ -32,12 +32,15 @@ exports.onOpinionVote = functions.firestore
     const data = {
         uid: uid
     };
-    afs.doc('polls/' + pid + '/choices/' + cid + '/votes/' + uid).set(data).catch(err => console.log(err));
-    afs.collection('polls/' + pid + '/choices/' + cid + '/votes/').get().then(votes => {
-        const voteCount = votes.size;
-        afs.doc('polls/' + pid + '/choices/' + cid).update({
-            votes: voteCount
-        });
-    }).catch(err => { console.log(err); console.log('Cloud Fucntion start 5.....'); });
+    afs.doc('polls/' + pid + '/choices/' + cid + '/votes/' + uid).set(data)
+        .then(() => {
+        afs.collection('polls/' + pid + '/choices/' + cid + '/votes/').get().then(votes => {
+            const voteCount = votes.size;
+            afs.doc('polls/' + pid + '/choices/' + cid).update({
+                votes: voteCount
+            }).catch((err) => console.log(err));
+        }).catch(err => { console.log(err); });
+    })
+        .catch(err => console.log(err));
 });
 //# sourceMappingURL=index.js.map

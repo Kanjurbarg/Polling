@@ -1,6 +1,7 @@
-<div  class="container-fluid dashboard mt-3" #dashboard>
-  <div class="">
-  <div class="row mx-md-3 mx-lg-5 justify-content-center">
+<div *ngIf="display_name ; else loading">
+<div class="container  dashboard mt-3" #dashboard>
+  <div class="container-fluid">
+   <div class="row  mx-0 px-0 justify-content-between">
     <div class="col-12 col-md-3">
       <div id="user-info"  class="border border-dark p-2 d-none d-md-inline-block">
         <img [src]="photoURL" width="70px">
@@ -16,10 +17,11 @@
         </div>
       <button class="btn btn-danger" (click)="logout()">Logout</button>
     </div>
-    <div class="col-12 col-md-6 border border-dark p-2 ">
+    <div class=" col-md-6 border border-dark p-2 ">
         <button type="button" class="btn btn-primary"  (click)="open(content)">Create Group</button>
     </div>
-    <div class="col-2 ml-2 border border-dark">
+    <div class="col-3  ">
+      <div class="ml-2 border border-dark">
         <div  *ngFor="let group of adminGroups">
           <ul style="list-style-type:none">
            <a [routerLink]="['/groups', group.gid]"> <li><h4>{{group.title}}</h4></li>
@@ -28,10 +30,11 @@
           </ul>
         </div>
       </div>
+      </div>
+  </div>
   </div>
 </div>
 </div>
-
 
 
   <!--Create Modal HTML Template -->
@@ -57,3 +60,10 @@
         </ng-template>
         
   <!--End Modal -->
+
+  <ng-template #loading>
+      <div class="container p-5 text-center">
+       <i class=" text-primary fa fa-spinner fa-spin  fa-3x"></i>
+       <h1 >Loading...</h1>
+      </div>
+  </ng-template>
