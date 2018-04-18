@@ -124,6 +124,7 @@ export class PollsComponent implements OnInit {
     this.PS.updateStatus(this.pid).then(()=>{
     this.user.forEach(uid=>{
       this.PS.toFeed(uid, this.gid, this.pid, this.status);
+      this.PS.toPendingPoll(uid, this.pid);
       });
     });
     this.router.navigateByUrl('voting/' + this.pid);

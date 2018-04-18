@@ -35,11 +35,16 @@ export class DashboardComponent implements OnInit {
 
   //Polls
   pendingPolls=[];
+  finishedPolls=[];
   ongoingPolls=[];
 
   groupForm=new FormGroup({
     title: new FormControl('',[Validators.required,Validators.minLength(6)]),
     description: new FormControl('',[Validators.required,Validators.minLength(12)]),
+  });
+
+  accountForm = new FormGroup({
+    username : new FormControl('',[Validators.required,Validators.minLength(3)])
   });
 
 
@@ -55,8 +60,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.auth.getAuthState().subscribe(
-      user => {
-              
+      user => {      
         if (user) {
          // console.log("first: "+user.emailVerified);
          // var emailVerified=user.emailVerified;
@@ -82,14 +86,36 @@ export class DashboardComponent implements OnInit {
          });
 
          //Display Ongoing Polls
-        this.userService.opinionFeed(user.uid).subscribe(polls=>{       
+        this.userService.ongoingFeed(user.uid).subscribe(polls=>{       
            polls.forEach((poll:any)=>{
-             this.PS.getPoll(poll.pid).subscribe(feed=>{
-               console.log(feed);
+             this.ongoingPolls= [];
+             this.PS.getPoll(poll.pid).subscribe(Ofeed=>{
+              this.ongoingPolls.push(Ofeed);
+               console.log("ongoing "+this.ongoingPolls);
              });
+
            });        
         });
         //Display Finished Polls
+        this.userService.finishedFeed(user.uid).subscribe(polls=>{       
+          polls.forEach((poll:any)=>{
+            this.ongoingPolls= [];
+            this.PS.getPoll(poll.pid).subscribe(Ffeed=>{
+              this.finishedPolls.push( Ffeed);
+              console.log("finished "+this.finishedPolls);
+            });
+          });        
+       });
+
+       this.userService.pendingPolls(user.uid).subscribe(polls =>{
+        polls.forEach((poll:any)=>{
+          this.pendingPolls=[];
+          this.PS.getPoll(poll.pid).subscribe(pending =>{
+            this.pendingPolls.push(pending);
+          });
+        });
+        console.log(this.pendingPolls);
+       });
 
  });
 

@@ -204,6 +204,7 @@ votesLabel=[];
         pid:this.pid
       };
       this.PS.registerVoter(data);
+      this.US.deletePendingPoll(this.currentUser, this.pid);
 
     }
 

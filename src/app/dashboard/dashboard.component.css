@@ -3,3 +3,16 @@
     max-width: 70px;
     max-height: 70px;
 }
+.polls{
+    background-color: red!important;
+    min-height: 500px;
+}
+.groups:hover{
+    background-color: khaki;    
+}
+.bottom{
+    border-bottom: 1px solid black;
+}
+.plus:hover{
+    color:red
+}

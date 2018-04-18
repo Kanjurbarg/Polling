@@ -9,3 +9,11 @@
 body{
     background-color:#E6ECF0!important;
 }
+.title{
+    font-size: 22px;
+    font-weight: 500;
+}
+.des{
+    font-size:18px;
+    font-weight: 400;
+}

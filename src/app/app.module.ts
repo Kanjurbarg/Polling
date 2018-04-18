@@ -32,6 +32,7 @@ import { GroupComponent } from './group/group.component';
 import { FooterComponent } from './footer/footer.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { AccountComponent } from './account/account.component';
 
 const routes: Routes = [
   {
@@ -59,6 +60,10 @@ const routes: Routes = [
     component:VotingComponent
   },
   {
+    path:'account',
+    component :  AccountComponent
+  },
+  {
     path: '**',
     redirectTo: '/dashboard',
     pathMatch: 'full'
@@ -77,7 +82,8 @@ const routes: Routes = [
     GroupComponent,
     FooterComponent,
     PollsComponent,
-    VotingComponent
+    VotingComponent,
+    AccountComponent
   
   ],
   imports: [

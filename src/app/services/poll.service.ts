@@ -40,9 +40,17 @@ uid;
       status:status,
       time: firebase.firestore.FieldValue.serverTimestamp()
     };
-    this.afs.doc('users/' + uid + '/feed/' + uid).set(data).then(()=>{
+    this.afs.doc('users/' + uid + '/feed/' + pid).set(data).then(()=>{
     console.log('Feed Added to users');
     });
+  }
+
+  toPendingPoll(uid, pid){
+      const data={
+        uid:uid,
+        pid:pid
+      };
+      this.afs.doc('users/' + uid + '/pending/' + pid).set(data).then(()=> console.log('Added to pending polls'));
   }
 
 
@@ -93,7 +101,6 @@ uid;
   }
 
   }
-
 
   addContenders(contender){
    
