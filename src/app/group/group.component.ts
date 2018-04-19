@@ -36,8 +36,8 @@ export class GroupComponent implements OnInit {
   groupInfo=[];
 
   //polls
-  opinionPolls;
-  electionPolls;
+  opinionPolls=[];
+  electionPolls=[];
 
   //User Seach
   searchterm;
@@ -92,13 +92,6 @@ export class GroupComponent implements OnInit {
       return false;
   };
   
-  this.router.events.subscribe((evt) => {
-      if (evt instanceof NavigationEnd) {
-          this.router.navigated = false;
-          window.scrollTo(0, 0);
-      }
-  });
-
     this.auth.getAuthState().subscribe(user=>{
       this.admin=user.uid;
     })
@@ -116,17 +109,25 @@ export class GroupComponent implements OnInit {
       this.gDate = groups.createdOn;
       this.adminID = groups.admin;
       this.US.getUserDocument(this.adminID).subscribe(admin=>{
-          this.gAdmin = admin.display_name;
+      this.gAdmin = admin.display_name;
       })
     });
-    console.log("Group ID "+this.gid);
-    this.GS.getElectionPolls(this.gid).subscribe(polls =>{
-      this.electionPolls = polls;
-      console.log("election "+polls);
-    });
-    this.GS.getOpinionPolls(this.gid).subscribe(polls =>{
-      console.log("opinion "+polls);
-      this.opinionPolls = polls;
+    
+    this.GS.getGroupPolls(this.gid).subscribe(grouppoll =>{
+      console.log("group polls"+ grouppoll);
+      grouppoll.forEach((poll:any) =>{
+        console.log(poll.pid);
+        this.PS.getPoll(poll.pid).subscribe((polls:any) =>{
+          if(polls.type === 'opinion'){
+            this.opinionPolls.push(polls);
+            console.log("O"+this.opinionPolls)
+          }else{
+            this.electionPolls.push(polls);
+            console.log("E"+this.electionPolls);
+          }
+        });
+      });
+       
     });
 
     Observable.combineLatest(this.startObs, this.endAtObs).subscribe(

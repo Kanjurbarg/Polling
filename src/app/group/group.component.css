@@ -4,3 +4,18 @@
 .polls{
     min-height: 500px
 }
+
+.min{
+    min-height: 160px;
+    max-height:160px
+}
+
+.headings > b:hover{
+    color: blue
+}
+.headings:active{
+    color: yellowgreen
+}
+.status{
+    font-size: 18px;
+}

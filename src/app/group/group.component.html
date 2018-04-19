@@ -18,7 +18,7 @@
                 <div class="col-12 mt-2 bg-white inline float-left">
                     <span>
                     <div class="col-md-12 text-left">
-                        <img class="mt-2 rounded-circle" height="50px" width="50px" src="{{member.photoURL}}">
+                        <img class=" rounded-circle" height="50px" width="50px" src="{{member.photoURL}}">
                       {{member.display_name}}@{{member.username}}
                       </div>
                     </span>
@@ -35,47 +35,59 @@
     </div>  
    
 
-    <div class="col-md-8">
-      <div class="bg-white polls pr-3">
+    <div class="col-md-8 bg-white">
+      <div class="bg-light polls pr-3">
         <div class="">
         <ngb-tabset justify="fill">
-            <ngb-tab>
+            <ngb-tab class="headings">
                 <ng-template ngbTabTitle><b class="">Opinion Polls</b></ng-template>
               <ng-template ngbTabContent>
               <div class="container p-1 m-1">
-                <div>
-
+                <div class="container-fluid">
+                    <div class="row">
+                        
+                          <div class="text-center col-md-6" *ngFor="let poll of opinionPolls">
+                            <div class=" min border bg-white p-1 m-1">
+                            <h3>
+                              {{poll.title}}
+                            </h3>
+                            <h5>
+                              "{{poll.des}}"
+                            </h5>
+                            <h4>Status</h4>
+                              <p class=" status font-weight-bold">"{{poll.status}}"</p>
+                            </div>
+                          </div>
+                        
+                      </div>
                 </div>
               </div>
               </ng-template>
             </ngb-tab>
             <ngb-tab>
-              <ng-template ngbTabTitle><b>Election Polls</b></ng-template>
-                
+                <ng-template ngbTabTitle><b class="">Election Polls</b></ng-template>
               <ng-template ngbTabContent>
-                <div class="container p-1 m-1"> 
-                  <div>
+              <div class="container p-1 m-1">
+                <div class="container-fluid ">
                     <div class="row">
-                      <div *ngFor="let poll of electionPolls">
-                        <div class="col-md-9">
-                        <h2>
-                          {{poll.title}}
-                        </h2>
-                        <h4>
-                          "{{poll.desciption}}"
-                        </h4>
-                       </div>
-                       <div class="col-md-3">
-                         <h3>Status</h3>
-                          "{{poll.status}}"
-                       </div>
-
+                        
+                          <div class="text-center col-md-6" *ngFor="let poll of electionPolls">
+                            <div class=" min border bg-white p-1 m-1">
+                            <h3>
+                              {{poll.title}}
+                            </h3>
+                            <h5>
+                              "{{poll.des}}"
+                            </h5>
+                            <h4>Status</h4>
+                              <p class=" status font-weight-bold">"{{poll.status}}"</p>
+                            </div>
+                          </div>
+                        
                       </div>
-                    </div>
-                  </div>
                 </div>
+              </div>
               </ng-template>
-            
             </ngb-tab>
           </ngb-tabset>
         </div>

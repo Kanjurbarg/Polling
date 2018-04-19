@@ -75,13 +75,16 @@ export class GroupsService {
 
   }
 
-  getOpinionPolls(gid){
-    console.log(gid);
-    return this.afs.collection('polls/' ,ref=>ref.where('gid','==', gid).where('type','==','opinion').orderBy('time', 'desc')).valueChanges();
+  getOpinionPolls(pid){
+   
+    return this.afs.collection('polls/' , ref=>ref.where('type','==','opinion').orderBy('time', 'desc')).valueChanges();
   }
-  getElectionPolls(gid){
-    return this.afs.collection('polls/' ,ref=>ref.where('gid','==', gid).where('type','==','election').orderBy('time', 'desc')).valueChanges();
+  getElectionPolls(pid){
+    return this.afs.collection('polls/' , ref=>ref.where('type','==','election').orderBy('time', 'desc')).valueChanges();
   }
-
+  getGroupPolls(gid){
+      console.log(gid);
+      return this.afs.collection('groups/' + gid + '/groupPolls').valueChanges();
+  }
 
 }
