@@ -21,6 +21,7 @@ const now = new Date();
   styleUrls: ['./group.component.css']
 })
 export class GroupComponent implements OnInit {
+  hide;
   gName;
   gDescription;
   gAdmin;
@@ -33,6 +34,10 @@ export class GroupComponent implements OnInit {
   user=[];
   //group info
   groupInfo=[];
+
+  //polls
+  opinionPolls;
+  electionPolls;
 
   //User Seach
   searchterm;
@@ -101,7 +106,7 @@ export class GroupComponent implements OnInit {
     //Get the router parameter
     this.route.paramMap.subscribe(params => {
       this.gid = params.get('gid');
-      console.log("Group ID "+this.gid);
+      
     });
 
     //get group information
@@ -114,20 +119,26 @@ export class GroupComponent implements OnInit {
           this.gAdmin = admin.display_name;
       })
     });
+    console.log("Group ID "+this.gid);
+    this.GS.getElectionPolls(this.gid).subscribe(polls =>{
+      this.electionPolls = polls;
+      console.log("election "+polls);
+    });
+    this.GS.getOpinionPolls(this.gid).subscribe(polls =>{
+      console.log("opinion "+polls);
+      this.opinionPolls = polls;
+    });
 
     Observable.combineLatest(this.startObs, this.endAtObs).subscribe(
       value => {
         this.doQuery(value[0], value[1]).subscribe(
           users => {
             this.users=users;
-            users.forEach(user=>{
-              this.users.push(user);
-            });
           });
       });
    
       this.GS.getMembers(this.gid).subscribe(members =>{ 
-          console.log("outside "+ members);
+         
           members.forEach((member:any) =>{
           this.user.push(member.memberID);
           //let memberID= member.memberID;
@@ -138,12 +149,12 @@ export class GroupComponent implements OnInit {
         });
         
       });
-        console.log(this.gMembers);
+        
     });
 
     this.PS.getGroupPolls(this.gid).subscribe(polls=>{
       this.groupPolls=polls;
-      console.log("Polls"+ this.groupPolls);
+      
     });
 
   }//OnInit End
@@ -251,6 +262,11 @@ export class GroupComponent implements OnInit {
   nextModal(choiceModal){
     this.modalRefOpinion.close();
     this.modalRefChoices= this.modalService.open(choiceModal);
+  }
+  hideResults() {
+    setTimeout(() => {
+      this.hide = true;
+    }, 100);
   }
 
 }

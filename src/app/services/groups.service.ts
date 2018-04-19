@@ -72,7 +72,16 @@ export class GroupsService {
   }
 
   addMember(gid, uid){
-    
-  
+
   }
+
+  getOpinionPolls(gid){
+    console.log(gid);
+    return this.afs.collection('polls/' ,ref=>ref.where('gid','==', gid).where('type','==','opinion').orderBy('time', 'desc')).valueChanges();
+  }
+  getElectionPolls(gid){
+    return this.afs.collection('polls/' ,ref=>ref.where('gid','==', gid).where('type','==','election').orderBy('time', 'desc')).valueChanges();
+  }
+
+
 }

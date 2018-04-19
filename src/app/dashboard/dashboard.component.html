@@ -1,14 +1,19 @@
 <div *ngIf="display_name ; else loading">
   <div class="container mt-3  px-0"> 
-    <div class="container-fluid pt-2">
+    <div class="container-fluid ">
       <div class="row">
         <div class="col-md-3">
-          <div class="p-2 border border-danger">
-          <img class="circle-image" [src]="photoURL" alt=""> <h4>{{display_name}}</h4><h5>@{{username}}</h5>
+          <div class="p-2 bg-white border rounded border-white">
+            <img class="circle-image" [src]="photoURL" alt=""> <h4>{{display_name}}</h4><h5>@{{username}}</h5>
           <h6>Joined On : {{joinDate}}</h6>
         </div>
-        <div class="mt-2 border col-md-12 border-danger">
-            <h4>Pending Polls</h4>
+        <div class=" border rounded-bottom bg-white mt-2 col-md-12 border-danger">
+          <div class="container-fluid">
+              <div class="row bottom">
+                  <h3 class="">Pending Polls</h3>
+              </div>
+          </div>
+           
             <div *ngIf="pendingPolls.length > 1; else noPolls"> 
               <div class="container-fluid" *ngFor="let poll of pendingPolls">
                 <a [routerLink]="['/poll', poll.pid]">  
@@ -19,14 +24,14 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6 p-0 m-0">
-          <div class="bg-white">
-                 <ngb-tabset justify="fill" class="mr-2 border border-danger">
-                  <ngb-tab  class="border border-danger" title="Ongoing Polls">
-                    <ng-template class="container border" ngbTabContent>
-                      <div class="polls container-fluid border mt-1 border-top-0">
-                          <div class="row mt-1 bg-light" *ngFor="let poll of ongoingPolls">
-                            <div class=" groups col-12">
+        <div class="col-md-6 bg-light p-0 m-0">
+          <div class="container p-2">
+                 <ngb-tabset type="pills" justify="fill" class=" m-0 p-0">
+                  <ngb-tab  class=" ongoing polls nav-pills" title="Ongoing Polls">
+                    <ng-template class="polls container border" ngbTabContent>
+                      <div class="polls container-fluid rounded bg-white border border-warning">
+                          <div class="row mt-1" *ngFor="let poll of ongoingPolls">
+                            <div class="ongoing col-12">
                                 <a [routerLink]="['/poll', poll.pid]">   <h3>{{poll.title}}</h3> <h5>{{poll.des}}</h5></a>
                             </div>
                           </div>
@@ -34,14 +39,14 @@
                     </ng-template>
                   </ngb-tab>
               
-                  <ngb-tab class="polls p-0 m-0" title="Finished Polls">
+                  <ngb-tab class="polls nav-pills" title="Finished Polls">
                     <ng-template class=" polls container border" ngbTabContent>
-                      <div class=" polls container-fluid bg-white border border-top-0">
-                          <div class="row mt-1" *ngFor="let poll of finishedPolls">
-                              <div class="col-12 groups">
+                      <div class=" polls container-fluid rounded bg-white border border-success">
+                          <div class="row  mt-1" *ngFor="let poll of finishedPolls">
+                              <div class="col-12 finished">
                               <a [routerLink]="['/poll', poll.pid]"> <h3>{{poll.title}}</h3> <h5>{{poll.des}}</h5></a> 
                               </div>
-                            </div>
+                          </div>
                       </div>
                     </ng-template>
                   </ngb-tab>
@@ -49,25 +54,26 @@
             </div>
 
         </div>  
-        <div class="col-md-3 bg-white">
-         <div class="pb-1 container-fluid p-0 m-0">
-          <div class="row bottom">
-              <h3 class=" col-10  border-bottom">Groups Page</h3> <h2 class="col-2"><i class="fa fa-plus-square-o plus" (click)="open(content)"></i></h2>
+        <div class="col-md-3">
+         <div class="bg-white container ">    
+          <div class="pb-1 bottom container-fluid p-0 ml-1">
+            <div class="row">
+                <h3 class=" col-9  mt-1 border-bottom">Groups Page</h3> <h2 class=" mt-1 float-right col-1"><i class="fa fa-plus-square-o plus" (click)="open(content)"></i></h2>
+            </div>
           </div>
-         </div>
-         <div class="container-fluid my-1 p-0 m-0">
-            <div class="row my-1 groups" *ngFor="let group of adminGroups">
-            <a [routerLink]="['/groups', group.gid]"> 
-              <div class="col-12">
-               <p class="title  m-0"> {{group.title}}</p>
-              </div>
-              <div class="col-12">
-              <p class="des  m-0"> {{group.description}}</p> 
-              </div>
-            </a>
-           </div>
-         </div>
-
+          <div class="container-fluid my-1 p-0 m-0">
+              <div class="row my-1 groups" *ngFor="let group of adminGroups">
+              <a [routerLink]="['/groups', group.gid]"> 
+                <div class="col-12">
+                <p class="title  m-0"> {{group.title}}</p>
+                </div>
+                <div class="col-12">
+                <p class="des  m-0"> {{group.description}}</p> 
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
         </div>
       </div>
     </div>

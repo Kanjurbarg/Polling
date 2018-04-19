@@ -4,15 +4,34 @@
     max-height: 70px;
 }
 .polls{
-    background-color: red!important;
+    
     min-height: 500px;
 }
-.groups:hover{
-    background-color: khaki;    
+.groups:hover
+{
+    color: red;
+    text-decoration-line:none    
 }
 .bottom{
     border-bottom: 1px solid black;
 }
 .plus:hover{
     color:red
+}
+
+.ongoing:hover
+{
+    background-color: orange!important;
+    color:white;
+
+}
+
+.finished:hover
+{
+    background-color: lightgreen!important;
+    color:white
+}
+.red .active a,
+.red .active a:hover {
+    background-color: red;
 }
