@@ -1,8 +1,60 @@
 #login-form {
   width: 300px;
-  border: 1px solid lightgray;
+ 
 }
 .btn {
-  border-radius: 100px;
+  border-radius: 25px;
   padding: 6px 30px;
 }
+body{
+  background-color: #1AC8ED!important;
+  color: #2A2D34;
+}
+.container-fluid{
+  max-width: 70%;
+}
+.login-box{
+  font-family: Arial, Helvetica, sans-serif!important;
+  font-size: 25px;
+  font-weight: 700;
+  text-align: center!important;
+  vertical-align: top;
+  margin-left: 35%;
+}
+.login{
+  background-color:white;
+  min-width: 400px;
+  border-radius: 5px;
+  margin-top:60px ;
+  padding-bottom: 10px
+}
+.email{
+ font-size: 16px;
+ font-weight: 500;
+}
+.customAlert{
+  color:red;
+}
+input.ng-touched.ng-invalid{
+  border-color: red;
+  border-width:2px;
+  background-color: white;
+}
+input.ng-touched.ng-valid{
+  border-color:#28f71d;
+  border-width:2px;
+  background-color: white; 
+}
+.google{
+ background-color: #ff312d;
+ color: white;
+ font-weight: 500;
+}
+.google:hover{
+  background-color:white;
+  color:  #ff312d;
+  border-color:#ff312d;
+}
+
+
+

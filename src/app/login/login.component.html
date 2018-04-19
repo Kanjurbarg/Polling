@@ -1,30 +1,53 @@
-<div class="container text-center">
- <form  [formGroup]="rForm"> 
-  <div id="login-form" class="py-2 px-3 mt-3" style="margin-left:30%">
-    <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input  type="email"  formControlName="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-      <div class="customAlert" *ngIf="rForm.get('email').invalid && rForm.get('email').touched ">
-          <div *ngIf="rForm.get('email').hasError('required')">The Email is requierd. </div>
-          <div *ngIf="rForm.get('email').hasError('email')">Please Enter Valid Email. </div>
+<div class="container-fluid ">
+      <div class="position-absolute container">
+        <div class="login border float-right">
+          <div class=" mt-2">
+           <div class="container">
+                <div class="row text-center">
+                  <p class="login-box mt-2 text-center">
+                    Login
+                  </p>
+                </div>
+                <div class="row justify-content-between">
+                    <form  [formGroup]="rForm"> 
+                        <div id="login-form" class="p-2 m-1">
+                        <div class="form-group">
+                        <label class="email" for="exampleInputEmail1">Email address</label>
+                          <input  type="email"  formControlName="email" class="emailID form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                          <small class="customAlert" *ngIf="!rForm.get('email').valid && rForm.get('email').touched ">
+                              <div *ngIf="rForm.get('email').hasError('required')">The Email is requierd. </div>
+                              <div *ngIf="rForm.get('email').hasError('email') &&!rForm.get('email').hasError('required') ">Please Enter Valid Email. </div>
+                          </small>
+                        </div>
+                        <div class="form-group">
+                          <label  class="email" for="exampleInputPassword1">Password</label>
+                          <input  formControlName="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                          <div class="customAlert" *ngIf="rForm.get('password').invalid && rForm.get('password').touched ">
+                             <div *ngIf="rForm.get('password').hasError('required')"> Password is required </div>
+                           </div>                    
+                        </div>
+                      </div>
+                    </form>
+                </div>
+                <div class=" my-1 row justify-content-between text-center">
+                    <button type="submit" class="btn btn-primary" (click)="login('email')">Login</button>                   
+                </div>
+                <p class="m-0 p-0 text-center font-weight-light">or</p>
+                <div class="row justify-content-between text-center">
+                    <button type="submit" class="btn google" (click)="login('google')">Sign in with Google</button>
+                </div>
+                <hr>
+                <p class="text-center font-weight-light">Don't have a Account ?</p>
+               <div class=" pb-2  row justify-content-between  text-center">
+                  <button type="submit" class="btn btn-secondary" (click)="login('create')">Create Account</button>
+                </div>
+            </div> 
+               
+               
+               
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input  formControlName="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-      <div class="customAlert" *ngIf="rForm.get('password').invalid && rForm.get('password').touched ">
-         <div *ngIf="rForm.get('password').hasError('required')"> Password is required </div>
-       </div>
+</div>
 
-    </div>
-   
-  </div>
-</form>
-<div class="text-center mt-2">
-  <button type="submit" class="btn btn-primary" (click)="login('email')">Submit</button>
-  <hr>
-  <button type="submit" class="btn btn-danger" (click)="login('google')">Google</button>
-  <hr>
- <button type="submit" class="btn btn-secondary" (click)="login('create')">Create Account</button>
-</div>
-</div>
+

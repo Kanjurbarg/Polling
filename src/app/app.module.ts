@@ -33,6 +33,7 @@ import { FooterComponent } from './footer/footer.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { AccountComponent } from './account/account.component';
+import { CoverComponent } from './cover/cover.component';
 
 const routes: Routes = [
   {
@@ -64,6 +65,10 @@ const routes: Routes = [
     component :  AccountComponent
   },
   {
+    path:'cover',
+    component : CoverComponent
+  },
+  {
     path: '**',
     redirectTo: '/dashboard',
     pathMatch: 'full'
@@ -83,7 +88,8 @@ const routes: Routes = [
     FooterComponent,
     PollsComponent,
     VotingComponent,
-    AccountComponent
+    AccountComponent,
+    CoverComponent
   
   ],
   imports: [
