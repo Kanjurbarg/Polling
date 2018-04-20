@@ -37,7 +37,6 @@ export class GroupsService {
         gid: gid,
         admin: adminID,
         createdOn: firebase.firestore.FieldValue.serverTimestamp()
-  
       }; 
       this.afs.doc('groups/' + gid).set(data)
       .then(()=> {

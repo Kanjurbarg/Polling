@@ -18,3 +18,9 @@ body{
     font-size:18px;
     font-weight: 400;
 }
+
+.bigCircle-image{
+    border-radius: 100%!important;
+    min-width: 100px!important;
+    min-height: 100px!important;
+}

@@ -9,13 +9,22 @@ import { Observable } from 'rxjs/Observable';
 export class AuthService {
 
   private authState: Observable<firebase.User>;
-
+  private updateData;
+ 
+  currentUser;
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private router: Router
   ) {
     this.authState = this.afAuth.authState;
+    this.authState.subscribe(user => {
+      if (user) {
+        this.currentUser = user;
+      } else {
+        this.currentUser = null;
+      }
+    });
   }
 
   getAuthState() {
@@ -127,7 +136,7 @@ export class AuthService {
           username: '',
           desc: 'Vote for me!',
           phone: user.phoneNumber ? user.phoneNumber : null,
-          photoURL: user.photoURL,
+          photoURL: user.photoURL ? user.photoURL: '../../assets/images/default_profile_pic.jpg',
           joinDate: firebase.firestore.FieldValue.serverTimestamp(),
           //emailVerified: user.emailVerified
         };
@@ -139,6 +148,13 @@ export class AuthService {
       });
   }
 
+  updatePhotoURL(photourl) {
+    const updateRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${this.currentUser.uid}`);
+    this.updateData = {
+      photoURL : photourl
+    };
+    return updateRef.update(this.updateData);
+  }
   logout() {
     this.afAuth.auth.signOut();
   }

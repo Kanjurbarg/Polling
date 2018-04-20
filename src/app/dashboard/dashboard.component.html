@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-3">
           <div class="p-2 bg-white border rounded border-white">
-            <img class="circle-image" [src]="photoURL" alt=""> <h4>{{display_name}}</h4><h5>@{{username}}</h5>
+            <img class="bigCircle-image circle-image" [src]="photoURL" alt=""> <h4>{{display_name}}</h4><h5>@{{username}}</h5>
           <h6>Joined On : {{joinDate}}</h6>
         </div>
         <div class=" border rounded-bottom bg-white mt-2 col-md-12 border-danger">
@@ -107,8 +107,7 @@
   <!--End Modal -->
   <ng-template #loading>
       <div class="container p-5 pt-3 text-center">
-       <i class=" text-primary fa fa-circle-o-notch fa-spin  fa-5x"></i>
-      
+       <i class=" text-primary fa fa-circle-o-notch fa-spin  fa-5x"></i>      
        <h2> Loading...</h2>
       </div>
   </ng-template>

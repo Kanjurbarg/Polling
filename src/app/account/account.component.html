@@ -1,3 +1,4 @@
+<div *ngIf="display_name; else loading">
 <div class="container pt-md-3">
   <div class="container account">
       <div id="account-card" class="bg-white rounded p-2 px-4">
@@ -27,9 +28,17 @@
         </div>
         <span class="col-auto p-0 ml-3"><img id="displayPhoto" class="circle align-self-center" *ngIf="photoURL" [src]="photoURL"></span>
       </div>
-      <div class="row pb-3 m-0 justify-content-between mt-2 mt-md-3 mr-3">
-         <button class="btn ml-5 mt-2 align-self-center bg-primary text-white font-weight-bold " id="btnUpdate" (click)="update()">Update Account</button>
+      <hr>
+      <div class="row pb-3 m-0 justify-content-between mt-2 mt-md-3 mr-4">
+         <button class="btn ml-5 mt-2 align-self-center btn-primary text-white font-weight-bold " id="btnUpdate" (click)="update()">Update Account</button>
       </div>
     </div>
     </div>
   </div>
+</div>
+  <ng-template #loading>
+      <div class="container p-5 pt-3 text-center">
+       <i class=" text-primary fa fa-circle-o-notch fa-spin  fa-5x"></i>      
+       <h2> Loading...</h2>
+      </div>
+  </ng-template>

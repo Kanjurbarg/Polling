@@ -7,6 +7,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from './../environments/environment';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 import * as firebase from 'firebase';
 
 // Components
@@ -22,6 +23,7 @@ import { ElectionService } from './services/election.service';
 import { UserService } from './services/user.service';
 import { GroupsService } from './services/groups.service';
 import { PollService } from './services/poll.service';
+import { UploadService } from './services/upload.service';
 
 // Third party libraries
 import { NavbarComponent } from './navbar/navbar.component';
@@ -101,7 +103,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule ,
     NgbModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    AngularFireStorageModule
   ],
   
   providers: [
@@ -109,7 +112,8 @@ const routes: Routes = [
     UserService,
     AuthService,
     GroupsService,
-    PollService
+    PollService,
+    UploadService
   ],
   bootstrap: [AppComponent]
 })

@@ -80,6 +80,10 @@ export class DashboardComponent implements OnInit {
           this.router.navigateByUrl('/login');
         }
 
+        //Account Setup
+        if(this.username === null){
+            this.router.navigateByUrl('/account');
+        }
         // Get Admin Groups
          this.GS.getMyGroups(user.uid).subscribe(myGroups => {
           this.adminGroups=myGroups;        
