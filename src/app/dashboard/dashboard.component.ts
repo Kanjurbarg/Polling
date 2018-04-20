@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
   verified;
   uid;
   modalRef;
+  memberGroups=[];
 
   groupTitle;
   groupDes;
@@ -111,6 +112,14 @@ export class DashboardComponent implements OnInit {
           });        
        });
 
+       this.userService.getMemberGroups(user.uid).subscribe(groups=>{
+        groups.forEach((group:any)=>{
+          this.GS.getGroups(group.gid).subscribe(memberOf=>{
+            this.memberGroups.push(memberOf);
+            console.log(this.memberGroups);
+          });
+        });
+       });
        this.userService.pendingPolls(user.uid).subscribe(polls =>{
         polls.forEach((poll:any)=>{
           this.pendingPolls=[];

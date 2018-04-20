@@ -86,4 +86,6 @@ export class GroupsService {
       return this.afs.collection('groups/' + gid + '/groupPolls').valueChanges();
   }
 
+  
+
 }

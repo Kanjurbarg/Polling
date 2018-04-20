@@ -181,8 +181,15 @@ export class GroupComponent implements OnInit {
         addedOn: firebase.firestore.FieldValue.serverTimestamp(),
       }
         this.afs.doc('groups/'+ this.gid + '/members/' + uid).set(memberDetails).then(()=>{
-          console.log("reload call");
-          this.router.navigateByUrl('groups/'+this.gid);});
+          this.router.navigateByUrl('groups/'+this.gid);
+          const data={
+            gid:this.gid,
+          }
+          this.afs.doc('users/' + uid + '/memberGroups/' + this.gid).set(data).then(()=>{
+            console.log('Added to memberGroups...');
+          });
+         
+        });
     });
     
   }

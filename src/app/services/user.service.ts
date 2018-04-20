@@ -43,6 +43,9 @@ export class UserService {
       this.router.navigateByUrl('/dashboard');
     });
   }
+  getMemberGroups(uid){
+     return this.afs.collection('users/' + uid + '/memberGroups/').valueChanges();
+  } 
 
 
 }

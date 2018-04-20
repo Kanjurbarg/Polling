@@ -62,7 +62,7 @@
             </div>
           </div>
           <div class="container-fluid my-1 p-0 m-0">
-              <div class="row my-1 groups" *ngFor="let group of adminGroups">
+              <div class="row my-1 pb-2 groups" *ngFor="let group of adminGroups">
               <a [routerLink]="['/groups', group.gid]"> 
                 <div class="col-12">
                 <p class="title  m-0"> {{group.title}}</p>
@@ -74,6 +74,17 @@
             </div>
           </div>
         </div>
+        <div class=" mt-2 pb-2  bg-white container">
+          <div class="p-1 container-fluid ">
+            <div class="row">
+              <h4>Member Groups</h4>
+            </div>
+          </div>         
+              <div class="col-12 p-0 m-0"  *ngFor="let group of memberGroups">
+                 <h5>{{group.title}}</h5>
+                 <p>"{{group.description}}"</p>
+             </div>
+          </div>
         </div>
       </div>
     </div>
