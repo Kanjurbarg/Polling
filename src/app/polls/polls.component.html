@@ -2,8 +2,8 @@
 <div *ngIf="type == 'election'; then election else opinion"></div>
 
 
-<ng-template #election class="container">
- <div class="container"> 
+<ng-template #election class="container bg">
+ <div class="bg container"> 
     <div class="text-capitalize">
       <h1>Title : {{topic}} </h1>
       <h3>Description : {{description}}</h3>
@@ -14,7 +14,7 @@
     <div class=" bg-light container-fluid my-1" *ngIf="status=='off';">
       <h5 class="bg-danger border border-rounded my-1 px-2 py-1">Poll Status: Poll haven't started yet.... Please do the next procedure. </h5>
       <h4 class=" container-fluid my-1">Select Contenders</h4>
-      <div class="row bg-dark mt-1 justify-content-center" >
+      <div class="row bg-light mt-1 justify-content-center" >
         <button id="members" *ngFor="let member of gMembers" class="border col-md-4 mx-1 my-1 container my-1 btn btn-md btn-light" (click)="getContender(member.uid)">
           <img class="rounded-circle" height="60px" width="60px" src="{{member.photoURL}}"> <span class="" style="font-size:18px;">{{member.display_name}}@{{member.username}}</span> 
         </button>
@@ -32,8 +32,10 @@
             <app-contender [pollContender]="pollContender"></app-contender>
         </div>
       </div>
-      <div class="row" *ngFor="let member of gMembers">
-        
+      <div class="row">
+          <div class="col-md-12  border-0 rounded mt-3 my-1 "  *ngFor="let voter of gMembers">
+              <img src="{{voter.photoURL}}" height="30px" width="30px" class="rounded-circle"><span class="mx-1" style="font-size: 18px">{{voter.display_name}}</span>
+          </div>
       </div>
     </div>
   </div>   
@@ -74,25 +76,26 @@
                  <hr>
                 </div>
               </div>
+              <div *ngIf="choicesList.length > 1" class="row text-center justify-content-center p-2">
+                  <button class="btn btn-success"  (click)="startPoll()">Start Your Poll</button>
+                </div>
           </div>
         </div>
       </div>
-          <div class="border col-md-3 ml-2">
+          <div class="border bg-white col-md-3 ml-2">
             <div class="row">
                 <div class="col-12">
                   <h5>List of Voters.</h5>
                 </div>
             </div>
-            <div class="row" *ngFor="let member of gMembers">
-              <div class="col-12">
-                {{member.username}}
-              </div>
+            <div class="row">
+                <div class="col-md-12  border-0 rounded mt-3 my-1 "  *ngFor="let voter of gMembers">
+                    <img src="{{voter.photoURL}}" height="30px" width="30px" class="rounded-circle"><span class="mx-1" style="font-size: 18px">{{voter.display_name}}</span>
+                </div>
             </div>
           </div>
         </div>
-        <div class="row">
-          <button class="col-md-12 btn btn-success"  (click)="startPoll()">Start Your Poll</button>
-        </div>
+        
       </div>
   </ng-template>
   <ng-template #content let-c="close" let-d="dismiss">

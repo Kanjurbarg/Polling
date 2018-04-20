@@ -18,7 +18,11 @@
 .plus:hover{
     color:red
 }
-
+.main{
+    background-color:#8590AA!important;
+    
+    min-height:100vh;
+}
 .ongoing:hover
 {
     background-color: orange!important;

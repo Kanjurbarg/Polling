@@ -6,6 +6,8 @@ import { GroupsService } from '../services/groups.service';
 import { UserService } from '../services/user.service';
 import { Time } from '@angular/common';
 import { AuthService } from '../services/auth.service';
+import { DatePipeService } from '../services/date-pipe.service';
+
 
 
 
@@ -55,7 +57,10 @@ votesLabel=[];
     private US:UserService,
     private GS:GroupsService,
     private auth:AuthService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private dateForamt:  DatePipeService,
+
+
   ) { }
 
   timer;
@@ -216,6 +221,10 @@ votesLabel=[];
     
     });
 
+  }
+  getDate(date){
+
+      return this.dateForamt.transform(date);
   }
 
  

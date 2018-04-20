@@ -43,6 +43,9 @@
                 <ng-template ngbTabTitle><b class="">Opinion Polls</b></ng-template>
               <ng-template ngbTabContent>
               <div class="container p-1 m-1">
+                  <div class="container-fluid"> 
+                      <button class="btn btn-primary my-1" (click)="open(content,'opinion')">Opinion Poll</button>   
+                    </div>
                 <div class="container-fluid">
                     <div class="row">
                         
@@ -68,9 +71,11 @@
                 <ng-template ngbTabTitle><b class="">Election Polls</b></ng-template>
               <ng-template ngbTabContent>
               <div class="container p-1 m-1">
-                <div class="container-fluid ">
+                <div class="container-fluid"> 
+                    <button class="btn btn-primary my-1" (click)="open(content,'election')">Election Poll</button>   
+                  </div>
+                <div class="container-fluid">
                     <div class="row">
-                        
                           <div class="text-center col-md-6" *ngFor="let poll of electionPolls">
                             <div class=" min border bg-white p-1 m-1">
                             <h3>

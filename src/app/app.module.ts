@@ -24,6 +24,7 @@ import { UserService } from './services/user.service';
 import { GroupsService } from './services/groups.service';
 import { PollService } from './services/poll.service';
 import { UploadService } from './services/upload.service';
+import { DatePipeService } from './services/date-pipe.service';
 
 // Third party libraries
 import { NavbarComponent } from './navbar/navbar.component';
@@ -36,6 +37,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { AccountComponent } from './account/account.component';
 import { CoverComponent } from './cover/cover.component';
+
 
 const routes: Routes = [
   {
@@ -80,6 +82,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    DatePipeService,
     ElectionComponent,
     ContenderComponent,
     LoginComponent,
@@ -113,7 +116,8 @@ const routes: Routes = [
     AuthService,
     GroupsService,
     PollService,
-    UploadService
+    UploadService,
+    DatePipeService
   ],
   bootstrap: [AppComponent]
 })

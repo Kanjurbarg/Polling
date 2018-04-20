@@ -7,3 +7,6 @@
 #startPoll:focus{
         text-transform: none
 }
+.bg{
+        background-color: white!important;
+}

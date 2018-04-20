@@ -1,11 +1,14 @@
-<div *ngIf="display_name ; else loading">
-  <div class="container mt-3  px-0"> 
+<div class="main" *ngIf="photoURL ; else loading">
+  <div class="container pt-3 px-0"> 
     <div class="container-fluid ">
       <div class="row">
         <div class="col-md-3">
           <div class="p-2 bg-white border rounded border-white">
             <img class="bigCircle-image circle-image" [src]="photoURL" alt=""> <h4>{{display_name}}</h4><h5>@{{username}}</h5>
-          <h6>Joined On : {{joinDate}}</h6>
+          <h6>Joined On : {{joinDate | dateFormatPipe}}</h6>
+        </div>
+        <div class="mt-1">
+          <button class="btn btn-danger" (click)="logout()">Logout</button>
         </div>
         <div class=" border rounded-bottom bg-white mt-2 col-md-12 border-danger">
           <div class="container-fluid">

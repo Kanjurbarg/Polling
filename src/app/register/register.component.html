@@ -1,79 +1,80 @@
 
-<div>
+<div class="container">
+  <div class="box mt-3 pb-2 bg-white rounded container">
   <form [formGroup]="rForm" (ngSubmit)="register(rForm)" > 
-    <div class="container">
-      <h1 class="text-center">Please Register to Online Polling Website</h1>
+    <div class="container main mt-2">
+      <h1 class="text-center">Please Register to Digi Polls</h1>
       <div id="login-form" class="py-2 px-3 mt-3">
           <div class="form-group">
             <label for="name">Name</label>
             <input  type="text" class="form-control" id="name" placeholder="Enter Name" formControlName="display_name">
-            <div class="CustomAlert" *ngIf="!rForm.get('display_name').valid && rForm.get('display_name').touched">
+            <small class="customAlert" *ngIf="!rForm.get('display_name').valid && rForm.get('display_name').touched">
               <div *ngIf="rForm.get('display_name').hasError('required')">Name is Required</div>
               <div *ngIf="rForm.get('display_name').hasError('pattern')">Required Only Characters </div>
-            </div>
+            </small>
           </div>
-
         <div class="form-group">
           <label for="email">Email address</label>
           <input  type="email" class="form-control" id="email" placeholder="Enter email" formControlName="email">
-          <div class="CustomAlert" *ngIf="!rForm.get('email').valid && rForm.get('email').touched">
+          <small class="customAlert" *ngIf="!rForm.get('email').valid && rForm.get('email').touched">
               <div *ngIf="rForm.get('email').hasError('required')">Email Address is Required</div>
-              <div *ngIf="rForm.get('email').hasError('email')">Invalid Email</div>
+              <div *ngIf="rForm.get('email').hasError('email') &&!rForm.get('email').hasError('required')">Invalid Email</div>
                 
-          </div>
+          </small>
         </div>
 
         <div class="form-group">
           <label for="password">Password</label>
           <input  type="password" class="form-control" id="password" placeholder="Password" formControlName="password">
-          <div class="CustomAlert" *ngIf="!rForm.get('password').valid && rForm.get('password').touched">
+          <small class="customAlert" *ngIf="!rForm.get('password').valid && rForm.get('password').touched">
               <div *ngIf="rForm.get('password').hasError('required')">Password is Required</div>
               <div *ngIf="rForm.get('password').hasError('minlength')">minimum 8 characters required</div>
-             </div>
+          </small>
         </div>
 
         <div class="form-group">
           <label for="confirmPassword">Confirm Password</label>
           <input  type="password" class="form-control" id="confirmPassword" placeholder="confirmPassword" formControlName="confirmPassword">
-          <div class="CustomAlert" *ngIf="!rForm.get('confirmPassword').valid && rForm.get('confirmPassword').touched">
+          <small class="customAlert" *ngIf="!rForm.get('confirmPassword').valid && rForm.get('confirmPassword').touched">
               <div *ngIf="rForm.get('confirmPassword').errors">Password is Required</div>
               
-             </div>
+          </small>
         </div>
 
         <div class="form-group">
           <label for="username">Username</label>
           <input  type="text" class="form-control" id="username" placeholder="Username" formControlName="username">
-          <div class="CustomAlert" *ngIf="!rForm.get('username').valid && rForm.get('password').touched">
+          <small class="customAlert" *ngIf="!rForm.get('username').valid && rForm.get('username').touched">
               <div *ngIf="rForm.get('username').hasError('required')">Username is Required</div>
               <div *ngIf="rForm.get('username').hasError('minlength')">minimum 3 characters required</div>
-          </div>
+          </small>
         </div>
     
         <div class="form-group">
           <label for="description">Description</label>
           <input  type="text" class="form-control" id="description" placeholder="Description" formControlName="description">
-          <div class="CustomAlert" *ngIf="!rForm.get('description').valid && rForm.get('description').touched">
+          <small class="customAlert" *ngIf="!rForm.get('description').valid && rForm.get('description').touched">
               <div *ngIf="rForm.get('description').hasError('required')">Description is Required</div>
               <div *ngIf="rForm.get('description').hasError('minlength')">minimum 10 characters required</div>   
               <div *ngIf="rForm.get('description').hasError('maxlength')">Limit exceed Maximum 200 characters </div>   
-            </div>
+          </small>
         </div>
 
         <div class="form-group">
           <label for="contact">Contact</label>
           <input  type="text" class="form-control" id="contact" placeholder="Phone Number" formControlName="contact">
-          <div class="CustomAlert" *ngIf="!rForm.get('contact').valid && rForm.get('contact').touched">
+          <small class="customAlert" *ngIf="!rForm.get('contact').valid && rForm.get('contact').touched">
               <div *ngIf="rForm.get('contact').hasError('required')">Mobile no is Required</div>
               <div *ngIf="rForm.get('contact').hasError('pattern')">Required Only Numbers </div>
               <div *ngIf="rForm.get('contact').hasError('minlength')">10 numbers required</div>
               <div *ngIf="rForm.get('contact').hasError('maxlength')">Excceding limit </div>
-          </div>
+          </small>
         </div>
      </div>
     </div>
   </form>
   <div class="text-center">
-    <input type="submit" class="btn btn-large" value="Submit Form" (click)="register(rForm)" [disabled]="!rForm.valid" >
+    <input type="submit" class="btn btn-large btn-primary" value="Submit Form" (click)="register(rForm)" [disabled]="!rForm.valid" >
+    </div>
   </div>
 </div>
