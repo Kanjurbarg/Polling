@@ -8,8 +8,8 @@
 
 
 <ng-template #evoting>
-  <div class="container bg-white">
-      <div class=" text-justify text-center inline-blocks bg-light container-fluid">
+  <div class="container  mt-2">
+      <div class="text-justify rounded text-center inline-blocks bg-white container-fluid">
           <div class="" height="200px">
             <h1 class="" style="font-size: 50px">{{title}}</h1>
           </div>
@@ -18,36 +18,34 @@
           </div>             
       </div>
         <div>
-          <h4>Started On:{{startDate}}</h4>
-          <h5>Duration of Poll: {{duration}} Minutes</h5>
-          <h5>Status:{{status}}</h5>
+          <h4 class="text-white">Started On:{{startDate | dateFormatPipe}}</h4>
+          <h5 class="text-white">Duration of Poll: {{duration}} Minutes</h5>
+          <h5 class="text-white">Status:{{status}}</h5>
         </div>
-        <div class="container-fluid">
-        <div class="row">
+        <div class="container-fluid rounded p-0 m-0">
+         <div class="row rounded p-0 m-0 ">
             <div class="col-md-9">
-              <div class="row">
-                <h1> The Contenders </h1>
-              </div>
-              <div class="row col-12 bg-light justify-content-center justify-content-between">
-                  <div class="col-md-4 mt-1 justify-content-center justify-content-between" *ngFor="let contender of contenders">
+               <div class="rounded pl-4 m-0 bg-light">
+              <h1>The Contenders </h1>
+              <div class="row col-12 bg-light ">
+                  <div class="col-md-4  m-2 justify-content-center justify-content-between" *ngFor="let contender of contenders">
                     <app-contender [contender]="contender"></app-contender>    
                    </div>
               </div>
+               </div>
             </div>
-            <div class="col-md-3  bg-light">
-              <div class="row">
+            <div class="col-md-3 rounded bg-light">           
                 <h2 class="mx-1">List Of Voter</h2>
-              </div>
-              <div class="row">
-                  <div class="col-md-12  border-0 rounded mt-3 my-1 "  *ngFor="let voter of gMembers">
-                      <img src="{{voter.photoURL}}" height="30px" width="30px" class="rounded-circle"><span class="mx-1" style="font-size: 18px">{{voter.display_name}}</span>
-                  </div>
-                </div>
+                  <div class="bg-light rounded  py-2 ">
+                      <div class=" my-2" *ngFor="let member of gMembers">
+                        <img class="circle-image" [src]="member.photoURL ? member.photoURL:'../../assets/images/default_profile_pic.jpg'"> <h5 class="inline">{{member.display_name}}</h5>
+                      </div>
+                    </div>
             </div>
         </div>
       </div>
       <div class="container-fluid">
-        <div class="row mt-2 bg-light">
+        <div class="row mt-2 rounded bg-light">
           <div class="row mx-1">
             <div class="col-12">
             <h2>Member Who Have Voted.</h2>
@@ -64,8 +62,8 @@
 </ng-template>
 
 <ng-template #eresult>
-  <div class="container">
-      <div class=" text-justify text-center inline-blocks bg-light container-fluid">
+  <div class="container mt-2">
+      <div class=" text-justify text-center mt-2 inline-blocks  bg-light container-fluid">
               <div class="" height="200px">
                 <h1 class="" style="font-size: 50px">{{title}}</h1>
               </div>
@@ -74,7 +72,7 @@
               </div>             
       </div>
         <div>
-          <h4>Started On: {{startDate}}</h4>
+          <h4>Started On: {{startDate | dateFormatPipe}}</h4>
           <h5>Duration of Poll: {{duration}} Minutes</h5>
           <h5>Status : {{status}}</h5>
         </div>
@@ -111,7 +109,7 @@
 <ng-template #opinion>
   <div  class="container">
     
-    <div class="text-justify text-center inline-blocks bg-light containerifluid">
+    <div class="text-justify text-center mt-2 py-2  inline-blocks bg-light containerifluid">
         <div class="" height="200px">
           <h1 class="" style="font-size: 50px">{{title}}</h1>
         </div>
@@ -119,16 +117,16 @@
             <h3 class=" " style="font-size:30px">"{{description}}..."</h3>
         </div>             
     </div>
-      <div>
-        <h4>Started On:{{startDate}}</h4>
+      <div class="text-white py-2 ">
+        <h4>Started On: {{startDate | dateFormatPipe}}</h4>
       
-        <h5>Status:{{status}}</h5>
+        <h4>Status: {{status}}</h4>
       </div>
 
       <div class="container px-0">
         <div class="container-fluid">
           <div class="row justify-content-between">
-            <div class="col-md-8 bg-light">
+            <div class="col-md-8 rounded bg-light">
             <h2 *ngIf="type == 'ongoing'">Please Vote Here...</h2>
             
               <div class="container-fluid">
@@ -150,8 +148,8 @@
             </div>
           </div>
           </div>
-          <div class="col-md-4  m-0 p-0 ">
-            <div class="bg-light px-3 py-2 ml-3">
+          <div class="col-md-4 m-0 p-0 ">
+            <div class="bg-light  rounded  px-3 py-2 ml-3">
             <h2>List of Voters </h2>
             <hr>
             <div class=" my-2" *ngFor="let member of gMembers">
@@ -163,7 +161,7 @@
       </div>
 
       </div>
-      <div class="container bg-white border mt-3 p-2">
+      <div class="container  rounded  bg-white border mt-3 p-2">
         <h1 class="">Summary</h1>
           <div style="display: block">
               <canvas baseChart
@@ -203,10 +201,10 @@
     </div>
 </ng-template>
 <ng-template #loading>
-  <div class="container p-5 text-center">
-   <i class=" text-primary fa fa-spinner fa-spin  fa-3x"></i>
-   <h1 >Loading...</h1>
-  </div>
+    <div class="container text-white p-5 pt-3 text-center">
+     <i class=" fa fa-circle-o-notch fa-spin fa-5x"></i>      
+     <h2> Loading...</h2>
+    </div>
 </ng-template>
 
 

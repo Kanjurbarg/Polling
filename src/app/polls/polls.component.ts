@@ -31,6 +31,7 @@ export class PollsComponent implements OnInit {
   type;
   choice:string;
   choicesList;
+  default='../../assets/images/default_profile_pic.jpg';
 
 
   constructor(

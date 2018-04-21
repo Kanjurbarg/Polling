@@ -16,28 +16,41 @@
     border-bottom: 1px solid black;
 }
 .plus:hover{
-    color:red
-}
-.main{
-    background-color:#f4f4f4!important;
-    
-    min-height:100vh;
+    color:#3DA88C;
 }
 .ongoing:hover
 {
-    background-color: lightgrey;
-    color:#3DA88C!important;
+    background-color: #3DA88C!important;
+    color:white!important;
 
 }
-.ongoing{
-    
+.ongoing:hover > a{
+    background-color: #3DA88C!important;
+    color:white!important;
+}
+.finished:hover > a{
+    background-color: #3DA88C!important;
+    color:white!important;
 }
 .finished:hover
-{
-    
+{  
+    background-color: #3DA88C!important;
     color:white
 }
 .red .active a,
 .red .active a:hover {
     background-color: red;
+}
+ol, ul, .nav, .nav-pills, .nav-fill {
+    margin-left:0px!important;
+}
+.text-primary{
+    color:#3DA88C!important;
+}
+
+.nav-link,.active{
+    background-color: #3DA88C!important;
+}
+.btn-danger{
+    width:100%;
 }

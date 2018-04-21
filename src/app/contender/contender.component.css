@@ -18,3 +18,10 @@
    min-height: 70px!important
     
 }
+img{
+    align-self: center;
+    min-width: 250px!important;
+    min-height: 250px!important;
+    max-height: 250px!important;
+    max-width: 250px!important;
+}

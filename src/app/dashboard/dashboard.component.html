@@ -7,14 +7,12 @@
             <img class="bigCircle-image circle-image" [src]="photoURL" alt=""> <h4>{{display_name}}</h4><h5>@{{username}}</h5>
           <h6>Joined On : {{joinDate | dateFormatPipe}}</h6>
         </div>
-        <div class="mt-1">
+        <div class="my-2">
           <button class="btn btn-danger" (click)="logout()">Logout</button>
         </div>
-        <div class=" border rounded-bottom bg-white mt-2 col-md-12 border-danger">
-          <div class="container-fluid">
-              <div class="row bottom">
-                  <h3 class="">Pending Polls</h3>
-              </div>
+        <div class="border rounded-bottom bg-white mt-2 col-md-12 border-danger">
+          <div class="container-fluid bottom p-0 m-0">
+                  <h2 class="text-primary">Pending Polls</h2>  
           </div>
            
             <div *ngIf="pendingPolls.length > 1; else noPolls"> 
@@ -30,7 +28,7 @@
         <div class="col-md-6 bg-light p-0 m-0">
           <div class="container p-2">
                  <ngb-tabset type="pills" justify="fill" class=" m-0 p-0">
-                  <ngb-tab  class=" ongoing polls nav-pills" title="Ongoing Polls">
+                  <ngb-tab id="tab-selectbyid1" class=" ongoing polls nav-pills" title="Ongoing Polls">
                     <ng-template class="polls container" ngbTabContent>
                       <div class="polls container-fluid rounded bg-white ">
                           <div class="row mt-1" *ngFor="let poll of ongoingPolls">
@@ -42,7 +40,7 @@
                     </ng-template>
                   </ngb-tab>
               
-                  <ngb-tab class="polls nav-pills" title="Finished Polls">
+                  <ngb-tab id="tab-selectbyid2" class="polls nav-pills" title="Finished Polls">
                     <ng-template class=" polls container " ngbTabContent>
                       <div class=" polls container-fluid rounded bg-white">
                           <div class="row  mt-1" *ngFor="let poll of finishedPolls">
@@ -61,7 +59,7 @@
          <div class="bg-white container ">    
           <div class="pb-1 bottom container-fluid p-0 ml-1">
             <div class="row">
-                <h3 class=" col-9  mt-1 border-bottom">Groups Page</h3> <h2 class=" mt-1 float-right col-1"><i class="fa fa-plus-square-o plus" (click)="open(content)"></i></h2>
+                <h3 class=" col-9 text-primary mt-1 border-bottom">Groups Page</h3> <h2 class=" mt-1 float-right col-1"><i class="fa fa-plus-square-o plus" (click)="open(content)"></i></h2>
             </div>
           </div>
           <div class="container-fluid my-1 p-0 m-0">
@@ -79,9 +77,9 @@
         </div>
         <div class=" mt-2 pb-2  bg-white container">
           <div class="p-1 container-fluid ">
-            <div class="row">
-              <h4>Member Groups</h4>
-            </div>
+           
+              <h3 class="text-primary">Member Groups</h3>
+           
           </div>         
               <div class=" links col-12 p-0 m-0"  *ngFor="let group of memberGroups">
                  <h5>{{group.title}}</h5>
@@ -120,13 +118,13 @@
         
   <!--End Modal -->
   <ng-template #loading>
-      <div class="container spiner p-5 pt-3 text-center">
-       <i class="  fa fa-circle-o-notch fa-spin fa-5x"></i>      
+      <div class="container text-white p-5 pt-3 text-center">
+       <i class=" fa fa-circle-o-notch fa-spin fa-5x"></i>      
        <h2> Loading...</h2>
       </div>
   </ng-template>
   <ng-template #noPolls>
-  <div class="container fonr-weight-bolder text-muted text-center"> 
+  <div class="container text-primary fonr-weight-bolder text-muted text-center"> 
     <i class="fa fa-times fa-3x"></i>
       <h3>Sorry...</h3>
       <h3>No Polls</h3>

@@ -1,5 +1,5 @@
-<div class="row  justify-content-between" *ngIf="!results">
-    <div id=" "  class="p-2 border border-0  col-md-4 ">
+<div class="row justify-content-between" *ngIf="!results">
+    <div id=" "  class="p-2  justify-content-between border border-0  col-md-4 ">
       <div class="card " style="width: 16rem;">
       <h1 *ngIf="results" class="float-left">#{{rank+1}}</h1>
       <img class="card-img-top p-2 rounded-circle" [src]="photoURL" >
@@ -29,7 +29,7 @@
     </div>
     <div class="col-md-2 justify-content-between border-left border-primary text-center">
       <h1>Total Votes</h1>
-      <h1  class="bg-light" id="voteCount">{{totalVotes}}</h1>
+      <h1 class="bg-light" id="voteCount">{{totalVotes}}</h1>
 
     </div>
   </div>

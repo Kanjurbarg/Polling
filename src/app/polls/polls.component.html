@@ -2,38 +2,40 @@
 <div *ngIf="type == 'election'; then election else opinion"></div>
 
 
-<ng-template #election class="container bg">
- <div class="bg container"> 
-    <div class="text-capitalize">
-      <h1>Title : {{topic}} </h1>
-      <h3>Description : {{description}}</h3>
-      <h3 >Status : {{status}}</h3>
-      <h1>Type: {{type}}</h1>
-      
-    </div>
-    <div class=" bg-light container-fluid my-1" *ngIf="status=='off';">
-      <h5 class="bg-danger border border-rounded my-1 px-2 py-1">Poll Status: Poll haven't started yet.... Please do the next procedure. </h5>
-      <h4 class=" container-fluid my-1">Select Contenders</h4>
-      <div class="row bg-light mt-1 justify-content-center" >
-        <button id="members" *ngFor="let member of gMembers" class="border col-md-4 mx-1 my-1 container my-1 btn btn-md btn-light" (click)="getContender(member.uid)">
+<ng-template #election class="container">
+ <div class="container my-2 py-2"> 
+    <div class="text-capitalize bg-white px-2 mb-2 pb-2">
+        <h1><span class="text-primary">Question: </span> {{topic}} ? </h1>
+        <h3><span class="text-primary">Description: </span> {{description}}</h3>
+        <h3><span class="text-primary">Status: </span> {{status}}</h3>     
+      </div>
+    <div class="bg-light container-fluid my-1 py-2" *ngIf="status=='off';">
+     <div class="bg-light">
+      <h2 class=" container-fluid my-1">Select Contenders</h2>
+      <div class="row bg-light py-2 mt-1 justify-content-center" >
+        <button id="members" *ngFor="let member of gMembers" class="border col-md-4 mx-1 my-1 container my-1 btn btn-md btn-dark" (click)="getContender(member.uid)">
           <img class="rounded-circle" height="60px" width="60px" src="{{member.photoURL}}"> <span class="" style="font-size:18px;">{{member.display_name}}@{{member.username}}</span> 
         </button>
-      </div>     
+      </div>  
+    </div>
     </div>
 
     <div id="contenders" class="container rounded bg-light" >
-       <div class="row"  *ngIf="status=='off' ">
-            <button id="startPoll" [style]="statBtn" class="col-md-12 px-3 py-2 bg-success " (click)="startPoll()"> Start Your Poll</button>
-        </div>
+       
       <h1> Contenders for Poll are..</h1>
       <hr>
-      <div class="row border-top">
+      <div class="row border">
         <div class="col-md-3 mt-1 justify-content-center"  *ngFor="let pollContender of displayContenders">
             <app-contender [pollContender]="pollContender"></app-contender>
         </div>
       </div>
-      <div class="row">
-          <div class="col-md-12  border-0 rounded mt-3 my-1 "  *ngFor="let voter of gMembers">
+      <div  class="text-center" *ngIf="status=='off' ">
+          <button id="startPoll" class="text-center btn text-white btn-lg align-self-center px-3 py-2 btn-success " (click)="startPoll()"> Start Your Poll</button>
+      </div>
+      <h2 class="border-top">List of Voters</h2>
+      <div class="row bg-light">
+        
+          <div class="col-md-3 bg-white  px-2 py-2 border rounded mt-3 my-1 "  *ngFor="let voter of gMembers">
               <img src="{{voter.photoURL}}" height="30px" width="30px" class="rounded-circle"><span class="mx-1" style="font-size: 18px">{{voter.display_name}}</span>
           </div>
       </div>
@@ -42,58 +44,68 @@
   </ng-template>
 
   <ng-template #opinion class="container">
-    <div class="container">
-        <div class="text-capitalize">
-          <h1>Question : {{topic}} ? </h1>
-          <h3>Description : {{description}}</h3>
-          <h3 >Status : {{status}}</h3>   
-          <h1>Type: {{type}}</h1>      
+    <div class="container my-2 p-2">
+        <div class="text-capitalize bg-white px-2 mb-2 pb-2">
+          <h1><span class="text-primary">Question: </span> {{topic}} ? </h1>
+          <h3><span class="text-primary">Description: </span> {{description}}</h3>
+          <h3><span class="text-primary">Status: </span> {{status}}</h3>     
         </div>
-        <div class="row">
-          <div class=" bg-light col-8">
-            <h1>Add Your Choice Here...</h1>
-            <div class="row">
-                <form class="bg-light col-8 form-inline" (ngSubmit)="addChoice($event)">
-                    <div class="form-group mb-2">
-                      <h5>Choices</h5>
-                    </div>
-                    <div class="form-group mx-sm-3">
-                      <label style="font-size: 18px; " for="inputPassword2" class="sr-only"></label>
-                      <input type="text" name="choice" [(ngModel)]="choice" placeholder="Type Your Choice.....">
-                    </div>
-                    <button type="submit" class="btn btn-primary align-top" >Add Choice</button>
-                </form>
+
+        <div class="container-fluid">
+            <div class="row justify-content-between">
+                <div class=" bg-light col-8">
+                  <h1>Add Your Choice Here...</h1>
+
+                  <div class="container-fluid">
+                      <div class="row mx-auto">
+                          <form class="bg-light col-8 form-inline" (ngSubmit)="addChoice($event)">
+                              <div class=" form-group mb-2">
+                                <h3 class="my-0">Choices</h3>
+                              </div>
+                              <div class="form-group mx-sm-3">
+                                <label style="font-size: 18px; " for="inputPassword2" class="sr-only"></label>
+                                <input type="text"  class="my-0" name="choice" [(ngModel)]="choice" placeholder="Type Your Choice.....">
+                              </div>
+                              <button type="submit" class="btn btn-primary align-top" >Add Choice</button>
+                          </form>
+                      </div>
+                  </div>
+
+                  <div class="container-fluid pt-2">
+                      <div class="row  justify-content-between">
+                          <div class="col-md-8 justify-content-between border">
+                            <h2>Your Choices are...</h2>
+                          
+                           <div class="container-fluid">
+                              <div class="row justify-content-between " *ngFor="let choice of choicesList ;let i = index ">
+                                  <div class="col-11 mx-1 justify-content-between">
+                                    <div class="row p-2 mx-2 bg-white border-rounded  text-capitalize">
+                                      <div class=" align-self-center col-md-1">{{i+1}}</div> <div class="col-md-8  align-self-center float-left" style="font-size:20;">{{choice.choice}}</div> <button class="col-md-2  align-self-center btn btn-sm btn-danger ml-1" (click)="deleteChoice(choice.cid)">Delete</button>
+                                   </div>
+                                   <hr>
+                                  </div>
+                                </div>
+                           </div>
+                            <div *ngIf="choicesList.length > 1" class=" text-center justify-content-center p-2">
+                                <button class="btn btn-success"  (click)="startPoll()">Start Your Poll</button>
+                              </div>
+                        </div>
+                      </div>
+                  </div>
             </div>
-            <div class="row  justify-content-between">
-            <div class="col-md-8 justify-content-between border">
-              <h2>Your Choices are...</h2>
-            
-              <div class="row justify-content-between " *ngFor="let choice of choicesList ;let i = index ">
-                <div class="col-11 mx-1 justify-content-between">
-                  <div class="row p-2 mx-2 bg-white border-rounded  text-capitalize">
-                    <div class="col-md-1">{{i+1}}</div> <div class="col-md-8 float-left" style="font-size:20;">{{choice.choice}}</div> <button class=" col-md-2 btn btn-sm btn-danger ml-1" (click)="deleteChoice(choice.cid)">Delete</button>
-                 </div>
-                 <hr>
+                <div class="p-0  m-0 col-md-4 ">  
+                 <div class="ml-2 px-3 py-2 bg-white">
+                      <div class="">
+                        <h5>List of Voters.</h5>
+                      </div>
+                  <div class="">
+                      <div class=" border-0 rounded mt-3 my-1 "  *ngFor="let voter of gMembers">
+                          <img  src="{{voter.photoURL ? voter.photoURL : default}}" height="30px" width="30px" class="rounded-circle"><span class="mx-1" style="font-size: 22px">{{voter.display_name}}</span>
+                      </div>
+                  </div>
+                  </div>
                 </div>
               </div>
-              <div *ngIf="choicesList.length > 1" class="row text-center justify-content-center p-2">
-                  <button class="btn btn-success"  (click)="startPoll()">Start Your Poll</button>
-                </div>
-          </div>
-        </div>
-      </div>
-          <div class="border bg-white col-md-3 ml-2">
-            <div class="row">
-                <div class="col-12">
-                  <h5>List of Voters.</h5>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12  border-0 rounded mt-3 my-1 "  *ngFor="let voter of gMembers">
-                    <img src="{{voter.photoURL}}" height="30px" width="30px" class="rounded-circle"><span class="mx-1" style="font-size: 18px">{{voter.display_name}}</span>
-                </div>
-            </div>
-          </div>
         </div>
         
       </div>
@@ -101,4 +113,9 @@
   <ng-template #content let-c="close" let-d="dismiss">
 
   </ng-template>
-
+  <ng-template #loading>
+      <div class="container text-white p-5 pt-3 text-center">
+       <i class=" fa fa-circle-o-notch fa-spin fa-5x"></i>      
+       <h2> Loading...</h2>
+      </div>
+  </ng-template>

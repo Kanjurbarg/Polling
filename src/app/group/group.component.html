@@ -37,8 +37,8 @@
     </div>  
    
 
-    <div class="col-md-8 bg-white">
-      <div class="bg-light polls pr-3">
+    <div class="col-md-8 p-0 bg-white">
+      <div class="bg-light polls">
         <div class="">
         <ngb-tabset justify="fill">
             <ngb-tab class="headings">
@@ -70,7 +70,7 @@
               </ng-template>
             </ngb-tab>
             <ngb-tab>
-                <ng-template ngbTabTitle><b class="">Election Polls</b></ng-template>
+                <ng-template ngbTabTitle><b class="text-primary">Election Polls</b></ng-template>
               <ng-template ngbTabContent>
               <div class="container p-1 m-1">
                 <div class="container-fluid"> 
@@ -152,7 +152,7 @@
               </div>
             </form>
           </div>
-            <div class="modal-footer">
+            <div class="modal-footer pb-3">
               <button *ngIf="pollType != 'opinion'" class="btn btn-primary" (click)="createPoll(pollType)">Next..</button>
               <button *ngIf="pollType == 'opinion'" class="btn btn-primary" (click)="createPoll(pollType)">Next Step</button>
             </div>
@@ -165,3 +165,9 @@
         </ng-template>
         
   <!--End Modal -->
+  <ng-template #loading>
+      <div class="container text-white p-5 pt-3 text-center">
+       <i class=" fa fa-circle-o-notch fa-spin fa-5x"></i>      
+       <h2> Loading...</h2>
+      </div>
+  </ng-template>

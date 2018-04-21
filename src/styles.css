@@ -51,3 +51,7 @@ html, body{
 .text-primary{
     color:#3DA88C!important;
 }
+ol, ul, .nav-pills, .nav-fill {
+    margin-left:0px!important;
+
+}

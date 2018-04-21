@@ -16,6 +16,9 @@
 .headings:active{
     color: yellowgreen
 }
+.active{
+    color:red!important;
+}
 .status{
     font-size: 18px;
 }
@@ -27,4 +30,7 @@
     min-height: 50px;
     max-height: 50px;
     max-width:50px;
+}
+.modal-footer{
+    min-height: 75px!important;
 }

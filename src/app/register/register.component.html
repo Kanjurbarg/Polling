@@ -1,10 +1,10 @@
 
 <div class="container">
-  <div class="box mt-3 pb-2 bg-white rounded container">
+  <div class="box col-md-6 mt-3 pb-2 bg-white rounded container">
   <form [formGroup]="rForm" (ngSubmit)="register(rForm)" > 
-    <div class="container main mt-2">
-      <h1 class="text-center">Please Register to Digi Polls</h1>
-      <div id="login-form" class="py-2 px-3 mt-3">
+    <div class="container  main mt-2">
+      <h1 class="text-center">Registration</h1>
+      <div id="login-form" class=" text-primary py-2 px-3 mt-3">
           <div class="form-group">
             <label for="name">Name</label>
             <input  type="text" class="form-control" id="name" placeholder="Enter Name" formControlName="display_name">
