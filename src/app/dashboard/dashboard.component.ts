@@ -98,7 +98,6 @@ export class DashboardComponent implements OnInit {
               this.ongoingPolls.push(Ofeed);
                console.log("ongoing "+this.ongoingPolls);
              });
-
            });        
         });
         //Display Finished Polls
@@ -131,10 +130,6 @@ export class DashboardComponent implements OnInit {
        });
 
  });
-
-      
-     
-
      
   }
 

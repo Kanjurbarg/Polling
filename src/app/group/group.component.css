@@ -19,3 +19,12 @@
 .status{
     font-size: 18px;
 }
+.text-primary{
+    color:#3DA88C!important;
+}
+.bigCircle-image{
+    min-width: 50px;
+    min-height: 50px;
+    max-height: 50px;
+    max-width:50px;
+}

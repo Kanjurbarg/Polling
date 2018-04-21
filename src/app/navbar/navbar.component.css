@@ -2,5 +2,44 @@ nav {
   height: 50px;
   max-height: 50px;
   width: 100%;
-  background-color: #2A2D34!important;
+  
+}
+.navbar-brand{
+  font-weight: 700;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size:30px;
+  color:#3DA88C!important
+}
+.dashboard{
+  background-color:white;
+  color:#3DA88C!important;
+}
+.navs:hover{
+  color:#3DA88C!important;
+}
+.navs{
+  color:black!important;
+  font-weight: 450;
+  font-size: 18px;
+}
+li:active{
+  color:#FFCB2C!important;
+}
+.navs:active{
+  color:white!important;
+}
+.login{
+  background-color: azure;
+}
+.chart{
+  color:#FFCB2C;
+}
+ul>li>a:hover{
+  color:#FFCB2C;
+}
+ul>li>a{
+  color:white;
+}
+ul>li>a:active{
+  color:#FFCB2C;
 }

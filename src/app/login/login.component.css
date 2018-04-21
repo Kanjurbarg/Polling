@@ -55,6 +55,9 @@ input.ng-touched.ng-valid{
   color:  #ff312d;
   border-color:#ff312d;
 }
+body{
+  background-color: #3aadf4;
+}
 
 
 

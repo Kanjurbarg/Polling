@@ -1,5 +1,5 @@
 
-<div class="container">
+<div class="container pt-2">
   <div class="row mt-1" >
     <div class="col-md-4 col-xs-12">
       <div class="p-2 bg-white border rounded">
@@ -8,23 +8,25 @@
         <p>Created On {{gDate}}</p>
         <p>Admin: <b>{{gAdmin}} </b></p>    
       </div>  
-      <div class="ml-3 mt-1">  
-          <div class="row mr-1 bg-white p-1">
-            <label class="" style="font-size:20px;font-weight:bold"> <h2>Members</h2> </label>
+      <div class="bg-white rounded mt-1">  
+          <div class="mr-1 ">
+            <label class="p-2" style="font-size:20px;font-weight:bold"> <h2 class="text-primary">Members</h2></label>
           </div>
+          <div class="container-fluid">
            <div class="row mr-1 bg-white">
              <input class="col-md-11 ml-3 justify-content-center rounded " [ngbPopover]="popContent" popoverTitle='List of Users' id="dropdownBasic1" type="text"  [(ngModel)]="searchterm" (keydown)="search($event)" (focus)="hide = false" (blur)="hideResults()" placeholder="Search Members">
              <div class="bg-white pb-2" *ngFor="let member of gMembers">
                 <div class="col-12 mt-2 bg-white inline float-left">
                     <span>
                     <div class="col-md-12 text-left">
-                        <img class=" rounded-circle" height="50px" width="50px" src="{{member.photoURL}}">
+                        <img class="bigCircle-image" height="50px" width="50px" src="{{member.photoURL ? member.photoURL : default}}">
                       {{member.display_name}}@{{member.username}}
                       </div>
                     </span>
                   </div>
             </div>   
             </div>   
+          </div>
               
                     <ng-template class="ml-2 bg-light"  ngbPopover="" #popContent ngdropdownMenu>
                         <div *ngFor="let user of users">
@@ -40,7 +42,7 @@
         <div class="">
         <ngb-tabset justify="fill">
             <ngb-tab class="headings">
-                <ng-template ngbTabTitle><b class="">Opinion Polls</b></ng-template>
+                <ng-template ngbTabTitle><b class="text-primary">Opinion Polls</b></ng-template>
               <ng-template ngbTabContent>
               <div class="container p-1 m-1">
                   <div class="container-fluid"> 

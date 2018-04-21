@@ -1,10 +1,10 @@
 
-<div *ngIf="userLogged == null; then thatNav else thisNav">
+<div *ngIf="userlogged == null; then thisNav else thatNav">
 </div>
 
 
 <ng-template #thisNav>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-white">
         <div class="container">
           <a class="navbar-brand" href="#">Digi Polls</a>
          
@@ -12,22 +12,37 @@
       </nav>
 </ng-template>
 <ng-template #thatNav>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light dashboard">
         <div class="container">
-          <a class="navbar-brand" href="#">Digi Polls</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <i class="chart fa fa-bar-chart fa-2x pr-1"></i>
+          <a class="navbar-brand " href="#">Digi Polls</a>
+          <button class="navbar-toggler bg-white" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon text-white">
+                <div class="collapse navbar-collapse justify-content-end"  id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                      <li class="nav-item ">
+                        <a class="nav-link mx-2 px-1 navs" href="#">Dashboard<span class="sr-only">(current)</span></a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link mx-2 px-1 navs" href="#">About</a>
+                      </li>
+                      <li class="nav-item text-white">
+                        <a class="nav-link mx-2 px-1 navs" href="#">Contact</a>
+                      </li>
+                    </ul>
+                  </div>
+            </span>
           </button>
           <div class="collapse navbar-collapse justify-content-end"  id="navbarNavDropdown">
             <ul class="navbar-nav">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+              <li class="nav-item">
+                <a class="nav-link navs" href="#">Dashboard<span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link navs" href="#">About</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
+              <li class="nav-item text-white">
+                <a class="nav-link navs" href="#">Contact</a>
               </li>
             </ul>
           </div>

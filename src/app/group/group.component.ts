@@ -63,6 +63,7 @@ export class GroupComponent implements OnInit {
   modalRefChoices;
   duration:number;
   groupPolls=[];
+  default='../../assets/images/default_profile_pic.jpg';
   pollForm= new FormGroup({
     title: new FormControl('',Validators.required),
     des: new FormControl('',Validators.required),

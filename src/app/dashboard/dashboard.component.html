@@ -31,10 +31,10 @@
           <div class="container p-2">
                  <ngb-tabset type="pills" justify="fill" class=" m-0 p-0">
                   <ngb-tab  class=" ongoing polls nav-pills" title="Ongoing Polls">
-                    <ng-template class="polls container border" ngbTabContent>
-                      <div class="polls container-fluid rounded bg-white border border-warning">
+                    <ng-template class="polls container" ngbTabContent>
+                      <div class="polls container-fluid rounded bg-white ">
                           <div class="row mt-1" *ngFor="let poll of ongoingPolls">
-                            <div class="ongoing col-12">
+                            <div class="links ongoing col-12">
                                 <a [routerLink]="['/poll', poll.pid]">   <h3>{{poll.title}}</h3> <h5>{{poll.des}}</h5></a>
                             </div>
                           </div>
@@ -43,10 +43,10 @@
                   </ngb-tab>
               
                   <ngb-tab class="polls nav-pills" title="Finished Polls">
-                    <ng-template class=" polls container border" ngbTabContent>
-                      <div class=" polls container-fluid rounded bg-white border border-success">
+                    <ng-template class=" polls container " ngbTabContent>
+                      <div class=" polls container-fluid rounded bg-white">
                           <div class="row  mt-1" *ngFor="let poll of finishedPolls">
-                              <div class="col-12 finished">
+                              <div class=" links col-12 finished">
                               <a [routerLink]="['/poll', poll.pid]"> <h3>{{poll.title}}</h3> <h5>{{poll.des}}</h5></a> 
                               </div>
                           </div>
@@ -65,7 +65,7 @@
             </div>
           </div>
           <div class="container-fluid my-1 p-0 m-0">
-              <div class="row my-1 pb-2 groups" *ngFor="let group of adminGroups">
+              <div class=" links row my-1 pb-2 groups" *ngFor="let group of adminGroups">
               <a [routerLink]="['/groups', group.gid]"> 
                 <div class="col-12">
                 <p class="title  m-0"> {{group.title}}</p>
@@ -83,7 +83,7 @@
               <h4>Member Groups</h4>
             </div>
           </div>         
-              <div class="col-12 p-0 m-0"  *ngFor="let group of memberGroups">
+              <div class=" links col-12 p-0 m-0"  *ngFor="let group of memberGroups">
                  <h5>{{group.title}}</h5>
                  <p>"{{group.description}}"</p>
              </div>
@@ -120,8 +120,8 @@
         
   <!--End Modal -->
   <ng-template #loading>
-      <div class="container p-5 pt-3 text-center">
-       <i class=" text-primary fa fa-circle-o-notch fa-spin  fa-5x"></i>      
+      <div class="container spiner p-5 pt-3 text-center">
+       <i class="  fa fa-circle-o-notch fa-spin fa-5x"></i>      
        <h2> Loading...</h2>
       </div>
   </ng-template>

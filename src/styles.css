@@ -6,8 +6,23 @@
 .inline{
     display: inline-block;
 }
-body{
-    background-color: #3B8BEB!important;
+.border-primary{
+    color:#3DA88C!important;
+}
+.bg-primary, .btn-primary{
+    background-color:#3DA88C!important;
+    color:white!important;
+    border:0px!important;
+    
+}
+.btn-primary:hover{
+    font-weight: 500;
+    border:2px solid rgb(46, 121, 101)!important;
+    background-color:white!important;
+    color:#3DA88C!important;
+}
+html, body{
+    background-color:#3DA88C!important;
 }
 .title{
     font-size: 22px;
@@ -20,6 +35,19 @@ body{
 
 .bigCircle-image{
     border-radius: 100%!important;
-    min-width: 90px!important;
-    min-height: 90px!important;
+    border:3px solid #3DA88C!important;
+}
+.spiner{
+    color:#3DA88C;
+}
+.links > a{
+    color:black;
+
+}
+.links > a:hover{
+    text-decoration: none;
+    color:#3DA88C;
+}
+.text-primary{
+    color:#3DA88C!important;
 }

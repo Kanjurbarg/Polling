@@ -19,20 +19,22 @@
     color:red
 }
 .main{
-    background-color:#8590AA!important;
+    background-color:#f4f4f4!important;
     
     min-height:100vh;
 }
 .ongoing:hover
 {
-    background-color: orange!important;
-    color:white;
+    background-color: lightgrey;
+    color:#3DA88C!important;
 
 }
-
+.ongoing{
+    
+}
 .finished:hover
 {
-    background-color: lightgreen!important;
+    
     color:white
 }
 .red .active a,

@@ -14,8 +14,12 @@ userlogged;
 
   ngOnInit() {
     this.auth.getAuthState().subscribe(user =>{
-      this.userlogged = user;
+      if(user){
+        this.userlogged = user;
       console.log("navbar "+ user);
+  
+      }
+      
     });
   }
 
