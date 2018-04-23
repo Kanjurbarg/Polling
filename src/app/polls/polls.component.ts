@@ -80,7 +80,7 @@ export class PollsComponent implements OnInit {
       }
 
       this.GS.getMembers(this.gid).subscribe(members=>{
-        console.log(members);
+     
         members.forEach((member:any)=>{
           this.user.push(member.memberID);
           this.gMembers=[];
@@ -101,7 +101,7 @@ export class PollsComponent implements OnInit {
       });
 
       this.PS.getChoices(this.pid).subscribe(list=>{
-        console.log(list);
+       
         this.choicesList = list;
       });
     });   
@@ -133,7 +133,7 @@ export class PollsComponent implements OnInit {
  }
  addChoice(event){
    event.preventDefault();
-   console.log(this.choice);
+  
     const data={
       choice: this.choice,
       votes: this.votes,
@@ -143,8 +143,7 @@ export class PollsComponent implements OnInit {
    this.choice ='';
  }
  deleteChoice(choiceID){
-  console.log(choiceID);
-  console.log(this.pid);
+ 
   this.PS.deletingChoice(choiceID, this.pid);
  }
 
