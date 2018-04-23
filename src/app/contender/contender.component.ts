@@ -36,7 +36,8 @@ export class ContenderComponent implements OnInit {
     private router:Router,
     private route:ActivatedRoute,
     private PS:PollService,
-    private auth:AuthService
+    private auth:AuthService,
+    private US:UserService
   ) { }
 
   ngOnInit() {
@@ -90,11 +91,11 @@ export class ContenderComponent implements OnInit {
       cid:vote,
       pid:this.pid,
     };
-    
     this.PS.addVoter(this.pid,vote);
     this.router.navigateByUrl('voting/' + this.pid);
     this.PS.addVote(preVote);
     this.router.navigateByUrl('voting/' + this.pid);
+    this.US.deletePendingPoll(this.pid, this.currentUser);
   }
 
 }

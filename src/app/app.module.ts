@@ -37,6 +37,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { AccountComponent } from './account/account.component';
 import { CoverComponent } from './cover/cover.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { AboutComponent } from './about/about.component';
 
 
 const routes: Routes = [
@@ -65,7 +67,7 @@ const routes: Routes = [
     component:VotingComponent
   },
   {
-    path:'account',
+    path:'account/:uid',
     component :  AccountComponent
   },
   {
@@ -94,7 +96,9 @@ const routes: Routes = [
     PollsComponent,
     VotingComponent,
     AccountComponent,
-    CoverComponent
+    CoverComponent,
+    FeedbackComponent,
+    AboutComponent
   
   ],
   imports: [

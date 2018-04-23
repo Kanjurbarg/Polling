@@ -43,3 +43,13 @@ ul>li>a{
 ul>li>a:active{
   color:#FFCB2C;
 }
+.pending{
+  
+  max-height: 600px;
+  min-width: 200px;
+  overflow:scroll;
+}
+.drop{
+  font-weight: 450;
+  font-size: 18px;
+}

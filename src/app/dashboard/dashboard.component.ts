@@ -76,6 +76,9 @@ export class DashboardComponent implements OnInit {
               this.photoURL = userDoc.photoURL ?  userDoc.photoURL : 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Default_profile_picture_%28male%29_on_Facebook.jpg/600px-Default_profile_picture_%28male%29_on_Facebook.jpg';
               this.joinDate = userDoc.joinDate;
               this.verified =user.emailVerified; 
+              if(this.username === null){
+                this.router.navigateByUrl('account/' + this.uid);
+              }
           });
         } else {
           this.router.navigateByUrl('/login');
@@ -96,7 +99,7 @@ export class DashboardComponent implements OnInit {
              this.ongoingPolls= [];
              this.PS.getPoll(poll.pid).subscribe(Ofeed=>{
               this.ongoingPolls.push(Ofeed);
-               console.log("ongoing "+this.ongoingPolls);
+               
              });
            });        
         });
@@ -106,7 +109,7 @@ export class DashboardComponent implements OnInit {
             this.ongoingPolls= [];
             this.PS.getPoll(poll.pid).subscribe(Ffeed=>{
               this.finishedPolls.push( Ffeed);
-              console.log("finished "+this.finishedPolls);
+             
             });
           });        
        });
@@ -115,7 +118,7 @@ export class DashboardComponent implements OnInit {
         groups.forEach((group:any)=>{
           this.GS.getGroups(group.gid).subscribe(memberOf=>{
             this.memberGroups.push(memberOf);
-            console.log(this.memberGroups);
+            
           });
         });
        });
@@ -126,7 +129,7 @@ export class DashboardComponent implements OnInit {
             this.pendingPolls.push(pending);
           });
         });
-        console.log(this.pendingPolls);
+     
        });
 
  });

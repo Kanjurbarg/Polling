@@ -7,6 +7,7 @@ import { UserService } from '../services/user.service';
 import { Time } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { DatePipeService } from '../services/date-pipe.service';
+import * as firebase from 'firebase/app';
 
 
 
@@ -50,6 +51,8 @@ labels=[];
 votes=[];
 contenderLabels=[];
 votesLabel=[];
+
+
   constructor(
     private router:Router,
     private route:ActivatedRoute,
@@ -67,6 +70,9 @@ votesLabel=[];
 
   ngOnInit(){
 
+   
+
+
     this.router.routeReuseStrategy.shouldReuseRoute = function(){
       return false;
   };
@@ -80,7 +86,8 @@ votesLabel=[];
 
     this.PS.getPoll(this.pid).subscribe((pollInfo:any)=>{
       if(pollInfo.type === 'election')
-      {this.title = pollInfo.title,
+      {
+      this.title = pollInfo.title,
       this.description = pollInfo.des,
       this.status = pollInfo.status;
       this.createdOn = pollInfo.createdOn,
@@ -88,6 +95,7 @@ votesLabel=[];
       this.duration = pollInfo.duration;
       this.gid = pollInfo.gid;
       this.type = pollInfo.type;
+      this.checkStatus();
     }
 
       if(pollInfo.type === 'opinion'){
@@ -143,8 +151,6 @@ votesLabel=[];
       });
     });
   });
-
-
     });
 
     this.PS.getContenders(this.pid).subscribe(contenders=>{
@@ -168,9 +174,6 @@ votesLabel=[];
         });
       });
 
-
-
-
     this.PS.displayVoters(this.pid).subscribe((voterDoc:any)=>{
       this.voter=voterDoc;
       this.voter.forEach((voterInfo:any)=>{
@@ -180,25 +183,22 @@ votesLabel=[];
       });
     });
 
- 
-
-
-
 
   }//Oninit ends
 
   checkStatus() {
-    const createdTime: any = new Date(this.startDate);
-    const currentTime: any = new Date();
+    const createdTime: any = new Date(this.startDate).getMilliseconds();
+    const currentTime: any = new Date().getMilliseconds();
     this.timer = currentTime - createdTime;
-    console.log("Timer"+this.timer);
-    console.log(this.duration*360000);
-    if (this.duration * 3600000 <= this.timer) {
+    const duration = (this.duration * 60000);
+    if ( this.timer <= 0 && this.status === 'ongoing') {
       console.log('Poll Finished');
       this.PS.endPoll(this.pid);
+      location.reload();
     } else {
       console.log('Poll Ongoing');
-      console.log('Time remaining- ', this.timer / 3600000, 'hrs');
+      console.log('Time remaining- ', this.timer);
+      console.log('duration ', duration);
     }
   }
 
@@ -208,8 +208,8 @@ votesLabel=[];
         uid:this.currentUser,
         pid:this.pid,
       };
+
       this.PS.registerVoter(data);
-     // this.US.deletePendingPoll(this.currentUser, this.pid);
 
     }
 
@@ -217,8 +217,6 @@ votesLabel=[];
   getResult(pid){
     this.PS.displayResult(pid).subscribe(results=>{
       this.results=results;
-    
-    
     });
 
   }
