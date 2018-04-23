@@ -1,4 +1,7 @@
 
+<div *ngIf="adminID ; else loading" >
+
+
 <div class="container pt-2">
   <div class="row mt-1" >
     <div class="col-md-4 col-xs-12">
@@ -45,7 +48,7 @@
                 <ng-template ngbTabTitle><b class="text-primary">Opinion Polls</b></ng-template>
               <ng-template ngbTabContent>
               <div class="container p-1 m-1">
-                  <div class="container-fluid"> 
+                  <div  *ngIf="currentUser == adminID" class="container-fluid"> 
                       <button class="btn btn-primary my-1" (click)="open(content,'opinion')">Opinion Poll</button>   
                     </div>
                 <div class="container-fluid">
@@ -73,7 +76,7 @@
                 <ng-template ngbTabTitle><b class="text-primary">Election Polls</b></ng-template>
               <ng-template ngbTabContent>
               <div class="container p-1 m-1">
-                <div class="container-fluid"> 
+                <div *ngIf="currentUser == adminID" class="container-fluid"> 
                     <button class="btn btn-primary my-1" (click)="open(content,'election')">Election Poll</button>   
                   </div>
                 <div class="container-fluid">
@@ -99,12 +102,10 @@
           </ngb-tabset>
         </div>
         </div>   
-  </div>
-
-     
+  </div>  
   </div>
 </div>
-
+</div>
 <!--Create Modal HTML Template -->
 
       <!-- Modal -->

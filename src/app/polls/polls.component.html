@@ -66,7 +66,7 @@
                                 <label style="font-size: 18px; " for="inputPassword2" class="sr-only"></label>
                                 <input type="text"  class="my-0" name="choice" [(ngModel)]="choice" placeholder="Type Your Choice.....">
                               </div>
-                              <button type="submit" class="btn btn-primary align-top" >Add Choice</button>
+                              <button type="submit" class="btn btn-primary align-top">Add Choice</button>
                           </form>
                       </div>
                   </div>
@@ -80,7 +80,7 @@
                               <div class="row justify-content-between " *ngFor="let choice of choicesList ;let i = index ">
                                   <div class="col-11 mx-1 justify-content-between">
                                     <div class="row p-2 mx-2 bg-white border-rounded  text-capitalize">
-                                      <div class=" align-self-center col-md-1">{{i+1}}</div> <div class="col-md-8  align-self-center float-left" style="font-size:20;">{{choice.choice}}</div> <button class="col-md-2  align-self-center btn btn-sm btn-danger ml-1" (click)="deleteChoice(choice.cid)">Delete</button>
+                                      <div class=" align-self-center col-md-1">{{i+1}}</div> <div class="col-md-8  align-self-center float-left" style="font-size:20;">{{choice.choice}}</div> <button class="col-md-2  align-self-center btn btn-sm btn-danger ml-1" (click)="deleteChoice(choice.choiceId)">Delete</button>
                                    </div>
                                    <hr>
                                   </div>

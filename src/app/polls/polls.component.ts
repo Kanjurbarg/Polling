@@ -30,7 +30,7 @@ export class PollsComponent implements OnInit {
   createdOn:Date;
   type;
   choice:string;
-  choicesList;
+  choicesList=[];
   default='../../assets/images/default_profile_pic.jpg';
 
 
@@ -101,6 +101,7 @@ export class PollsComponent implements OnInit {
       });
 
       this.PS.getChoices(this.pid).subscribe(list=>{
+        console.log(list);
         this.choicesList = list;
       });
     });   
@@ -135,11 +136,16 @@ export class PollsComponent implements OnInit {
    console.log(this.choice);
     const data={
       choice: this.choice,
-      votes:this.votes,
-      pid:this.pid
+      votes: this.votes,
+      pid: this.pid
     };
    this.PS.addChoice(data);
    this.choice ='';
+ }
+ deleteChoice(choiceID){
+  console.log(choiceID);
+  console.log(this.pid);
+  this.PS.deletingChoice(choiceID, this.pid);
  }
 
 }

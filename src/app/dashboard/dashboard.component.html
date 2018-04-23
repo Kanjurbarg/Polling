@@ -1,4 +1,4 @@
-<div class="main" *ngIf="photoURL ; else loading">
+<div class="main" *ngIf="photoURL; else loading">
   <div class="container pt-3 px-0"> 
     <div class="container-fluid ">
       <div class="row">
@@ -80,11 +80,18 @@
            
               <h3 class="text-primary">Member Groups</h3>
            
-          </div>         
+          </div>     
+   
               <div class=" links col-12 p-0 m-0"  *ngFor="let group of memberGroups">
-                 <h5>{{group.title}}</h5>
-                 <p>"{{group.description}}"</p>
+               <a [routerLink]="['/groups', group.gid]">
+                  <div>
+                      <h5>{{group.title}}</h5>
+                      <p>"{{group.description}}"</p>
+                  </div>
+                 
+               </a>
              </div>
+         
           </div>
         </div>
       </div>

@@ -30,7 +30,8 @@ export class GroupComponent implements OnInit {
   gid;
   admin;
   gTitle;
-  adminID
+  adminID;
+  currentUser;
   user=[];
   //group info
   groupInfo=[];
@@ -94,7 +95,7 @@ export class GroupComponent implements OnInit {
   };
   
     this.auth.getAuthState().subscribe(user=>{
-      this.admin=user.uid;
+      this.currentUser=user.uid;
     })
 
     //Get the router parameter

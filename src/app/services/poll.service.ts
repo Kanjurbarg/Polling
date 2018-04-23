@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { UserService } from './user.service';
 
 @Injectable()
 export class PollService {
@@ -13,7 +14,8 @@ uid;
   constructor(
     private afs:AngularFirestore,
     private router:Router,
-    private auth:AuthService
+    private auth:AuthService,
+    private US: UserService
       ) {
     this.router.routeReuseStrategy.shouldReuseRoute = function(){
       return false;
@@ -135,6 +137,7 @@ uid;
 
     this.afs.doc('polls/' + voterDetails.pid + '/opinions/' + data.uid).set(data).then(()=>{
       console.log("Voter Added Successfully");
+      this.US.deletePendingPoll(voterDetails.pid, voterDetails.uid);
       this.router.navigateByUrl('voting/' + voterDetails.pid);
     });
   } 
@@ -165,6 +168,10 @@ uid;
 
   choiceVoterStatus(pid, uid){
     return this.afs.doc('polls/' + pid + '/opinions/' + uid).valueChanges();
+  }
+
+  deletingChoice(cid, pid){
+    this.afs.doc('polls/' + pid + '/choices/' + cid).delete().then(()=>{console.log('choice deleted..')});
   }
 
   contenderStatus(voteDetails){

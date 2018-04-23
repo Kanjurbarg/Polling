@@ -30,7 +30,7 @@ export class UserService {
     return this.afs.collection('users/' + uid +'/pending').valueChanges();
   }
 
-  deletePendingPoll(uid, pid){
+  deletePendingPoll(pid, uid){
     this.afs.doc('users/' + uid + '/pending/' + pid).delete().then(()=> console.log('Poll Deleted..'));
   }
   updateUser(uid, name, username, desc){

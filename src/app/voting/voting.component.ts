@@ -206,10 +206,10 @@ votesLabel=[];
       const data={
         cid:cid,
         uid:this.currentUser,
-        pid:this.pid
+        pid:this.pid,
       };
       this.PS.registerVoter(data);
-      this.US.deletePendingPoll(this.currentUser, this.pid);
+     // this.US.deletePendingPoll(this.currentUser, this.pid);
 
     }
 
