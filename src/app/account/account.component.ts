@@ -22,12 +22,9 @@ export class AccountComponent implements OnInit {
   uid;
   inputFile;
   isTaken =false;
+  accountForm:FormGroup;
 
-  acForm = new FormGroup({
-    displayName : new FormControl('',[Validators.required,Validators.minLength(5)]),
-    userName: new FormControl('',[Validators.required,Validators.minLength(3)])
-  });
-
+  
   constructor(
     private auth: AuthService,
     private userService: UserService,
@@ -37,7 +34,12 @@ export class AccountComponent implements OnInit {
     private route:ActivatedRoute,
     private fb: FormBuilder,
     private afs:AngularFirestore
-  ) { }
+  ) {
+    this.accountForm = fb.group({
+      'displayName' : new FormControl('',[Validators.required,Validators.minLength(5)]),
+      'userName': new FormControl('',[Validators.required,Validators.minLength(3)])
+    });
+   }
 
   ngOnInit() {
     this.titleService.setTitle('Account');
@@ -86,8 +88,8 @@ export class AccountComponent implements OnInit {
   update(formData){
     const data={
       uid:this.uid,
-      display_name: formData.get('displayName').value,
-      username : formData.get('userName').value
+      display_name: this.display_name,
+      username : this.username
     };
     this.userService.updateUser(data);
   }

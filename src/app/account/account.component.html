@@ -1,4 +1,4 @@
-<div *ngIf="display_name; else loading">
+
 <div class="container pt-md-3">
   <div class="container account">
       <div id="account-card" class="bg-white rounded p-2 px-4">
@@ -6,22 +6,23 @@
         <h3 class="float-left">Account</h3>
       </div>
       <hr>
-      <form [formGroup]="acForm"> 
+      <form [formGroup]="accountForm"> 
         <div class="form-group">
           <label>Display Name</label>
-          <input type="text" formControlName="displayName">
-          <small class="customAlert" *ngIf="!acForm.get('displayName').valid && acForm.get('displayName').touched">
-            <div *ngIf="acForm.get('displayName').hasError('required')">Display Name is required</div> 
-            <div *ngIf="acForm.get('displayName').hasError('minlength')">Minimum 6 characters required</div> 
-          </small>
+          <input type="text" formControlName="displayName" [(ngModel)]="display_name">
+            <small class="customAlert" *ngIf="!accountForm.get('displayName').valid && accountForm.get('displayName').touched">
+              <div *ngIf="accountForm.get('displayName').hasError('required')">Display Name is required</div>
+            </small>
         </div>
          <div class="form-group">
            <label>Username</label>
-            <input type="text" formControlName="userName" (blur)="search($event)">
-          <small class="customAlert" *ngIf="!acForm.get('userName').valid && acForm.get('userName').touched">
-            <div *ngIf="acForm.get('userName').hasError('required')">Display Name is required </div>
-            <div *ngIf="acForm.get('userName').hasError('minlength')">Minimum 3 characters required</div>
+            <input type="text" formControlName="userName" (blur)="search($event)" [(ngModel)]="username" >
+            <small class="customAlert" *ngIf="!accountForm.get('userName').valid && accountForm.get('userName').touched">
+            <div *ngIf="accountForm.get('userName').hasError('required')">Username is required </div>
            </small>
+           <small class="text-danger pb-1" *ngIf="accountForm.get('userName').touched && isTaken">
+              <div> Username already taken</div>
+            </small>
          </div>
       </form>
       <div class="row mb-3">
@@ -33,12 +34,12 @@
       </div>
       <hr>
       <div class="row pb-3 m-0 justify-content-between mt-2 mt-md-3 mr-4">
-         <button class="btn ml-5 mt-2 align-self-center bg-dark text-white font-weight-bold " id="btnUpdate" [disabled]="!acForm.valid"  (click)="update(acForm)">Update Account</button>
+         <button class="btn ml-5 mt-2 align-self-center bg-dark text-white font-weight-bold " id="btnUpdate" [disabled]="!accountForm.valid"  (click)="update(accountForm)">Update Account</button>
       </div>
     </div>
     </div>
   </div>
-</div>
+
   <ng-template #loading>
       <div class="container p-5 pt-3 text-center">
        <i class=" text-primary fa fa-circle-o-notch fa-spin  fa-5x"></i>      
