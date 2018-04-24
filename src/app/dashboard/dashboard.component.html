@@ -92,13 +92,24 @@
           </div>
           <div class="modal-body">
            <form [formGroup]="groupForm"> 
-            <label for="gTitle">Title</label><input type="text" id="gTitle" formControlName="title">
+            <label for="gTitle">Title</label>
+            <input type="text" id="gTitle" formControlName="title">
+            <small class="customAlert" *ngIf="!groupForm.get('title').valid && groupForm.get('title').touched">
+              <div *ngIf="groupForm.get('title').hasError('required')">Group Title is required</div>
+              <div *ngIf="groupForm.get('title').hasError('minlength')">Minimum 6 Characters required for group name</div>
+            </small>
 
-            <label for="gTitle">Description</label> <textarea  id="gDescription" rows="3" style="resize:none" formControlName="description"></textarea>
+            <label for="gTitle">Description</label> 
+            <textarea  id="gDescription" rows="3" style="resize:none" formControlName="description"></textarea>
+            <small class="customAlert" *ngIf="!groupForm.get('description').valid && groupForm.get('description').touched">
+                <div *ngIf="groupForm.get('description').hasError('required')">Group Title is required</div>
+                <div *ngIf="groupForm.get('description').hasError('minlength')">Minimum 20 Characters required</div>
+                <div *ngIf="groupForm.get('description').hasError('maxlength')"> Limit exceded Maximum 50 Characters</div>
+              </small>
            </form>
           </div>
             <div class="modal-footer">
-              <button class="btn btn-primary" (click)="createGroup()">Create Group</button>
+              <button class="btn btn-primary" [disabled]="!groupForm.valid" (click)="createGroup()">Create Group</button>
             </div>
         </ng-template>
         

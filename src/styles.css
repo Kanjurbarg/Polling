@@ -36,6 +36,8 @@ html, body{
 .bigCircle-image{
     border-radius: 100%!important;
     border:3px solid #3DA88C!important;
+    min-width: 90px!important;
+    min-height: 90px!important;
 }
 .spiner{
     color:#3DA88C;
@@ -58,13 +60,4 @@ ol, ul, .nav-pills, .nav-fill {
 .customAlert{
     color:red;
   }
-input.ng-touched.ng-invalid{
-    border-color: red!important;
-    border-width:2px;
-    background-color: white;
-  }
-  textarea.ng-touched.ng-invalid{
-    border-color: red!important;
-    border-width:2px;
-    background-color: white;
-  } 
+

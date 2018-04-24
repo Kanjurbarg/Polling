@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
 
           
        rForm:FormGroup;
-
+    isTaken = false;
 
   
 
@@ -77,8 +77,23 @@ export class RegisterComponent implements OnInit {
     return this.rForm.get('description');
   }
 
+  search($event){
+    const q = $event.target.value;
+    this.checkUsername(q);
+    console.log(q);
+  }
 
 
+  checkUsername(q){
+    this.afs.collection('users/' , ref => ref.where('username','==',q)).valueChanges().subscribe(user=>{
+      if(user[0]){
+        this.isTaken = true;
+      }
+      else{
+        this.isTaken = false;
+      }
+    });
+  }
   register(rForm){
     console.log(rForm.value);
     const userData={

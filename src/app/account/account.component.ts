@@ -4,6 +4,9 @@ import { UserService } from '../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { UploadService } from '../services/upload.service';
+import { FormsModule,FormGroup,FormBuilder,FormControl,Validators } from '@angular/forms';
+import { AngularFireStorage } from 'angularfire2/storage';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-account',
@@ -18,6 +21,12 @@ export class AccountComponent implements OnInit {
   photoURL = '../../assets/images/default-profile_pic.jpg';
   uid;
   inputFile;
+  isTaken =false;
+
+  acForm = new FormGroup({
+    displayName : new FormControl('',[Validators.required,Validators.minLength(5)]),
+    userName: new FormControl('',[Validators.required,Validators.minLength(3)])
+  });
 
   constructor(
     private auth: AuthService,
@@ -25,7 +34,9 @@ export class AccountComponent implements OnInit {
     private router: Router,
     private titleService: Title,
     private uploadService:UploadService,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    private fb: FormBuilder,
+    private afs:AngularFirestore
   ) { }
 
   ngOnInit() {
@@ -55,8 +66,30 @@ export class AccountComponent implements OnInit {
 
   }
 
-  update(){
-    this.userService.updateUser(this.uid, this.display_name, this.username, this.desc);
+  search($event){
+    const q = $event.target.value;
+    this.checkUsername(q);
+    console.log(q);
+  }
+  checkUsername(q){
+    this.afs.collection('users/' , ref => ref.where('username','==',q)).valueChanges().subscribe(user=>{
+      if(user[0]){
+        this.isTaken = true;
+      }
+      else{
+        this.isTaken = false;
+      }
+    });
+  }
+
+
+  update(formData){
+    const data={
+      uid:this.uid,
+      display_name: formData.get('displayName').value,
+      username : formData.get('userName').value
+    };
+    this.userService.updateUser(data);
   }
   processImage(event){
     this.inputFile = event.target.files[0];

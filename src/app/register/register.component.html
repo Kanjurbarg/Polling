@@ -19,7 +19,6 @@
           <small class="customAlert" *ngIf="!rForm.get('email').valid && rForm.get('email').touched">
               <div *ngIf="rForm.get('email').hasError('required')">Email Address is Required</div>
               <div *ngIf="rForm.get('email').hasError('email') &&!rForm.get('email').hasError('required')">Invalid Email</div>
-                
           </small>
         </div>
 
@@ -36,17 +35,19 @@
           <label for="confirmPassword">Confirm Password</label>
           <input  type="password" class="form-control" id="confirmPassword" placeholder="confirmPassword" formControlName="confirmPassword">
           <small class="customAlert" *ngIf="!rForm.get('confirmPassword').valid && rForm.get('confirmPassword').touched">
-              <div *ngIf="rForm.get('confirmPassword').errors">Password is Required</div>
-              
+              <div *ngIf="rForm.get('confirmPassword').errors">Password is Required</div>            
           </small>
         </div>
 
         <div class="form-group">
           <label for="username">Username</label>
-          <input  type="text" class="form-control" id="username" placeholder="Username" formControlName="username">
+          <input  type="text" class="form-control" id="username" placeholder="Username" formControlName="username" (blur)="search($event)">
           <small class="customAlert" *ngIf="!rForm.get('username').valid && rForm.get('username').touched">
               <div *ngIf="rForm.get('username').hasError('required')">Username is Required</div>
               <div *ngIf="rForm.get('username').hasError('minlength')">minimum 3 characters required</div>
+          </small>
+          <small class="text-danger pb-1" *ngIf="rForm.get('username').touched && isTaken">
+            <div> Username already taken</div>
           </small>
         </div>
     

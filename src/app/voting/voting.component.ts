@@ -51,6 +51,7 @@ labels=[];
 votes=[];
 contenderLabels=[];
 votesLabel=[];
+votedMembers=[];
 
 
   constructor(
@@ -156,12 +157,21 @@ votesLabel=[];
 
       });
     });
-
       this.PS.getChoices(this.pid).subscribe(list=>{
         this.choiceList = list;
         this.choiceList.forEach(name=>{
          this.labels.push(name.choice);
          this.votes.push(name.votes);
+        });
+      });
+
+      this.PS.getVoted(this.pid).subscribe(list =>{
+        console.log("voted"+list);
+        list.forEach((voter:any) =>{
+          this.US.getUserDocument(voter.uid).subscribe(userDoc=>{
+            this.votedMembers.push(userDoc);
+            console.log(this.votedMembers);
+          });
         });
       });
 
@@ -173,6 +183,13 @@ votesLabel=[];
         });
       });
     });
+
+    if(this.type === 'opinion'){
+      if(this.gMembers.length === this.votedMembers.length){
+        this.PS.endPoll(this.pid);
+        location.reload();
+      }
+    }
 
 
   }//Oninit ends

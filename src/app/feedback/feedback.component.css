@@ -5,3 +5,13 @@
 input{
     font-size: 18px;
 }
+input.ng-touched.ng-invalid{
+    border-color: red!important;
+    border-width:2px;
+    background-color: white;
+  }
+  textarea.ng-touched.ng-invalid{
+    border-color: red!important;
+    border-width:2px;
+    background-color: white;
+  } 

@@ -2,6 +2,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { firestore } from 'firebase';
+import { Title } from '@angular/platform-browser';
 
 @Injectable()
 export class UserService {
@@ -14,7 +15,8 @@ export class UserService {
 
   constructor(
     private afs: AngularFirestore,
-    private router: Router
+    private router: Router,
+   
   ) { }
 
   getUserDocument(uid) {
@@ -40,11 +42,11 @@ export class UserService {
   deletePendingPoll(pid, uid){
     this.afs.doc('users/' + uid + '/pending/' + pid).delete().then(()=> console.log('Poll Deleted..'));
   }
-  updateUser(uid, name, username, desc){
-    this.afs.doc('users/' + uid).update({
-      display_name : name,
-      username : username,
-      desc : desc,
+  updateUser(userData){
+    this.afs.doc('users/' + userData.uid).update({
+      display_name : userData.display_name,
+      username : userData.username,
+      
     }).then(()=>{
       console.log('user data updated...');
       this.router.navigateByUrl('/dashboard');
@@ -65,6 +67,7 @@ export class UserService {
     this.afs.doc('users/' + feedback.uid + '/feedback/' + id).set(data).then(()=>{
       console.log('Feedback sent sucessfully...');
       this.router.navigateByUrl('/dashboard');
+      alert('Feedback Submitted Sucessfully');
     });
   }
 

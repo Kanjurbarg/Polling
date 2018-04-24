@@ -70,7 +70,7 @@
               <div class="">
                   <h3 class=" " style="font-size:30px">"{{description}}..."</h3>
               </div>             
-      </div>
+        </div>
         <div>
           <h4 class="text-white">Started On: {{startDate | dateFormatPipe}}</h4>
           <h5 class="text-white">Duration of Poll: {{duration}} Minutes</h5>
@@ -87,6 +87,19 @@
                     </div>
                 </div>
               </div>
+        </div>
+        <div class="container bg-white">
+          <h3> Members Who have Voted</h3>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-3" *ngFor='let vote of voters'>
+                <div>
+                 {{voter.photoURL}} {{voter.display_name}}
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
         <div class="container bg-white mt-2 p-2">
             <h1>Summary</h1>
@@ -161,6 +174,19 @@
       </div>
 
       </div>
+      <div class="mt-2 p-1 border rounded container bg-light">
+          <h3> Members Who have Voted</h3>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-3" *ngFor='let vote of votedMembers'>
+                <div class="px-2 bg-white">
+                 <img class="circle-image mx-1" src="{{vote.photoURL}}">{{vote.display_name}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       <div class="container  rounded  bg-white border mt-3 p-2">
         <h1 class="">Summary</h1>
           <div style="display: block">

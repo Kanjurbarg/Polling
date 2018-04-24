@@ -6,21 +6,24 @@
         <h3 class="float-left">Account</h3>
       </div>
       <hr>
-      <div class="form-group mt-4 mb-2">
-        <label for="InputDisplayName">Display Name</label>
-        <input type="text" class="form-control" id="InputDisplayName" aria-describedby="emailHelp" [(ngModel)]="display_name">
-        <small class="form-text text-muted">Your Display Name will show prominently on your profile. (Max 30 characters)</small>
-      </div>
-      <div class="form-group mb-2">
-        <label for="InputUsername">Username</label>
-        <input type="text" class="form-control" id="InputUsername" aria-describedby="emailHelp" [(ngModel)]="username">
-        <small class="form-text text-muted">Your username is your unique signature. (Max 15 characters)</small>
-      </div>
-      <div class="form-group mb-2">
-        <label for="InputStatus">Status</label>
-        <input type="text" class="form-control" id="InputStatus" aria-describedby="emailHelp" [(ngModel)]="desc">
-        <small class="form-text text-muted">Tell everyone how you feel. (Max 150 characters)</small>
-      </div>
+      <form [formGroup]="acForm"> 
+        <div class="form-group">
+          <label>Display Name</label>
+          <input type="text" formControlName="displayName">
+          <small class="customAlert" *ngIf="!acForm.get('displayName').valid && acForm.get('displayName').touched">
+            <div *ngIf="acForm.get('displayName').hasError('required')">Display Name is required</div> 
+            <div *ngIf="acForm.get('displayName').hasError('minlength')">Minimum 6 characters required</div> 
+          </small>
+        </div>
+         <div class="form-group">
+           <label>Username</label>
+            <input type="text" formControlName="userName" (blur)="search($event)">
+          <small class="customAlert" *ngIf="!acForm.get('userName').valid && acForm.get('userName').touched">
+            <div *ngIf="acForm.get('userName').hasError('required')">Display Name is required </div>
+            <div *ngIf="acForm.get('userName').hasError('minlength')">Minimum 3 characters required</div>
+           </small>
+         </div>
+      </form>
       <div class="row mb-3">
         <div class="form-group pt-4 col-12 col-sm-6 mb-1 align-self-center">
           <input type="file" id="InputPhoto" class="inputfile" (change)="processImage($event)" accept="image/*">
@@ -30,7 +33,7 @@
       </div>
       <hr>
       <div class="row pb-3 m-0 justify-content-between mt-2 mt-md-3 mr-4">
-         <button class="btn ml-5 mt-2 align-self-center btn-primary text-white font-weight-bold " id="btnUpdate" (click)="update()">Update Account</button>
+         <button class="btn ml-5 mt-2 align-self-center bg-dark text-white font-weight-bold " id="btnUpdate" [disabled]="!acForm.valid"  (click)="update(acForm)">Update Account</button>
       </div>
     </div>
     </div>

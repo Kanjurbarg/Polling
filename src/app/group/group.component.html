@@ -30,8 +30,7 @@
             </div>   
             </div>   
           </div>
-              
-                    <ng-template class="ml-2 bg-light"  ngbPopover="" #popContent ngdropdownMenu>
+            <ng-template class="ml-2 bg-light"  ngbPopover="" #popContent ngdropdownMenu>
                         <div *ngFor="let user of users">
                             <p class="dropdown-item"> <a (click)="addMember(user.uid)">{{user.display_name}}  @{{user.username}}</a></p>
                         </div> 
@@ -54,16 +53,16 @@
                 <div class="container-fluid">
                     <div class="row">
                         
-                          <div class="text-center col-md-6" *ngFor="let poll of opinionPolls">
-                              <a [routerLink]="['/poll', poll.pid]">
+                          <div class="text-center text-primary col-md-6" *ngFor="let poll of opinionPolls">
+                              <a class="text-primary" [routerLink]="['/poll', poll.pid]">
                             <div class=" min border bg-white p-1 m-1">
-                            <h3>
+                            <h3 class="text-primary">
                               {{poll.title}}
                             </h3>
-                            <h5>
+                            <h5 class="text-primary">
                               "{{poll.des}}"
                             </h5>
-                            <h4>Status</h4>
+                            <h4 class="text-primary">Status</h4>
                               <p class=" status font-weight-bold">"{{poll.status}}"</p>
                             </div>
                             </a>
@@ -84,16 +83,16 @@
                 <div class="container-fluid">
                     <div class="row">
                           <div class="text-center col-md-6" *ngFor="let poll of electionPolls">
-                            <a [routerLink]="['/poll', poll.pid]">
-                            <div  class=" min border bg-white p-2 pb-0 m-1">
-                            <h3>
+                            <a class="text-primary" [routerLink]="['/poll', poll.pid]">
+                            <div  class="text-primary  min border bg-white p-2 pb-0 m-1">
+                            <h3 class="text-primary">
                               {{poll.title}}
                             </h3>
-                            <h5>
+                            <h5 class="text-primary">
                               "{{poll.des}}"
                             </h5>
-                            <h4>Status</h4>
-                              <p class=" status font-weight-bold">"{{poll.status}}"</p>
+                            <h4 class="text-primary">Status</h4>
+                              <p class="text-primary status font-weight-bold">"{{poll.status}}"</p>
                             </div>
                           </a>
                           </div>

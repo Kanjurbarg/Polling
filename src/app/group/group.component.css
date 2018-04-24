@@ -21,16 +21,23 @@
 }
 .status{
     font-size: 18px;
+    color:#3DA88C!important;
 }
 .text-primary{
     color:#3DA88C!important;
 }
 .bigCircle-image{
-    min-width: 50px;
-    min-height: 50px;
-    max-height: 50px;
-    max-width:50px;
+    min-width: 50px!important;
+    min-height: 50px!important;
+    max-height: 50px!important;
+    max-width:50px!important;
 }
 .modal-footer{
     min-height: 75px!important;
+}
+.text-primary{
+    color:#3DA88C!important;
+}
+a:hover{
+    text-decoration: none;
 }

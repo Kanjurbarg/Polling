@@ -9,6 +9,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule,FormGroup,FormBuilder,FormControl,Validators } from '@angular/forms';
 import { groupDetails } from '../models/groups.model'
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -39,10 +40,8 @@ export class DashboardComponent implements OnInit {
   finishedPolls=[];
   ongoingPolls=[];
 
-  groupForm=new FormGroup({
-    title: new FormControl('',[Validators.required,Validators.minLength(6)]),
-    description: new FormControl('',[Validators.required,Validators.minLength(12)]),
-  });
+  groupForm:FormGroup;
+
 
   accountForm = new FormGroup({
     username : new FormControl('',[Validators.required,Validators.minLength(3)])
@@ -55,11 +54,19 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private GS:GroupsService,
     private PS:PollService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private title :Title,
+    private fb:FormBuilder
 
-  ) { }
+  ) {
+    this.groupForm = fb.group({
+      'title': new FormControl(null,[Validators.required, Validators.minLength(6)]),
+      'description': new FormControl(null,[Validators.required, Validators.minLength(20),Validators.maxLength(50)])
+    });
+   }
 
   ngOnInit() {
+    this.title.setTitle('Dashboard');
     this.auth.getAuthState().subscribe(
       user => {      
         if (user) {

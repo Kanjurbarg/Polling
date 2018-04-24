@@ -141,6 +141,10 @@ uid;
     });
   } 
 
+  getVoted(pid){
+    return this.afs.collection('polls/' + pid + '/opinions/').valueChanges();
+  }
+
 
   addVote(voteDetails){
     const vote={
