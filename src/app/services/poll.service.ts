@@ -233,6 +233,8 @@ uid;
       {  console.log('Voters Added');
         this.toFeed(uid, gid, pid, status);
         this.toPendingPoll(uid, pid);
+      }).then(()=>{
+        this.router.navigateByUrl('voting/' + pid);
       });
     }
 

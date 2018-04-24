@@ -88,16 +88,16 @@
                 </div>
               </div>
         </div>
-        <div class="container bg-white">
+        <div class="container bg-white my-2">
           <h3> Members Who have Voted</h3>
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-md-3" *ngFor='let vote of voters'>
-                <div>
-                 {{voter.photoURL}} {{voter.display_name}}
-                </div>
-              </div>
-            </div>
+          <div class="container-fluid p-2">
+           
+                <div class="row text-center col-12 justify-content-left">
+                    <div class=" col-md-2 bg-success pt-2 text-center border-0 rounded mx-2 my-1 text-white justify-content-between"  *ngFor="let vote of voters">
+                      <span *ngIf="vote"> <img  src="{{vote.photoURL}}" class="mt-2 rounded-circle votedImage"><p>{{vote.display_name}}</p></span>
+                    </div>
+                  </div>
+            
           </div>
 
         </div>

@@ -92,7 +92,7 @@ votedMembers=[];
       this.duration = pollInfo.duration;
       this.gid = pollInfo.gid;
       this.type = pollInfo.type;
-      this.checkStatus();
+      
     }
 
       if(pollInfo.type === 'opinion'){

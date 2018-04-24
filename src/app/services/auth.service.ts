@@ -58,8 +58,7 @@ export class AuthService {
               email: userData.email,
               uid: user.uid,
               display_name: userData.name,
-              username: userData.username,
-              desc: userData.description,
+              username: '',
               phone: userData.contact ? userData.contact : null,
               photoURL: user.photoURL ? user.photoURL:null,
               joinDate: firebase.firestore.FieldValue.serverTimestamp(),
@@ -103,10 +102,10 @@ export class AuthService {
       const uid = user.uid;
       const verified =user.emailVerified;
       console.log(verified+" "+user.emailVerified);
+      console.log('registering user');
       this.afs.doc('users/' + uid).valueChanges().subscribe(
         userDoc => {
           if (userDoc) {
-            //this.router.navigateByUrl('/dashboard');
 
               if(!verified){
                   alert("Your account is NOT verified. Please Verifiy your Account before logging in");
@@ -134,7 +133,7 @@ export class AuthService {
           uid: user.uid,
           display_name: user.displayName,
           username: '',
-          desc: 'Vote for me!',
+         
           phone: user.phoneNumber ? user.phoneNumber : null,
           photoURL: user.photoURL ? user.photoURL: '../../assets/images/default_profile_pic.jpg',
           joinDate: firebase.firestore.FieldValue.serverTimestamp(),

@@ -15,7 +15,6 @@ import { ValidationErrors } from '@angular/forms/src/directives/validators';
 
 
 
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -23,9 +22,14 @@ import { ValidationErrors } from '@angular/forms/src/directives/validators';
 })
 export class RegisterComponent implements OnInit {
   private authState: Observable<firebase.User>;
-      
+ 
+
+          
        rForm:FormGroup;
-    isTaken = false;
+
+
+  
+
   constructor(
     private auth: AuthService,  
     private router: Router,
@@ -39,18 +43,19 @@ export class RegisterComponent implements OnInit {
       this.rForm= fb.group({
         'display_name': new FormControl(null,[Validators.required,Validators.pattern('^[a-zA-Z\\s]*$')]),
         'email': new FormControl(null,[Validators.required,Validators.email]),
-        'username': new FormControl(null,[Validators.required,Validators.minLength(3)]),
-        'description': new FormControl(null,[Validators.required,Validators.minLength(10),Validators.maxLength(200)]),
         'password': new FormControl(null,[Validators.required,Validators.minLength(8)]),
-        'confirmPassword': new FormControl(null, [Validators.required]),
-        'contact': new FormControl(null,[Validators.required,Validators.pattern('[0-9]*'),Validators.minLength(10),Validators.maxLength(10)]),
-       
-      }, );
+        'confirmPassword':new FormControl(null,Validators.required),
+        
+        'description': new FormControl(null,[Validators.required,Validators.minLength(10),Validators.maxLength(200)]),
+        'contact': new FormControl(null,[Validators.required,Validators.pattern('[0-9]*'),Validators.minLength(10),Validators.maxLength(10)])
+      });
 
   }
 
   ngOnInit() {
+
     this.title.setTitle("Registration Page");
+
   }
 
   get username() {
@@ -72,22 +77,8 @@ export class RegisterComponent implements OnInit {
     return this.rForm.get('description');
   }
 
-  search($event){
-    const q = $event.target.value;
-    this.checkUsername(q);
-    console.log(q);
-  }
 
-  checkUsername(q){
-    this.afs.collection('users/' , ref => ref.where('username','==',q)).valueChanges().subscribe(user=>{
-      if(user[0]){
-        this.isTaken = true;
-      }
-      else{
-        this.isTaken = false;
-      }
-    });
-  }
+
   register(rForm){
     console.log(rForm.value);
     const userData={
@@ -105,6 +96,3 @@ export class RegisterComponent implements OnInit {
 
 
     }
-
-  
-

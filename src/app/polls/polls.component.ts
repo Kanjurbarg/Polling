@@ -128,7 +128,7 @@ export class PollsComponent implements OnInit {
         this.PS.addVoters(uid ,this.pid, this.gid, this.status);
       });
     });
-    this.router.navigateByUrl('voting/' + this.pid);
+    
  }
  addChoice(event){
    event.preventDefault();

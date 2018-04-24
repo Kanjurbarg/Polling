@@ -53,6 +53,7 @@ length;
     }
     if(type === 'logout'){
       this.auth.logout();
+      this.router.navigateByUrl('login');
     }
     if(type === 'feedback'){
       this.router.navigateByUrl('feedback/' + this.uid);

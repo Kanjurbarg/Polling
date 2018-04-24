@@ -39,17 +39,7 @@
           </small>
         </div>
 
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input  type="text" class="form-control" id="username" placeholder="Username" formControlName="username" (blur)="search($event)">
-          <small class="customAlert" *ngIf="!rForm.get('username').valid && rForm.get('username').touched">
-              <div *ngIf="rForm.get('username').hasError('required')">Username is Required</div>
-              <div *ngIf="rForm.get('username').hasError('minlength')">minimum 3 characters required</div>
-          </small>
-          <small class="text-danger pb-1" *ngIf="rForm.get('username').touched && isTaken">
-            <div> Username already taken</div>
-          </small>
-        </div>
+     
 
         <div class="form-group">
           <label for="contact">Contact</label>
