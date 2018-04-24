@@ -116,7 +116,6 @@ uid;
   }
 
   addVoter(pid,cid){
-
     const data={
       cid:cid,
       time:firebase.firestore.FieldValue.serverTimestamp(),
@@ -175,18 +174,14 @@ uid;
   }
 
   contenderStatus(voteDetails){
-
-   
     return this.afs.doc('polls/'+ voteDetails.pid + '/contenders/' + voteDetails.cid).valueChanges();
   }
 
   voterStatus(pid,uid){
-
     return this.afs.doc('polls/'+ pid + '/votes/'+ uid).valueChanges();
   }
 
-  getGroupPolls(gid){
-   
+  getGroupPolls(gid){  
     return this.afs.collection('polls',ref=>ref.where('gid','==',gid)).valueChanges();
   }
 
@@ -216,10 +211,27 @@ uid;
       });
   }
 
+    addVoters(uid, pid ,gid, status){
+      const data={
+        vid: uid,
+        pid: pid
+      };
+      this.afs.doc('polls/' + pid + '/votersList/' + uid).set(data).then(()=>
+      {  console.log('Voters Added');
+        this.toFeed(uid, gid, pid, status);
+        this.toPendingPoll(uid, pid);
+      });
+    }
+
 
   displayResult(pid){
     return this.afs.collection('polls/'+ pid +'/contenders/',ref=>ref.orderBy('votes', 'desc')).valueChanges();
 
+  }
+
+  getVoters(pid){
+    console.log('in serivce ' + pid);
+    return this.afs.collection('polls/' + pid + '/votersList').valueChanges();
   }
 
   /*getContenders(){

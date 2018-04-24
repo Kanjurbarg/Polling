@@ -218,12 +218,8 @@ export class GroupComponent implements OnInit {
         gid:this.gid,
       };
       this.PS.createPolls(pollDetails);
-      this.modalRefOpinion.close();
-    
-    }
-    
-
-    
+      this.modalRefOpinion.close();    
+    }   
   }
 
   open(content,type) {

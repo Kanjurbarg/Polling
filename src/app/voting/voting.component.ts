@@ -108,9 +108,6 @@ votesLabel=[];
       this.type = pollInfo.type;
       }
 
-      if (this.status === 'ongoing') {
-        this.checkStatus();
-      }
 
       if(this.status === 'finished'){
         this.getResult(this.pid);
@@ -141,13 +138,11 @@ votesLabel=[];
       });
 
       // Voters List
-      this.GS.getMembers(this.gid).subscribe(members =>{
+      this.PS.getVoters(this.pid).subscribe(members =>{
         members.forEach((member:any) =>{
-        this.user.push(member.memberID);
-        // let memberID= member.memberID;
-        this.US.getUserDocument(member.memberID).subscribe(userDoc=>{
-          this.gMembers.push(userDoc);
-       
+        this.user.push(member.vid);
+        this.US.getUserDocument(member.vid).subscribe(userDoc=>{
+          this.gMembers.push(userDoc);      
       });
     });
   });
@@ -191,7 +186,7 @@ votesLabel=[];
     const currentTime: any = new Date().getMilliseconds();
     this.timer = currentTime - createdTime;
     const duration = (this.duration * 60000);
-    if ( this.timer <= 0 && this.status === 'ongoing') {
+    if (this.timer <= 0 && this.status === 'ongoing') {
       console.log('Poll Finished');
       this.PS.endPoll(this.pid);
       location.reload();
@@ -208,9 +203,7 @@ votesLabel=[];
         uid:this.currentUser,
         pid:this.pid,
       };
-
       this.PS.registerVoter(data);
-
     }
 
 
@@ -221,7 +214,6 @@ votesLabel=[];
 
   }
   getDate(date){
-
       return this.dateForamt.transform(date);
   }
 

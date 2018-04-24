@@ -20,6 +20,12 @@ export class UserService {
     return this.afs.doc<any>('users/' + uid).valueChanges();
   }
 
+  updateFeed(uid , pid){
+    this.afs.doc('users/' + uid + '/feed/' + pid).update({
+      status: 'finished'
+    });
+  } 
+
   ongoingFeed(uid){
     return this.afs.collection('users/' + uid + '/feed', ref=>ref.where('status','==','ongoing').orderBy('time','desc')).valueChanges();
   }
@@ -47,5 +53,6 @@ export class UserService {
      return this.afs.collection('users/' + uid + '/memberGroups/').valueChanges();
   } 
 
+  
 
 }

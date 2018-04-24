@@ -79,8 +79,7 @@ export class PollsComponent implements OnInit {
         this.router.navigateByUrl('voting/' + this.pid);
       }
 
-      this.GS.getMembers(this.gid).subscribe(members=>{
-     
+      this.PS.getVoters(this.pid).subscribe(members=>{
         members.forEach((member:any)=>{
           this.user.push(member.memberID);
           this.gMembers=[];
@@ -124,9 +123,8 @@ export class PollsComponent implements OnInit {
   }
  startPoll(){
     this.PS.updateStatus(this.pid).then(()=>{
-    this.user.forEach(uid=>{
-      this.PS.toFeed(uid, this.gid, this.pid, this.status);
-      this.PS.toPendingPoll(uid, this.pid);
+      this.user.forEach(uid =>{
+        this.PS.addVoters(uid ,this.pid, this.gid, this.status);
       });
     });
     this.router.navigateByUrl('voting/' + this.pid);
