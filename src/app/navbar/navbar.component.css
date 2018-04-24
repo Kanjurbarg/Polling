@@ -44,12 +44,28 @@ ul>li>a:active{
   color:#FFCB2C;
 }
 .pending{
-  
+  text-decoration: none;
   max-height: 600px;
   min-width: 200px;
   overflow:scroll;
+  font-size: 20px;
+  color:black!important;
 }
+.polls{
+  color:#3DA88C;
+  font-weight: 450;
+}
+.polls:hover{
+  color: white!important;
+  text-decoration: none!important;
+  background-color: #3DA88C!important;
+  font-weight: 450!important;
+}
+
 .drop{
   font-weight: 450;
   font-size: 18px;
+}
+.text-primary{
+  color:#3DA88C!important;
 }

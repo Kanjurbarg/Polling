@@ -35,7 +35,7 @@
           <label for="confirmPassword">Confirm Password</label>
           <input  type="password" class="form-control" id="confirmPassword" placeholder="confirmPassword" formControlName="confirmPassword">
           <small class="customAlert" *ngIf="!rForm.get('confirmPassword').valid && rForm.get('confirmPassword').touched">
-              <div *ngIf="rForm.get('confirmPassword').errors">Password is Required</div>            
+              <div *ngIf="rForm.get('confirmPassword').hasError('required')">Password DO NOT MATCH</div>            
           </small>
         </div>
 
@@ -48,16 +48,6 @@
           </small>
           <small class="text-danger pb-1" *ngIf="rForm.get('username').touched && isTaken">
             <div> Username already taken</div>
-          </small>
-        </div>
-    
-        <div class="form-group">
-          <label for="description">Description</label>
-          <input  type="text" class="form-control" id="description" placeholder="Description" formControlName="description">
-          <small class="customAlert" *ngIf="!rForm.get('description').valid && rForm.get('description').touched">
-              <div *ngIf="rForm.get('description').hasError('required')">Description is Required</div>
-              <div *ngIf="rForm.get('description').hasError('minlength')">minimum 10 characters required</div>   
-              <div *ngIf="rForm.get('description').hasError('maxlength')">Limit exceed Maximum 200 characters </div>   
           </small>
         </div>
 
@@ -75,7 +65,7 @@
     </div>
   </form>
   <div class="text-center">
-    <input type="submit" class="btn btn-large btn-primary" value="Submit Form" (click)="register(rForm)" [disabled]="!rForm.valid" >
+    <input type="submit" class="btn btn-large btn-primary" value="Submit Form" (click)="register(rForm)" >
     </div>
   </div>
 </div>

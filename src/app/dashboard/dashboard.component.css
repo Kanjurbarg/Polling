@@ -16,7 +16,7 @@
     border-bottom: 1px solid black;
 }
 .plus:hover{
-    color:#3DA88C;
+    color:#3DA88C!important;
 }
 .ongoing:hover
 {

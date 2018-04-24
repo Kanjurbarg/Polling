@@ -12,11 +12,12 @@
 .bg-primary, .btn-primary{
     background-color:#3DA88C!important;
     color:white!important;
-    border:0px!important;
-    
+    border:0px!important;  
+    border:2px solid white;
+    font-weight: 450;
 }
 .btn-primary:hover{
-    font-weight: 500;
+    font-weight: 450;
     border:2px solid rgb(46, 121, 101)!important;
     background-color:white!important;
     color:#3DA88C!important;

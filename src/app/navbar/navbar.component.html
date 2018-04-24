@@ -24,31 +24,32 @@
                 <a class="nav-link navs" href="#">Dashboard<span class="sr-only">(current)</span></a>
               </li>
             </ul>
-            <div ngbDropdown class="d-inline-block">
+            <div ngbDropdown class="mx-1 d-inline-block">
                 <button class="btn drop bg-white border-0" id="dropdownBasic1" ngbDropdownToggle>Pending Polls</button>
                 <div class="pending" ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                   <div class="border px-2 py-2"*ngFor="let poll of pendingPolls">
-                      <a [routerLink]="['/poll', poll.pid]">
+                   <div class=" polls border px-2 py-2"*ngFor="let poll of pendingPolls">
+                      <a class="polls text-dark"[routerLink]="['/poll', poll.pid]">
                    <p> {{poll.title}}</p>
                   </a>
                   </div>
                </div>
           </div>
-          <div ngbDropdown class="d-inline-block">
-              <button class="btn drop bg-white border-0" id="dropdownBasic2" ngbDropdownToggle>More</button>
-              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <button (click)="goTo('account')" class="dropdown-item p-2">
+          <div ngbDropdown class=" mx-2 d-inline-block">
+              <button class="btn drop bg-white  border-0" id="dropdownBasic2" ngbDropdownToggle>More</button>
+              <div class="text-primary navs" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button class="navs btn-primary  border" (click)="goTo('account')" class="dropdown-item p-2">
                   Account
                 </button>
-                <button (click)="goTo('about')" class="dropdown-item p-2">
+                <button  class=" btn text-primary" (click)="goTo('about')" class="dropdown-item p-2">
                   About
                 </button>
-                <button (click)="goTo('logout')" class="dropdown-item p-2">
-                  Logout
-                </button>
-                <button (click)="goTo('feedback')" class="dropdown-item p-2">
+                <button class="btn  text-primary" (click)="goTo('feedback')" class="dropdown-item p-2">
                     Feedback
                   </button>
+                <button class="btn text-primary" (click)="goTo('logout')" class="dropdown-item p-2">
+                  Logout
+                </button>
+               
               </div>
             </div>
         </div>

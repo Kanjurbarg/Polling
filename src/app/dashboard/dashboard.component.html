@@ -40,19 +40,19 @@
         </div>  
         <div class="col-md-3">
          <div class="bg-light rounded p-1">    
-               <h3 class=" text-primary mt-1 p-1">Groups Page <span><i class="fa fa-plus-square-o plus fa-1x ml-3" (click)="open(content)"></i></span></h3>
-          <div class="container-fluid myGroups my-1 p-0 m-0">
-              <div class=" links bg-white row my-1 p-2 border groups" *ngFor="let group of adminGroups">
-              <a [routerLink]="['/groups', group.gid]"> 
-                <div class="col-12">
-                <p class="title m-0"> {{group.title}}</p>
-                </div>
-                <div class="col-12">
-                <p class="des  m-0"> {{group.description}}</p> 
-                </div>
-              </a>
-            </div>
-          </div>
+               <h2 class=" text-primary mt-1 p-1">My Groups <span><i class="fa fa-plus-square-o text-dark plus fa-1x ml-3" (click)="open(content)"></i></span></h2>
+             <div class="myGroups">
+                <div class="links bg-white  my-1 p-2 border groups" *ngFor="let group of adminGroups">
+                    <a [routerLink]="['/groups', group.gid]"> 
+                      <div class="col-12">
+                      <p class="title m-0"> {{group.title}}</p>
+                      </div>
+                      <div class="col-12">
+                      <p class="des  m-0"> {{group.description}}</p> 
+                      </div>
+                    </a>
+                  </div>
+             </div>
         </div>
         <div class=" mt-2 pb-2">
           <div class="rounded bg-light">
