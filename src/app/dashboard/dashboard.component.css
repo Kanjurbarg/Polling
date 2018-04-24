@@ -54,3 +54,11 @@ ol, ul, .nav, .nav-pills, .nav-fill {
 .btn-danger{
     width:100%;
 }
+.myGroups{
+    max-height: 409px!important;
+    overflow: scroll;
+}
+.headings{
+    font-size: 22px!important;
+    font-weight: 450;
+}

@@ -55,3 +55,16 @@ ol, ul, .nav-pills, .nav-fill {
     margin-left:0px!important;
 
 }
+.customAlert{
+    color:red;
+  }
+input.ng-touched.ng-invalid{
+    border-color: red!important;
+    border-width:2px;
+    background-color: white;
+  }
+  textarea.ng-touched.ng-invalid{
+    border-color: red!important;
+    border-width:2px;
+    background-color: white;
+  } 

@@ -40,6 +40,7 @@ input.ng-touched.ng-invalid{
   border-width:2px;
   background-color: white;
 }
+
 input{
   border: 1px solid #3DA88C!important;
 }

@@ -7,10 +7,6 @@
             <img class="bigCircle-image circle-image" [src]="photoURL" alt=""> <h4>{{display_name}}</h4><h5>@{{username}}</h5>
           <h6>Joined On : {{joinDate | dateFormatPipe}}</h6>
         </div>
-        <div class="my-2">
-          <button class="btn btn-danger" (click)="logout()">Logout</button>
-        </div>
-     
         </div>
         <div class="col-md-6 bg-light p-0 m-0">
           <div class="container p-2">
@@ -43,17 +39,13 @@
 
         </div>  
         <div class="col-md-3">
-         <div class="bg-white container ">    
-          <div class="pb-1 bottom container-fluid p-0 ml-1">
-            <div class="row">
-                <h3 class=" col-9 text-primary mt-1 border-bottom">Groups Page</h3> <h2 class=" mt-1 float-right col-1"><i class="fa fa-plus-square-o plus" (click)="open(content)"></i></h2>
-            </div>
-          </div>
-          <div class="container-fluid my-1 p-0 m-0">
-              <div class=" links row my-1 pb-2 groups" *ngFor="let group of adminGroups">
+         <div class="bg-light rounded p-1">    
+               <h3 class=" text-primary mt-1 p-1">Groups Page <span><i class="fa fa-plus-square-o plus fa-1x ml-3" (click)="open(content)"></i></span></h3>
+          <div class="container-fluid myGroups my-1 p-0 m-0">
+              <div class=" links bg-white row my-1 p-2 border groups" *ngFor="let group of adminGroups">
               <a [routerLink]="['/groups', group.gid]"> 
                 <div class="col-12">
-                <p class="title  m-0"> {{group.title}}</p>
+                <p class="title m-0"> {{group.title}}</p>
                 </div>
                 <div class="col-12">
                 <p class="des  m-0"> {{group.description}}</p> 
@@ -62,24 +54,24 @@
             </div>
           </div>
         </div>
-        <div class=" mt-2 pb-2  bg-white container">
-          <div class="p-1 container-fluid ">
-           
-              <h3 class="text-primary">Member Groups</h3>
-           
-          </div>     
-   
-              <div class=" links col-12 p-0 m-0"  *ngFor="let group of memberGroups">
-               <a [routerLink]="['/groups', group.gid]">
-                  <div>
-                      <h5>{{group.title}}</h5>
-                      <p>"{{group.description}}"</p>
-                  </div>
-                 
-               </a>
-             </div>
+        <div class=" mt-2 pb-2">
+          <div class="rounded bg-light">
+              <h3 class=" p-2 text-primary">Member Groups</h3>
+              <div class="bg-light">
+                  <div class="links bg-white p-2 pl-1 mt-1 border"  *ngFor="let group of memberGroups">
+                      <a [routerLink]="['/groups', group.gid]">
+                         <div>
+                             <p class="title m-0">{{group.title}}</p>
+                             <p class="des m-0">"{{group.description}}"</p>
+                         </div>
+                        
+                      </a>
+                    </div>
+              </div>
+          </div>
          
           </div>
+
         </div>
       </div>
     </div>

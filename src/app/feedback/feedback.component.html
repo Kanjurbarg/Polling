@@ -1,3 +1,42 @@
-<p>
-  feedback works!
-</p>
+<div class="container mt-4 ">
+  <div class="main rounded justify-content-between px-4 py-3 bg-white container">
+    <div class="heading text-center">
+        <h2>Feedback Form</h2>
+    </div>
+    <hr>
+    <div class="body">
+      <form [formGroup]="feedbackForm">
+        <div class="form-group">
+          <label for="title"><h4>Title</h4></label>
+          <input class="title" class="form-control" formControlName="subject"> 
+          <small class="customAlert" *ngIf="!feedbackForm.get('subject').valid && feedbackForm.get('subject').touched">
+            <div *ngIf="feedbackForm.get('subject').hasError('required')">
+              Subject for feed back is required.
+            </div>
+            <div *ngIf="feedbackForm.get('subject').hasError('minlength') && !feedbackForm.get('subject').hasError('required')">
+               Minimum characters required. 6 Characters
+            </div>  
+          </small>  
+        </div>
+        <div class="form-group">
+          <label><h4>Feedback</h4></label>
+          <textarea class="des"  class="form-control" rows="5"  formControlName="body"></textarea>
+          <small class="customAlert" *ngIf="!feedbackForm.get('body').valid && feedbackForm.get('body').touched">
+              <div *ngIf="feedbackForm.get('body').hasError('required')">
+                Subject for feed back is required.
+              </div>
+              <div *ngIf="feedbackForm.get('body').hasError('minlength') && !feedbackForm.get('body').hasError('required')">
+                 Minimum characters required. 20 Characters
+              </div>  
+              <div *ngIf="feedbackForm.get('body').hasError('maxlength') && !feedbackForm.get('body').hasError('required')">
+                 Maximum characters exceded. 150 Characters
+               </div>
+            </small> 
+        </div>
+      </form>
+      <div class="justify-content-between text-center">
+        <button class="btn btn-danger btn-extended justify-content-end" (click)="sendFeedback(feedbackForm)" [disabled]="!feedbackForm.valid">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>

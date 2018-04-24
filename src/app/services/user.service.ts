@@ -1,6 +1,7 @@
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { firestore } from 'firebase';
 
 @Injectable()
 export class UserService {
@@ -53,6 +54,18 @@ export class UserService {
      return this.afs.collection('users/' + uid + '/memberGroups/').valueChanges();
   } 
 
-  
+  feedback(feedback){
+    const id = this.afs.createId();
+    const data={
+      subject : feedback.subject,
+      body : feedback.body,
+      uid: feedback.uid,
+      id : id
+    };
+    this.afs.doc('users/' + feedback.uid + '/feedback/' + id).set(data).then(()=>{
+      console.log('Feedback sent sucessfully...');
+      this.router.navigateByUrl('/dashboard');
+    });
+  }
 
 }

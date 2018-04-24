@@ -75,6 +75,14 @@ const routes: Routes = [
     component : CoverComponent
   },
   {
+    path:'feedback/:uid',
+    component : FeedbackComponent
+  },
+  {
+    path : 'about',
+    component: AboutComponent
+  },
+  {
     path: '**',
     redirectTo: '/dashboard',
     pathMatch: 'full'

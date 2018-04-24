@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { UploadService } from '../services/upload.service';
 
@@ -24,11 +24,16 @@ export class AccountComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private titleService: Title,
-    private uploadService:UploadService
+    private uploadService:UploadService,
+    private route:ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.titleService.setTitle('Account');
+    this.route.paramMap.subscribe(params=>{
+      this.uid = params.get('uid');
+    });
+
     this.auth.getAuthState().subscribe(
       user => {      
         if (user) {

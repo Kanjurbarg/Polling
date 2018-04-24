@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../services/auth.service'; 
 import { UserService } from '../services/user.service';
 import { PollService } from '../services/poll.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -16,7 +17,9 @@ length;
   constructor(
     private auth:AuthService,
     private US:UserService,
-    private PS:PollService
+    private PS:PollService,
+    private router:Router
+
   ) { }
 
   ngOnInit() {
@@ -32,16 +35,28 @@ length;
               this.pendingPolls.push(pending);
               this.length = this.pendingPolls.length;
             }); 
-           
           });
-          
+  
         });
-
-
-
 
       }  
     });
+  }
+
+
+  goTo(type){
+    if(type === 'account'){
+      this.router.navigateByUrl('account/' + this.uid);
+    }
+    if(type === 'about'){
+      this.router.navigateByUrl('about');
+    }
+    if(type === 'logout'){
+      this.auth.logout();
+    }
+    if(type === 'feedback'){
+      this.router.navigateByUrl('feedback/' + this.uid);
+    }
   }
 
 }

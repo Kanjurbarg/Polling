@@ -25,7 +25,7 @@
               </li>
             </ul>
             <div ngbDropdown class="d-inline-block">
-                <button class="btn drop bg-white border-0 " id="dropdownBasic1" ngbDropdownToggle>Pending Polls </button>
+                <button class="btn drop bg-white border-0" id="dropdownBasic1" ngbDropdownToggle>Pending Polls</button>
                 <div class="pending" ngbDropdownMenu aria-labelledby="dropdownBasic1">
                    <div class="border px-2 py-2"*ngFor="let poll of pendingPolls">
                       <a [routerLink]="['/poll', poll.pid]">
@@ -34,11 +34,23 @@
                   </div>
                </div>
           </div>
-          <ul  class="navbar-nav">
-              <li class="nav-item text-white">
-                  <a class="nav-link navs" href="#">About</a>
-                </li>
-          </ul>
+          <div ngbDropdown class="d-inline-block">
+              <button class="btn drop bg-white border-0" id="dropdownBasic2" ngbDropdownToggle>More</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button (click)="goTo('account')" class="dropdown-item">
+                  Account
+                </button>
+                <button (click)="goTo('about')" class="dropdown-item">
+                  About
+                </button>
+                <button (click)="goTo('logout')" class="dropdown-item">
+                  Logout
+                </button>
+                <button (click)="goTo('feedback')" class="dropdown-item">
+                    Feedback
+                  </button>
+              </div>
+            </div>
         </div>
       </div>
       </nav>
