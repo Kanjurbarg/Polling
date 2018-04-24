@@ -79,7 +79,8 @@ export class PollsComponent implements OnInit {
         this.router.navigateByUrl('voting/' + this.pid);
       }
 
-      this.PS.getVoters(this.pid).subscribe(members=>{
+      this.GS.getMembers(this.gid).subscribe(members=>{
+     
         members.forEach((member:any)=>{
           this.user.push(member.memberID);
           this.gMembers=[];

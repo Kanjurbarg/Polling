@@ -75,13 +75,12 @@ uid;
     this.afs.doc('polls/'+pid).set(data)
     .then(()=>{
       console.log("Success");
+      this.addGroupPolls(data.gid, data.pid);
       this.router.navigateByUrl('poll/'+pid);
     }).catch((err)=>{
       console.log(err);
     });
   }
-
-
   if(pollDetails.type === 'opinion'){
     const pid =this.afs.createId();
     const data={
@@ -96,6 +95,7 @@ uid;
   this.afs.doc('polls/'+pid).set(data)
     .then(()=>{
       console.log("Success");
+      this.addGroupPolls(data.gid, data.pid);
       this.router.navigateByUrl('poll/'+pid);
     }).catch((err)=>{
       console.log(err);
@@ -198,6 +198,15 @@ uid;
       }).then(()=> console.log("Voted Incremented Successfully"));
   }*/
 
+
+  addGroupPolls(gid, pid){
+    const data={
+      pid : pid
+    }
+    this.afs.doc('groups/' + gid + '/groupPolls/' + pid).set(data).then(()=>{
+      console.log('Poll added to  Group Polls');
+    });
+  }
   updateStatus(pid){
     return this.afs.doc('polls/' + pid).update({
       status:"ongoing",

@@ -52,15 +52,13 @@ exports.onVote = functions.firestore
               
                 afs.doc('polls/' + pid + '/choices/' + cid).update({
                     votes:voteCount
-                }).catch((err)=> console.log(err));    
-                
-             
+                }).catch((err)=> console.log(err));                              
             }).catch(err=> {console.log(err);});
         })
-        .catch(err=> console.log(err));
-        
-     
+        .catch(err=> console.log(err));          
     });
+
+
 
 
    

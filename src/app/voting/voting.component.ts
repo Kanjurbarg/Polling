@@ -69,10 +69,6 @@ votesLabel=[];
   timer;
 
   ngOnInit(){
-
-   
-
-
     this.router.routeReuseStrategy.shouldReuseRoute = function(){
       return false;
   };
